@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option java_package = "DistributedSystemsCA";
+option java_multiple_files = true;
+option java_outer_classname = "SmartBuildingImpl";
+
+service DeskUsage {
+	rpc DeskUsage(stream RequestDesk) returns (stream DeskEmpty){};
+};
+
+message RequestDesk{
+	int32 deskNumber = 1;
+	string employeeName = 2;
+
+}
+message DeskEmpty{
+	bool deskBooked = 3;
+}

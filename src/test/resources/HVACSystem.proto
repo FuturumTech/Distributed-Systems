@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+option java_package = "DistributedSystemsCA";
+option java_multiple_files = true;
+option java_outer_classname = "SmartBuildingImpl";
+
+//Adjust Heating, ventilation, and air conditioning (HVAC) system depending on setting and occupancy
+service HVACSystem {
+	rpc desiredSettingHVAC(stream DesiredRoomConditions) returns (Empty){};
+	rpc HVACstatus(stream RoomConditions) returns (Empty){};
+	rpc Occupancy(PeopleInRoom) returns (stream AdjustHVAC){};
+};
+
+message DesiredRoomConditions{
+	string roomName = 1;
+	float desiredHumidity = 2;
+	float desiredTempInCelcius = 3;
+
+};
+
+message RoomConditions{
+	string roomName = 1;
+	float humidity = 2;
+	float tempInCelcius = 3;
+};
+
+message Empty{};
+
+message PeopleInRoom{
+	int32 numberOfPeople= 1;
+	string roomName = 2;
+};
+
+message AdjustHVAC{
+	bool adjustHumidity = 1;
+	bool adjustTemp = 2;
+	int32 humidityDifference = 3;
+	int32 tempDifference = 4;
+};
