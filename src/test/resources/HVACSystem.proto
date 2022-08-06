@@ -6,9 +6,9 @@ option java_outer_classname = "SmartBuildingImpl";
 
 //Adjust Heating, ventilation, and air conditioning (HVAC) system depending on setting and occupancy
 service HVACSystem {
-	rpc desiredSettingHVAC(stream DesiredRoomConditions) returns (Empty){};
-	rpc HVACstatus(stream RoomConditions) returns (Empty){};
-	rpc Occupancy(PeopleInRoom) returns (stream AdjustHVAC){};
+	rpc desiredSettingHVAC(DesiredRoomConditions) returns (Confirmation){};
+	rpc HVACstatus(stream CurrentRoomConditions) returns (Empty){};
+	rpc RoomStatus(Room) returns (stream AdjustHVAC){};
 };
 
 message DesiredRoomConditions{
@@ -18,7 +18,11 @@ message DesiredRoomConditions{
 
 };
 
-message RoomConditions{
+message Confirmation{
+	string confirmation = 1;
+}
+
+message CurrentRoomConditions{
 	string roomName = 1;
 	float humidity = 2;
 	float tempInCelcius = 3;
@@ -26,9 +30,11 @@ message RoomConditions{
 
 message Empty{};
 
-message PeopleInRoom{
+message Room{
 	int32 numberOfPeople= 1;
 	string roomName = 2;
+	float humidity = 3;
+	float tempInCelcius = 4;
 };
 
 message AdjustHVAC{
