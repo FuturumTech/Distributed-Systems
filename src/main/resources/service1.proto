@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "ds.service1";
+option java_outer_classname = "Service1Impl";
+
+package service1;
+
+// Interface exported by the server.
+service Service1 {
+	rpc desiredSettingHVAC(DesiredRoomConditions) returns (Confirmation){}
+	//rpc HVACstatus(stream CurrentRoomConditions) returns (Empty){}
+	//Server stream:
+	rpc RoomStatus(Room) returns (stream AdjustHVAC){}
+};
+
+message DesiredRoomConditions{
+	string roomName = 1;
+	float desiredHumidity = 2;
+	float desiredTempInCelcius = 3;
+
+}
+
+message Confirmation{
+	string confirmation = 1;
+}
+
+//message CurrentRoomConditions{
+//	string roomName = 1;
+//	float humidity = 2;
+//	float tempInCelcius = 3;
+//}
+//
+//message Empty{}
+//
+message Room{
+	int32 numberOfPeople= 1;
+	string roomName = 2;
+	float humidity = 3;
+	float tempInCelcius = 4;
+}
+
+message AdjustHVAC{
+	bool adjustHumidity = 1;
+	bool adjustTemp = 2;
+	int32 humidityDifference = 3;
+	int32 tempDifference = 4;
+}
