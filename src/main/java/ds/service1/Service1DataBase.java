@@ -23,7 +23,7 @@ public class Service1DataBase {
             this.currentTempInCelcius = currentTempInCelcius;
             //default values of desired leves, user can also change it in grpc desiredSettingHVAC
             this.desiredHumidity = 55;
-            this.desiredTempInCelcius = 21.5;
+            this.desiredTempInCelcius = 21;
         }
 		public String getRoomName() {
             return roomName;

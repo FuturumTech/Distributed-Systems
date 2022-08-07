@@ -26,8 +26,8 @@ public class Service1 extends Service1ImplBase {
 				//Adding mock Room details to database Service 1:
 				Service1DataBase myTempData = new Service1DataBase();
 
-				Service1DataBase.roomName temp1 = new Service1DataBase.roomName("consultation room", 73, 21.8);
-				Service1DataBase.roomName temp2 = new Service1DataBase.roomName("hallway", 65, 23.9);
+				Service1DataBase.roomName temp1 = new Service1DataBase.roomName("consultation room", 73, 22.5);
+				Service1DataBase.roomName temp2 = new Service1DataBase.roomName("hallway", 65, 24.5);
 				Service1DataBase.roomName temp3 = new Service1DataBase.roomName("reception", 49, 18);
 				Service1DataBase.roomName temp4 = new Service1DataBase.roomName("canteen", 89, 26.5);
 				myTempData.getMyRooms().add(temp1);
@@ -192,34 +192,42 @@ public class Service1 extends Service1ImplBase {
 		double[] tempArray = new double[2];
 		String roomName = request.getRoomName();
 		
-		Service1DataBase.roomName roomInput = findRoom(roomName);
-		System.out.println("Room result is " +  " " + roomInput.getRoomName());
-		if(roomInput != null) {
-		//Alternative if statement:
-		//if(myTempData.getMyRooms().contains(roomName.trim().toLowerCase())) {
-			double roomHumidity = roomInput.getCurrentHumidity();
-			double roomTemperature = roomInput.getCurrentTempInCelcius();
+		try{
+			Service1DataBase.roomName roomInput = findRoom(roomName);
 			
-			tempArray = calculateDifference(roomInput);
-			
-			// Our response:
-			// Firstly, we must create a builder
-			responseBuilder = AdjustHVAC.newBuilder().setHumidityDifference(tempArray[0])
-					.setTempDifference(tempArray[1]).build(); // PLACEHOLDER FOR VALUE
-			
-		}else {
-			//-999 App will read it that the input was incorrect 
-			responseBuilder = AdjustHVAC.newBuilder().setHumidityDifference(-999)
-					.setTempDifference(-999).build();
-		}
-		System.out.println("Request received from client is: " + roomName);
+			if(roomInput != null) {
+			//Alternative if statement:
+			//if(myTempData.getMyRooms().contains(roomName.trim().toLowerCase())) {
+				double roomHumidity = roomInput.getCurrentHumidity();
+				double roomTemperature = roomInput.getCurrentTempInCelcius();
+				
+				tempArray = calculateDifference(roomInput);
+				
+				// Our response:
+				// Firstly, we must create a builder
+				responseBuilder = AdjustHVAC.newBuilder().setHumidityDifference(tempArray[0])
+						.setTempDifference(tempArray[1]).build(); // PLACEHOLDER FOR VALUE
+				
+			}else {
+				//-999 App will read it that the input was incorrect 
+				responseBuilder = AdjustHVAC.newBuilder().setHumidityDifference(-999)
+						.setTempDifference(-999).build();
+			}
 
-		// // RETURN
-		// Send it back:
-		//Server streaming:
-		for(double d: tempArray) {
-			responseObserver.onNext(responseBuilder);
+			// // RETURN
+			// Send it back:
+			//Server streaming:
+			for(double d: tempArray) {
+				responseObserver.onNext(responseBuilder);
+				//-999 App will read it that the input was incorrect 
+				responseBuilder = AdjustHVAC.newBuilder().setHumidityDifference(-999)
+						.setTempDifference(-999).build();
+			}
+			
+		}catch(NullPointerException e){
+			e.getMessage();
 		}
+		
 		
 		responseObserver.onCompleted();
 
