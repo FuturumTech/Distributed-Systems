@@ -42,6 +42,6 @@ message Room{
 }
 
 message AdjustHVAC{
-	int32 humidityDifference = 1;
-	int32 tempDifference = 2;
+	double humidityDifference = 1;
+	double tempDifference = 2;
 }

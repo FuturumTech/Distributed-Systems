@@ -16,8 +16,8 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private AdjustHVAC() {
-    humidityDifference_ = 0;
-    tempDifference_ = 0;
+    humidityDifference_ = 0D;
+    tempDifference_ = 0D;
   }
 
   @java.lang.Override
@@ -44,14 +44,14 @@ private static final long serialVersionUID = 0L;
           case 0:
             done = true;
             break;
-          case 8: {
+          case 9: {
 
-            humidityDifference_ = input.readInt32();
+            humidityDifference_ = input.readDouble();
             break;
           }
-          case 16: {
+          case 17: {
 
-            tempDifference_ = input.readInt32();
+            tempDifference_ = input.readDouble();
             break;
           }
           default: {
@@ -87,20 +87,20 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int HUMIDITYDIFFERENCE_FIELD_NUMBER = 1;
-  private int humidityDifference_;
+  private double humidityDifference_;
   /**
-   * <code>int32 humidityDifference = 1;</code>
+   * <code>double humidityDifference = 1;</code>
    */
-  public int getHumidityDifference() {
+  public double getHumidityDifference() {
     return humidityDifference_;
   }
 
   public static final int TEMPDIFFERENCE_FIELD_NUMBER = 2;
-  private int tempDifference_;
+  private double tempDifference_;
   /**
-   * <code>int32 tempDifference = 2;</code>
+   * <code>double tempDifference = 2;</code>
    */
-  public int getTempDifference() {
+  public double getTempDifference() {
     return tempDifference_;
   }
 
@@ -118,11 +118,11 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (humidityDifference_ != 0) {
-      output.writeInt32(1, humidityDifference_);
+    if (humidityDifference_ != 0D) {
+      output.writeDouble(1, humidityDifference_);
     }
-    if (tempDifference_ != 0) {
-      output.writeInt32(2, tempDifference_);
+    if (tempDifference_ != 0D) {
+      output.writeDouble(2, tempDifference_);
     }
     unknownFields.writeTo(output);
   }
@@ -133,13 +133,13 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (humidityDifference_ != 0) {
+    if (humidityDifference_ != 0D) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(1, humidityDifference_);
+        .computeDoubleSize(1, humidityDifference_);
     }
-    if (tempDifference_ != 0) {
+    if (tempDifference_ != 0D) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(2, tempDifference_);
+        .computeDoubleSize(2, tempDifference_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -157,10 +157,14 @@ private static final long serialVersionUID = 0L;
     ds.service1.AdjustHVAC other = (ds.service1.AdjustHVAC) obj;
 
     boolean result = true;
-    result = result && (getHumidityDifference()
-        == other.getHumidityDifference());
-    result = result && (getTempDifference()
-        == other.getTempDifference());
+    result = result && (
+        java.lang.Double.doubleToLongBits(getHumidityDifference())
+        == java.lang.Double.doubleToLongBits(
+            other.getHumidityDifference()));
+    result = result && (
+        java.lang.Double.doubleToLongBits(getTempDifference())
+        == java.lang.Double.doubleToLongBits(
+            other.getTempDifference()));
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -173,9 +177,11 @@ private static final long serialVersionUID = 0L;
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
     hash = (37 * hash) + HUMIDITYDIFFERENCE_FIELD_NUMBER;
-    hash = (53 * hash) + getHumidityDifference();
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        java.lang.Double.doubleToLongBits(getHumidityDifference()));
     hash = (37 * hash) + TEMPDIFFERENCE_FIELD_NUMBER;
-    hash = (53 * hash) + getTempDifference();
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        java.lang.Double.doubleToLongBits(getTempDifference()));
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -309,9 +315,9 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      humidityDifference_ = 0;
+      humidityDifference_ = 0D;
 
-      tempDifference_ = 0;
+      tempDifference_ = 0D;
 
       return this;
     }
@@ -389,10 +395,10 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(ds.service1.AdjustHVAC other) {
       if (other == ds.service1.AdjustHVAC.getDefaultInstance()) return this;
-      if (other.getHumidityDifference() != 0) {
+      if (other.getHumidityDifference() != 0D) {
         setHumidityDifference(other.getHumidityDifference());
       }
-      if (other.getTempDifference() != 0) {
+      if (other.getTempDifference() != 0D) {
         setTempDifference(other.getTempDifference());
       }
       this.mergeUnknownFields(other.unknownFields);
@@ -424,54 +430,54 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int humidityDifference_ ;
+    private double humidityDifference_ ;
     /**
-     * <code>int32 humidityDifference = 1;</code>
+     * <code>double humidityDifference = 1;</code>
      */
-    public int getHumidityDifference() {
+    public double getHumidityDifference() {
       return humidityDifference_;
     }
     /**
-     * <code>int32 humidityDifference = 1;</code>
+     * <code>double humidityDifference = 1;</code>
      */
-    public Builder setHumidityDifference(int value) {
+    public Builder setHumidityDifference(double value) {
       
       humidityDifference_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>int32 humidityDifference = 1;</code>
+     * <code>double humidityDifference = 1;</code>
      */
     public Builder clearHumidityDifference() {
       
-      humidityDifference_ = 0;
+      humidityDifference_ = 0D;
       onChanged();
       return this;
     }
 
-    private int tempDifference_ ;
+    private double tempDifference_ ;
     /**
-     * <code>int32 tempDifference = 2;</code>
+     * <code>double tempDifference = 2;</code>
      */
-    public int getTempDifference() {
+    public double getTempDifference() {
       return tempDifference_;
     }
     /**
-     * <code>int32 tempDifference = 2;</code>
+     * <code>double tempDifference = 2;</code>
      */
-    public Builder setTempDifference(int value) {
+    public Builder setTempDifference(double value) {
       
       tempDifference_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>int32 tempDifference = 2;</code>
+     * <code>double tempDifference = 2;</code>
      */
     public Builder clearTempDifference() {
       
-      tempDifference_ = 0;
+      tempDifference_ = 0D;
       onChanged();
       return this;
     }

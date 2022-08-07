@@ -61,8 +61,8 @@ public final class Service1Impl {
       "\001 \001(\t\022\020\n\010humidity\030\002 \001(\002\022\025\n\rtempInCelcius" +
       "\030\003 \001(\002\"&\n\014Acknowledged\022\026\n\016acknowledgment" +
       "\030\001 \001(\t\"\030\n\004Room\022\020\n\010roomName\030\001 \001(\t\"@\n\nAdju" +
-      "stHVAC\022\032\n\022humidityDifference\030\001 \001(\005\022\026\n\016te" +
-      "mpDifference\030\002 \001(\0052\336\001\n\010Service1\022O\n\022desir" +
+      "stHVAC\022\032\n\022humidityDifference\030\001 \001(\001\022\026\n\016te" +
+      "mpDifference\030\002 \001(\0012\336\001\n\010Service1\022O\n\022desir" +
       "edSettingHVAC\022\037.service1.DesiredRoomCond" +
       "itions\032\026.service1.Confirmation\"\000\022I\n\nHVAC" +
       "status\022\037.service1.CurrentRoomConditions\032" +

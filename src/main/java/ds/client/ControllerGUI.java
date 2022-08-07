@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
 import javax.jmdns.JmDNS;
@@ -28,8 +29,11 @@ import ds.service1.Service1Grpc;
 import ds.service2.Service2Grpc;
 import ds.service3.Service3Grpc;
 import ds.service4.Service4Grpc;
+import grpc.examples.serverstreamstrings.StringRequest;
+import grpc.examples.serverstreamstrings.StringResponse;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.StatusRuntimeException;
 import io.grpc.stub.StreamObserver;
 
 public class ControllerGUI implements ActionListener {
@@ -230,13 +234,14 @@ public class ControllerGUI implements ActionListener {
 
 			// building message to send
 			// Method 1 - unary
-			ds.service1.DesiredRoomConditions request = ds.service1.DesiredRoomConditions.newBuilder()
+			ds.service1.Room request = ds.service1.Room.newBuilder()
 					.setRoomName(entry1.getText()).build();
-
+			
 			// retreving reply from service
-			ds.service1.Confirmation response = blockingStub.desiredSettingHVAC(request);
+			ds.service1.AdjustHVAC response = asyncStub.RoomStatus(request);
+			//ds.service1.ResponseMessage response = blockingStub.RoomStatus(request);
 
-			reply1.setText(String.valueOf(response.getConfirmation()));
+			reply1.setText(String.valueOf(response.getAdjustHVAC()));
 
 			// to shutdown the channel
 			// channel.shutdown().awaitTermination(10, TimeUnit.SECONDS);

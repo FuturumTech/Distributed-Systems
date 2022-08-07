@@ -3,11 +3,58 @@ package ds.service1;
 import java.util.ArrayList;
 
 public class Service1DataBase {
-	ArrayList<roomName> myRooms = new ArrayList<>();
+	protected static ArrayList<roomName> myRooms = new ArrayList<>();
 	
-	public class roomName{
+	
+
+	public ArrayList<roomName> getMyRooms() {
+        return myRooms;
+    }
+
+	public static class roomName {
 		private String roomName;
 		private double currentHumidity, currentTempInCelcius;
+		private double desiredHumidity,desiredTempInCelcius;
+		
+		//Constructor
+		public roomName(String roomName, double currentHumidity, double currentTempInCelcius) {
+            this.roomName = roomName;
+            this.currentHumidity = currentHumidity;
+            this.currentTempInCelcius = currentTempInCelcius;
+            //default values of desired leves, user can also change it in grpc desiredSettingHVAC
+            this.desiredHumidity = 55;
+            this.desiredTempInCelcius = 21.5;
+        }
+		public String getRoomName() {
+            return roomName;
+        }
+
+        public double getCurrentHumidity() {
+            return currentHumidity;
+        }
+
+        public double getCurrentTempInCelcius() {
+            return currentTempInCelcius;
+        }
+        public double getDesiredHumidity() {
+            return desiredHumidity;
+        }
+
+        public double getDesiredTempInCelcius() {
+            return desiredTempInCelcius;
+        }
+
+        public void setDesiredHumidity(double desiredHumidity) {
+            this.desiredHumidity = desiredHumidity;
+        }
+
+        public void setDesiredTempInCelcius(double desiredTempInCelcius) {
+            this.desiredTempInCelcius = desiredTempInCelcius;
+        }
+	}
+	public void checkRoomName(String targetRoom) {
+		
 		
 	}
+	
 }
