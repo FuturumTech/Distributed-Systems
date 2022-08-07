@@ -8,8 +8,10 @@ package service1;
 
 // Interface exported by the server.
 service Service1 {
+	//unary
 	rpc desiredSettingHVAC(DesiredRoomConditions) returns (Confirmation){}
-	//rpc HVACstatus(stream CurrentRoomConditions) returns (Empty){}
+	//client streaming
+	rpc HVACstatus(stream CurrentRoomConditions) returns (Acknowledged){}
 	//Server stream:
 	rpc RoomStatus(Room) returns (stream AdjustHVAC){}
 };
@@ -25,14 +27,16 @@ message Confirmation{
 	string confirmation = 1;
 }
 
-//message CurrentRoomConditions{
-//	string roomName = 1;
-//	float humidity = 2;
-//	float tempInCelcius = 3;
-//}
-//
-//message Empty{}
-//
+message CurrentRoomConditions{
+	string roomName = 1;
+	float humidity = 2;
+	float tempInCelcius = 3;
+}
+
+message Acknowledged{
+	string acknowledgment = 1;
+}
+
 message Room{
 	int32 numberOfPeople= 1;
 	string roomName = 2;

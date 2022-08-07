@@ -25,6 +25,16 @@ public final class Service1Impl {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_service1_Confirmation_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_service1_CurrentRoomConditions_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_service1_CurrentRoomConditions_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_service1_Acknowledged_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_service1_Acknowledged_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_service1_Room_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -47,16 +57,21 @@ public final class Service1Impl {
       "mConditions\022\020\n\010roomName\030\001 \001(\t\022\027\n\017desired" +
       "Humidity\030\002 \001(\002\022\034\n\024desiredTempInCelcius\030\003" +
       " \001(\002\"$\n\014Confirmation\022\024\n\014confirmation\030\001 \001" +
-      "(\t\"Y\n\004Room\022\026\n\016numberOfPeople\030\001 \001(\005\022\020\n\010ro" +
-      "omName\030\002 \001(\t\022\020\n\010humidity\030\003 \001(\002\022\025\n\rtempIn" +
-      "Celcius\030\004 \001(\002\"l\n\nAdjustHVAC\022\026\n\016adjustHum" +
-      "idity\030\001 \001(\010\022\022\n\nadjustTemp\030\002 \001(\010\022\032\n\022humid" +
-      "ityDifference\030\003 \001(\005\022\026\n\016tempDifference\030\004 " +
-      "\001(\0052\223\001\n\010Service1\022O\n\022desiredSettingHVAC\022\037" +
-      ".service1.DesiredRoomConditions\032\026.servic" +
-      "e1.Confirmation\"\000\0226\n\nRoomStatus\022\016.servic" +
-      "e1.Room\032\024.service1.AdjustHVAC\"\0000\001B\035\n\013ds." +
-      "service1B\014Service1ImplP\001b\006proto3"
+      "(\t\"R\n\025CurrentRoomConditions\022\020\n\010roomName\030" +
+      "\001 \001(\t\022\020\n\010humidity\030\002 \001(\002\022\025\n\rtempInCelcius" +
+      "\030\003 \001(\002\"&\n\014Acknowledged\022\026\n\016acknowledgment" +
+      "\030\001 \001(\t\"Y\n\004Room\022\026\n\016numberOfPeople\030\001 \001(\005\022\020" +
+      "\n\010roomName\030\002 \001(\t\022\020\n\010humidity\030\003 \001(\002\022\025\n\rte" +
+      "mpInCelcius\030\004 \001(\002\"l\n\nAdjustHVAC\022\026\n\016adjus" +
+      "tHumidity\030\001 \001(\010\022\022\n\nadjustTemp\030\002 \001(\010\022\032\n\022h" +
+      "umidityDifference\030\003 \001(\005\022\026\n\016tempDifferenc" +
+      "e\030\004 \001(\0052\336\001\n\010Service1\022O\n\022desiredSettingHV" +
+      "AC\022\037.service1.DesiredRoomConditions\032\026.se" +
+      "rvice1.Confirmation\"\000\022I\n\nHVACstatus\022\037.se" +
+      "rvice1.CurrentRoomConditions\032\026.service1." +
+      "Acknowledged\"\000(\001\0226\n\nRoomStatus\022\016.service" +
+      "1.Room\032\024.service1.AdjustHVAC\"\0000\001B\035\n\013ds.s" +
+      "ervice1B\014Service1ImplP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -82,14 +97,26 @@ public final class Service1Impl {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_service1_Confirmation_descriptor,
         new java.lang.String[] { "Confirmation", });
-    internal_static_service1_Room_descriptor =
+    internal_static_service1_CurrentRoomConditions_descriptor =
       getDescriptor().getMessageTypes().get(2);
+    internal_static_service1_CurrentRoomConditions_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_service1_CurrentRoomConditions_descriptor,
+        new java.lang.String[] { "RoomName", "Humidity", "TempInCelcius", });
+    internal_static_service1_Acknowledged_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_service1_Acknowledged_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_service1_Acknowledged_descriptor,
+        new java.lang.String[] { "Acknowledgment", });
+    internal_static_service1_Room_descriptor =
+      getDescriptor().getMessageTypes().get(4);
     internal_static_service1_Room_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_service1_Room_descriptor,
         new java.lang.String[] { "NumberOfPeople", "RoomName", "Humidity", "TempInCelcius", });
     internal_static_service1_AdjustHVAC_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_service1_AdjustHVAC_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_service1_AdjustHVAC_descriptor,

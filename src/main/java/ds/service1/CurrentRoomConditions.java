@@ -4,19 +4,18 @@
 package ds.service1;
 
 /**
- * Protobuf type {@code service1.Room}
+ * Protobuf type {@code service1.CurrentRoomConditions}
  */
-public  final class Room extends
+public  final class CurrentRoomConditions extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:service1.Room)
-    RoomOrBuilder {
+    // @@protoc_insertion_point(message_implements:service1.CurrentRoomConditions)
+    CurrentRoomConditionsOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use Room.newBuilder() to construct.
-  private Room(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use CurrentRoomConditions.newBuilder() to construct.
+  private CurrentRoomConditions(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private Room() {
-    numberOfPeople_ = 0;
+  private CurrentRoomConditions() {
     roomName_ = "";
     humidity_ = 0F;
     tempInCelcius_ = 0F;
@@ -27,7 +26,7 @@ private static final long serialVersionUID = 0L;
   getUnknownFields() {
     return this.unknownFields;
   }
-  private Room(
+  private CurrentRoomConditions(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -46,23 +45,18 @@ private static final long serialVersionUID = 0L;
           case 0:
             done = true;
             break;
-          case 8: {
-
-            numberOfPeople_ = input.readInt32();
-            break;
-          }
-          case 18: {
+          case 10: {
             java.lang.String s = input.readStringRequireUtf8();
 
             roomName_ = s;
             break;
           }
-          case 29: {
+          case 21: {
 
             humidity_ = input.readFloat();
             break;
           }
-          case 37: {
+          case 29: {
 
             tempInCelcius_ = input.readFloat();
             break;
@@ -88,30 +82,21 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return ds.service1.Service1Impl.internal_static_service1_Room_descriptor;
+    return ds.service1.Service1Impl.internal_static_service1_CurrentRoomConditions_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return ds.service1.Service1Impl.internal_static_service1_Room_fieldAccessorTable
+    return ds.service1.Service1Impl.internal_static_service1_CurrentRoomConditions_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            ds.service1.Room.class, ds.service1.Room.Builder.class);
+            ds.service1.CurrentRoomConditions.class, ds.service1.CurrentRoomConditions.Builder.class);
   }
 
-  public static final int NUMBEROFPEOPLE_FIELD_NUMBER = 1;
-  private int numberOfPeople_;
-  /**
-   * <code>int32 numberOfPeople = 1;</code>
-   */
-  public int getNumberOfPeople() {
-    return numberOfPeople_;
-  }
-
-  public static final int ROOMNAME_FIELD_NUMBER = 2;
+  public static final int ROOMNAME_FIELD_NUMBER = 1;
   private volatile java.lang.Object roomName_;
   /**
-   * <code>string roomName = 2;</code>
+   * <code>string roomName = 1;</code>
    */
   public java.lang.String getRoomName() {
     java.lang.Object ref = roomName_;
@@ -126,7 +111,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string roomName = 2;</code>
+   * <code>string roomName = 1;</code>
    */
   public com.google.protobuf.ByteString
       getRoomNameBytes() {
@@ -142,19 +127,19 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int HUMIDITY_FIELD_NUMBER = 3;
+  public static final int HUMIDITY_FIELD_NUMBER = 2;
   private float humidity_;
   /**
-   * <code>float humidity = 3;</code>
+   * <code>float humidity = 2;</code>
    */
   public float getHumidity() {
     return humidity_;
   }
 
-  public static final int TEMPINCELCIUS_FIELD_NUMBER = 4;
+  public static final int TEMPINCELCIUS_FIELD_NUMBER = 3;
   private float tempInCelcius_;
   /**
-   * <code>float tempInCelcius = 4;</code>
+   * <code>float tempInCelcius = 3;</code>
    */
   public float getTempInCelcius() {
     return tempInCelcius_;
@@ -174,17 +159,14 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (numberOfPeople_ != 0) {
-      output.writeInt32(1, numberOfPeople_);
-    }
     if (!getRoomNameBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, roomName_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, roomName_);
     }
     if (humidity_ != 0F) {
-      output.writeFloat(3, humidity_);
+      output.writeFloat(2, humidity_);
     }
     if (tempInCelcius_ != 0F) {
-      output.writeFloat(4, tempInCelcius_);
+      output.writeFloat(3, tempInCelcius_);
     }
     unknownFields.writeTo(output);
   }
@@ -195,20 +177,16 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (numberOfPeople_ != 0) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(1, numberOfPeople_);
-    }
     if (!getRoomNameBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, roomName_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, roomName_);
     }
     if (humidity_ != 0F) {
       size += com.google.protobuf.CodedOutputStream
-        .computeFloatSize(3, humidity_);
+        .computeFloatSize(2, humidity_);
     }
     if (tempInCelcius_ != 0F) {
       size += com.google.protobuf.CodedOutputStream
-        .computeFloatSize(4, tempInCelcius_);
+        .computeFloatSize(3, tempInCelcius_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -220,14 +198,12 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof ds.service1.Room)) {
+    if (!(obj instanceof ds.service1.CurrentRoomConditions)) {
       return super.equals(obj);
     }
-    ds.service1.Room other = (ds.service1.Room) obj;
+    ds.service1.CurrentRoomConditions other = (ds.service1.CurrentRoomConditions) obj;
 
     boolean result = true;
-    result = result && (getNumberOfPeople()
-        == other.getNumberOfPeople());
     result = result && getRoomName()
         .equals(other.getRoomName());
     result = result && (
@@ -249,8 +225,6 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + NUMBEROFPEOPLE_FIELD_NUMBER;
-    hash = (53 * hash) + getNumberOfPeople();
     hash = (37 * hash) + ROOMNAME_FIELD_NUMBER;
     hash = (53 * hash) + getRoomName().hashCode();
     hash = (37 * hash) + HUMIDITY_FIELD_NUMBER;
@@ -264,69 +238,69 @@ private static final long serialVersionUID = 0L;
     return hash;
   }
 
-  public static ds.service1.Room parseFrom(
+  public static ds.service1.CurrentRoomConditions parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static ds.service1.Room parseFrom(
+  public static ds.service1.CurrentRoomConditions parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static ds.service1.Room parseFrom(
+  public static ds.service1.CurrentRoomConditions parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static ds.service1.Room parseFrom(
+  public static ds.service1.CurrentRoomConditions parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static ds.service1.Room parseFrom(byte[] data)
+  public static ds.service1.CurrentRoomConditions parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static ds.service1.Room parseFrom(
+  public static ds.service1.CurrentRoomConditions parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static ds.service1.Room parseFrom(java.io.InputStream input)
+  public static ds.service1.CurrentRoomConditions parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static ds.service1.Room parseFrom(
+  public static ds.service1.CurrentRoomConditions parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static ds.service1.Room parseDelimitedFrom(java.io.InputStream input)
+  public static ds.service1.CurrentRoomConditions parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static ds.service1.Room parseDelimitedFrom(
+  public static ds.service1.CurrentRoomConditions parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static ds.service1.Room parseFrom(
+  public static ds.service1.CurrentRoomConditions parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static ds.service1.Room parseFrom(
+  public static ds.service1.CurrentRoomConditions parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -339,7 +313,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(ds.service1.Room prototype) {
+  public static Builder newBuilder(ds.service1.CurrentRoomConditions prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   @java.lang.Override
@@ -355,26 +329,26 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * Protobuf type {@code service1.Room}
+   * Protobuf type {@code service1.CurrentRoomConditions}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:service1.Room)
-      ds.service1.RoomOrBuilder {
+      // @@protoc_insertion_point(builder_implements:service1.CurrentRoomConditions)
+      ds.service1.CurrentRoomConditionsOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return ds.service1.Service1Impl.internal_static_service1_Room_descriptor;
+      return ds.service1.Service1Impl.internal_static_service1_CurrentRoomConditions_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return ds.service1.Service1Impl.internal_static_service1_Room_fieldAccessorTable
+      return ds.service1.Service1Impl.internal_static_service1_CurrentRoomConditions_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              ds.service1.Room.class, ds.service1.Room.Builder.class);
+              ds.service1.CurrentRoomConditions.class, ds.service1.CurrentRoomConditions.Builder.class);
     }
 
-    // Construct using ds.service1.Room.newBuilder()
+    // Construct using ds.service1.CurrentRoomConditions.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -392,8 +366,6 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      numberOfPeople_ = 0;
-
       roomName_ = "";
 
       humidity_ = 0F;
@@ -406,17 +378,17 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return ds.service1.Service1Impl.internal_static_service1_Room_descriptor;
+      return ds.service1.Service1Impl.internal_static_service1_CurrentRoomConditions_descriptor;
     }
 
     @java.lang.Override
-    public ds.service1.Room getDefaultInstanceForType() {
-      return ds.service1.Room.getDefaultInstance();
+    public ds.service1.CurrentRoomConditions getDefaultInstanceForType() {
+      return ds.service1.CurrentRoomConditions.getDefaultInstance();
     }
 
     @java.lang.Override
-    public ds.service1.Room build() {
-      ds.service1.Room result = buildPartial();
+    public ds.service1.CurrentRoomConditions build() {
+      ds.service1.CurrentRoomConditions result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
@@ -424,9 +396,8 @@ private static final long serialVersionUID = 0L;
     }
 
     @java.lang.Override
-    public ds.service1.Room buildPartial() {
-      ds.service1.Room result = new ds.service1.Room(this);
-      result.numberOfPeople_ = numberOfPeople_;
+    public ds.service1.CurrentRoomConditions buildPartial() {
+      ds.service1.CurrentRoomConditions result = new ds.service1.CurrentRoomConditions(this);
       result.roomName_ = roomName_;
       result.humidity_ = humidity_;
       result.tempInCelcius_ = tempInCelcius_;
@@ -468,19 +439,16 @@ private static final long serialVersionUID = 0L;
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof ds.service1.Room) {
-        return mergeFrom((ds.service1.Room)other);
+      if (other instanceof ds.service1.CurrentRoomConditions) {
+        return mergeFrom((ds.service1.CurrentRoomConditions)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(ds.service1.Room other) {
-      if (other == ds.service1.Room.getDefaultInstance()) return this;
-      if (other.getNumberOfPeople() != 0) {
-        setNumberOfPeople(other.getNumberOfPeople());
-      }
+    public Builder mergeFrom(ds.service1.CurrentRoomConditions other) {
+      if (other == ds.service1.CurrentRoomConditions.getDefaultInstance()) return this;
       if (!other.getRoomName().isEmpty()) {
         roomName_ = other.roomName_;
         onChanged();
@@ -506,11 +474,11 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      ds.service1.Room parsedMessage = null;
+      ds.service1.CurrentRoomConditions parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (ds.service1.Room) e.getUnfinishedMessage();
+        parsedMessage = (ds.service1.CurrentRoomConditions) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -520,35 +488,9 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int numberOfPeople_ ;
-    /**
-     * <code>int32 numberOfPeople = 1;</code>
-     */
-    public int getNumberOfPeople() {
-      return numberOfPeople_;
-    }
-    /**
-     * <code>int32 numberOfPeople = 1;</code>
-     */
-    public Builder setNumberOfPeople(int value) {
-      
-      numberOfPeople_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>int32 numberOfPeople = 1;</code>
-     */
-    public Builder clearNumberOfPeople() {
-      
-      numberOfPeople_ = 0;
-      onChanged();
-      return this;
-    }
-
     private java.lang.Object roomName_ = "";
     /**
-     * <code>string roomName = 2;</code>
+     * <code>string roomName = 1;</code>
      */
     public java.lang.String getRoomName() {
       java.lang.Object ref = roomName_;
@@ -563,7 +505,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string roomName = 2;</code>
+     * <code>string roomName = 1;</code>
      */
     public com.google.protobuf.ByteString
         getRoomNameBytes() {
@@ -579,7 +521,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string roomName = 2;</code>
+     * <code>string roomName = 1;</code>
      */
     public Builder setRoomName(
         java.lang.String value) {
@@ -592,7 +534,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string roomName = 2;</code>
+     * <code>string roomName = 1;</code>
      */
     public Builder clearRoomName() {
       
@@ -601,7 +543,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string roomName = 2;</code>
+     * <code>string roomName = 1;</code>
      */
     public Builder setRoomNameBytes(
         com.google.protobuf.ByteString value) {
@@ -617,13 +559,13 @@ private static final long serialVersionUID = 0L;
 
     private float humidity_ ;
     /**
-     * <code>float humidity = 3;</code>
+     * <code>float humidity = 2;</code>
      */
     public float getHumidity() {
       return humidity_;
     }
     /**
-     * <code>float humidity = 3;</code>
+     * <code>float humidity = 2;</code>
      */
     public Builder setHumidity(float value) {
       
@@ -632,7 +574,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>float humidity = 3;</code>
+     * <code>float humidity = 2;</code>
      */
     public Builder clearHumidity() {
       
@@ -643,13 +585,13 @@ private static final long serialVersionUID = 0L;
 
     private float tempInCelcius_ ;
     /**
-     * <code>float tempInCelcius = 4;</code>
+     * <code>float tempInCelcius = 3;</code>
      */
     public float getTempInCelcius() {
       return tempInCelcius_;
     }
     /**
-     * <code>float tempInCelcius = 4;</code>
+     * <code>float tempInCelcius = 3;</code>
      */
     public Builder setTempInCelcius(float value) {
       
@@ -658,7 +600,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>float tempInCelcius = 4;</code>
+     * <code>float tempInCelcius = 3;</code>
      */
     public Builder clearTempInCelcius() {
       
@@ -679,41 +621,41 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:service1.Room)
+    // @@protoc_insertion_point(builder_scope:service1.CurrentRoomConditions)
   }
 
-  // @@protoc_insertion_point(class_scope:service1.Room)
-  private static final ds.service1.Room DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:service1.CurrentRoomConditions)
+  private static final ds.service1.CurrentRoomConditions DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new ds.service1.Room();
+    DEFAULT_INSTANCE = new ds.service1.CurrentRoomConditions();
   }
 
-  public static ds.service1.Room getDefaultInstance() {
+  public static ds.service1.CurrentRoomConditions getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<Room>
-      PARSER = new com.google.protobuf.AbstractParser<Room>() {
+  private static final com.google.protobuf.Parser<CurrentRoomConditions>
+      PARSER = new com.google.protobuf.AbstractParser<CurrentRoomConditions>() {
     @java.lang.Override
-    public Room parsePartialFrom(
+    public CurrentRoomConditions parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new Room(input, extensionRegistry);
+      return new CurrentRoomConditions(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<Room> parser() {
+  public static com.google.protobuf.Parser<CurrentRoomConditions> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<Room> getParserForType() {
+  public com.google.protobuf.Parser<CurrentRoomConditions> getParserForType() {
     return PARSER;
   }
 
   @java.lang.Override
-  public ds.service1.Room getDefaultInstanceForType() {
+  public ds.service1.CurrentRoomConditions getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

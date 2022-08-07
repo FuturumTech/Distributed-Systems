@@ -4,22 +4,19 @@
 package ds.service1;
 
 /**
- * Protobuf type {@code service1.Room}
+ * Protobuf type {@code service1.Acknowledged}
  */
-public  final class Room extends
+public  final class Acknowledged extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:service1.Room)
-    RoomOrBuilder {
+    // @@protoc_insertion_point(message_implements:service1.Acknowledged)
+    AcknowledgedOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use Room.newBuilder() to construct.
-  private Room(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use Acknowledged.newBuilder() to construct.
+  private Acknowledged(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private Room() {
-    numberOfPeople_ = 0;
-    roomName_ = "";
-    humidity_ = 0F;
-    tempInCelcius_ = 0F;
+  private Acknowledged() {
+    acknowledgment_ = "";
   }
 
   @java.lang.Override
@@ -27,7 +24,7 @@ private static final long serialVersionUID = 0L;
   getUnknownFields() {
     return this.unknownFields;
   }
-  private Room(
+  private Acknowledged(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -46,25 +43,10 @@ private static final long serialVersionUID = 0L;
           case 0:
             done = true;
             break;
-          case 8: {
-
-            numberOfPeople_ = input.readInt32();
-            break;
-          }
-          case 18: {
+          case 10: {
             java.lang.String s = input.readStringRequireUtf8();
 
-            roomName_ = s;
-            break;
-          }
-          case 29: {
-
-            humidity_ = input.readFloat();
-            break;
-          }
-          case 37: {
-
-            tempInCelcius_ = input.readFloat();
+            acknowledgment_ = s;
             break;
           }
           default: {
@@ -88,76 +70,49 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return ds.service1.Service1Impl.internal_static_service1_Room_descriptor;
+    return ds.service1.Service1Impl.internal_static_service1_Acknowledged_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return ds.service1.Service1Impl.internal_static_service1_Room_fieldAccessorTable
+    return ds.service1.Service1Impl.internal_static_service1_Acknowledged_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            ds.service1.Room.class, ds.service1.Room.Builder.class);
+            ds.service1.Acknowledged.class, ds.service1.Acknowledged.Builder.class);
   }
 
-  public static final int NUMBEROFPEOPLE_FIELD_NUMBER = 1;
-  private int numberOfPeople_;
+  public static final int ACKNOWLEDGMENT_FIELD_NUMBER = 1;
+  private volatile java.lang.Object acknowledgment_;
   /**
-   * <code>int32 numberOfPeople = 1;</code>
+   * <code>string acknowledgment = 1;</code>
    */
-  public int getNumberOfPeople() {
-    return numberOfPeople_;
-  }
-
-  public static final int ROOMNAME_FIELD_NUMBER = 2;
-  private volatile java.lang.Object roomName_;
-  /**
-   * <code>string roomName = 2;</code>
-   */
-  public java.lang.String getRoomName() {
-    java.lang.Object ref = roomName_;
+  public java.lang.String getAcknowledgment() {
+    java.lang.Object ref = acknowledgment_;
     if (ref instanceof java.lang.String) {
       return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
       java.lang.String s = bs.toStringUtf8();
-      roomName_ = s;
+      acknowledgment_ = s;
       return s;
     }
   }
   /**
-   * <code>string roomName = 2;</code>
+   * <code>string acknowledgment = 1;</code>
    */
   public com.google.protobuf.ByteString
-      getRoomNameBytes() {
-    java.lang.Object ref = roomName_;
+      getAcknowledgmentBytes() {
+    java.lang.Object ref = acknowledgment_;
     if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
-      roomName_ = b;
+      acknowledgment_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
     }
-  }
-
-  public static final int HUMIDITY_FIELD_NUMBER = 3;
-  private float humidity_;
-  /**
-   * <code>float humidity = 3;</code>
-   */
-  public float getHumidity() {
-    return humidity_;
-  }
-
-  public static final int TEMPINCELCIUS_FIELD_NUMBER = 4;
-  private float tempInCelcius_;
-  /**
-   * <code>float tempInCelcius = 4;</code>
-   */
-  public float getTempInCelcius() {
-    return tempInCelcius_;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -174,17 +129,8 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (numberOfPeople_ != 0) {
-      output.writeInt32(1, numberOfPeople_);
-    }
-    if (!getRoomNameBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, roomName_);
-    }
-    if (humidity_ != 0F) {
-      output.writeFloat(3, humidity_);
-    }
-    if (tempInCelcius_ != 0F) {
-      output.writeFloat(4, tempInCelcius_);
+    if (!getAcknowledgmentBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, acknowledgment_);
     }
     unknownFields.writeTo(output);
   }
@@ -195,20 +141,8 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (numberOfPeople_ != 0) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(1, numberOfPeople_);
-    }
-    if (!getRoomNameBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, roomName_);
-    }
-    if (humidity_ != 0F) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeFloatSize(3, humidity_);
-    }
-    if (tempInCelcius_ != 0F) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeFloatSize(4, tempInCelcius_);
+    if (!getAcknowledgmentBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, acknowledgment_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -220,24 +154,14 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof ds.service1.Room)) {
+    if (!(obj instanceof ds.service1.Acknowledged)) {
       return super.equals(obj);
     }
-    ds.service1.Room other = (ds.service1.Room) obj;
+    ds.service1.Acknowledged other = (ds.service1.Acknowledged) obj;
 
     boolean result = true;
-    result = result && (getNumberOfPeople()
-        == other.getNumberOfPeople());
-    result = result && getRoomName()
-        .equals(other.getRoomName());
-    result = result && (
-        java.lang.Float.floatToIntBits(getHumidity())
-        == java.lang.Float.floatToIntBits(
-            other.getHumidity()));
-    result = result && (
-        java.lang.Float.floatToIntBits(getTempInCelcius())
-        == java.lang.Float.floatToIntBits(
-            other.getTempInCelcius()));
+    result = result && getAcknowledgment()
+        .equals(other.getAcknowledgment());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -249,84 +173,76 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + NUMBEROFPEOPLE_FIELD_NUMBER;
-    hash = (53 * hash) + getNumberOfPeople();
-    hash = (37 * hash) + ROOMNAME_FIELD_NUMBER;
-    hash = (53 * hash) + getRoomName().hashCode();
-    hash = (37 * hash) + HUMIDITY_FIELD_NUMBER;
-    hash = (53 * hash) + java.lang.Float.floatToIntBits(
-        getHumidity());
-    hash = (37 * hash) + TEMPINCELCIUS_FIELD_NUMBER;
-    hash = (53 * hash) + java.lang.Float.floatToIntBits(
-        getTempInCelcius());
+    hash = (37 * hash) + ACKNOWLEDGMENT_FIELD_NUMBER;
+    hash = (53 * hash) + getAcknowledgment().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
   }
 
-  public static ds.service1.Room parseFrom(
+  public static ds.service1.Acknowledged parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static ds.service1.Room parseFrom(
+  public static ds.service1.Acknowledged parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static ds.service1.Room parseFrom(
+  public static ds.service1.Acknowledged parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static ds.service1.Room parseFrom(
+  public static ds.service1.Acknowledged parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static ds.service1.Room parseFrom(byte[] data)
+  public static ds.service1.Acknowledged parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static ds.service1.Room parseFrom(
+  public static ds.service1.Acknowledged parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static ds.service1.Room parseFrom(java.io.InputStream input)
+  public static ds.service1.Acknowledged parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static ds.service1.Room parseFrom(
+  public static ds.service1.Acknowledged parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static ds.service1.Room parseDelimitedFrom(java.io.InputStream input)
+  public static ds.service1.Acknowledged parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static ds.service1.Room parseDelimitedFrom(
+  public static ds.service1.Acknowledged parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static ds.service1.Room parseFrom(
+  public static ds.service1.Acknowledged parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static ds.service1.Room parseFrom(
+  public static ds.service1.Acknowledged parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -339,7 +255,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(ds.service1.Room prototype) {
+  public static Builder newBuilder(ds.service1.Acknowledged prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   @java.lang.Override
@@ -355,26 +271,26 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * Protobuf type {@code service1.Room}
+   * Protobuf type {@code service1.Acknowledged}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:service1.Room)
-      ds.service1.RoomOrBuilder {
+      // @@protoc_insertion_point(builder_implements:service1.Acknowledged)
+      ds.service1.AcknowledgedOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return ds.service1.Service1Impl.internal_static_service1_Room_descriptor;
+      return ds.service1.Service1Impl.internal_static_service1_Acknowledged_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return ds.service1.Service1Impl.internal_static_service1_Room_fieldAccessorTable
+      return ds.service1.Service1Impl.internal_static_service1_Acknowledged_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              ds.service1.Room.class, ds.service1.Room.Builder.class);
+              ds.service1.Acknowledged.class, ds.service1.Acknowledged.Builder.class);
     }
 
-    // Construct using ds.service1.Room.newBuilder()
+    // Construct using ds.service1.Acknowledged.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -392,13 +308,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      numberOfPeople_ = 0;
-
-      roomName_ = "";
-
-      humidity_ = 0F;
-
-      tempInCelcius_ = 0F;
+      acknowledgment_ = "";
 
       return this;
     }
@@ -406,17 +316,17 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return ds.service1.Service1Impl.internal_static_service1_Room_descriptor;
+      return ds.service1.Service1Impl.internal_static_service1_Acknowledged_descriptor;
     }
 
     @java.lang.Override
-    public ds.service1.Room getDefaultInstanceForType() {
-      return ds.service1.Room.getDefaultInstance();
+    public ds.service1.Acknowledged getDefaultInstanceForType() {
+      return ds.service1.Acknowledged.getDefaultInstance();
     }
 
     @java.lang.Override
-    public ds.service1.Room build() {
-      ds.service1.Room result = buildPartial();
+    public ds.service1.Acknowledged build() {
+      ds.service1.Acknowledged result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
@@ -424,12 +334,9 @@ private static final long serialVersionUID = 0L;
     }
 
     @java.lang.Override
-    public ds.service1.Room buildPartial() {
-      ds.service1.Room result = new ds.service1.Room(this);
-      result.numberOfPeople_ = numberOfPeople_;
-      result.roomName_ = roomName_;
-      result.humidity_ = humidity_;
-      result.tempInCelcius_ = tempInCelcius_;
+    public ds.service1.Acknowledged buildPartial() {
+      ds.service1.Acknowledged result = new ds.service1.Acknowledged(this);
+      result.acknowledgment_ = acknowledgment_;
       onBuilt();
       return result;
     }
@@ -468,28 +375,19 @@ private static final long serialVersionUID = 0L;
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof ds.service1.Room) {
-        return mergeFrom((ds.service1.Room)other);
+      if (other instanceof ds.service1.Acknowledged) {
+        return mergeFrom((ds.service1.Acknowledged)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(ds.service1.Room other) {
-      if (other == ds.service1.Room.getDefaultInstance()) return this;
-      if (other.getNumberOfPeople() != 0) {
-        setNumberOfPeople(other.getNumberOfPeople());
-      }
-      if (!other.getRoomName().isEmpty()) {
-        roomName_ = other.roomName_;
+    public Builder mergeFrom(ds.service1.Acknowledged other) {
+      if (other == ds.service1.Acknowledged.getDefaultInstance()) return this;
+      if (!other.getAcknowledgment().isEmpty()) {
+        acknowledgment_ = other.acknowledgment_;
         onChanged();
-      }
-      if (other.getHumidity() != 0F) {
-        setHumidity(other.getHumidity());
-      }
-      if (other.getTempInCelcius() != 0F) {
-        setTempInCelcius(other.getTempInCelcius());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -506,11 +404,11 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      ds.service1.Room parsedMessage = null;
+      ds.service1.Acknowledged parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (ds.service1.Room) e.getUnfinishedMessage();
+        parsedMessage = (ds.service1.Acknowledged) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -520,149 +418,71 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int numberOfPeople_ ;
+    private java.lang.Object acknowledgment_ = "";
     /**
-     * <code>int32 numberOfPeople = 1;</code>
+     * <code>string acknowledgment = 1;</code>
      */
-    public int getNumberOfPeople() {
-      return numberOfPeople_;
-    }
-    /**
-     * <code>int32 numberOfPeople = 1;</code>
-     */
-    public Builder setNumberOfPeople(int value) {
-      
-      numberOfPeople_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>int32 numberOfPeople = 1;</code>
-     */
-    public Builder clearNumberOfPeople() {
-      
-      numberOfPeople_ = 0;
-      onChanged();
-      return this;
-    }
-
-    private java.lang.Object roomName_ = "";
-    /**
-     * <code>string roomName = 2;</code>
-     */
-    public java.lang.String getRoomName() {
-      java.lang.Object ref = roomName_;
+    public java.lang.String getAcknowledgment() {
+      java.lang.Object ref = acknowledgment_;
       if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        roomName_ = s;
+        acknowledgment_ = s;
         return s;
       } else {
         return (java.lang.String) ref;
       }
     }
     /**
-     * <code>string roomName = 2;</code>
+     * <code>string acknowledgment = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getRoomNameBytes() {
-      java.lang.Object ref = roomName_;
+        getAcknowledgmentBytes() {
+      java.lang.Object ref = acknowledgment_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        roomName_ = b;
+        acknowledgment_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
     /**
-     * <code>string roomName = 2;</code>
+     * <code>string acknowledgment = 1;</code>
      */
-    public Builder setRoomName(
+    public Builder setAcknowledgment(
         java.lang.String value) {
       if (value == null) {
     throw new NullPointerException();
   }
   
-      roomName_ = value;
+      acknowledgment_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>string roomName = 2;</code>
+     * <code>string acknowledgment = 1;</code>
      */
-    public Builder clearRoomName() {
+    public Builder clearAcknowledgment() {
       
-      roomName_ = getDefaultInstance().getRoomName();
+      acknowledgment_ = getDefaultInstance().getAcknowledgment();
       onChanged();
       return this;
     }
     /**
-     * <code>string roomName = 2;</code>
+     * <code>string acknowledgment = 1;</code>
      */
-    public Builder setRoomNameBytes(
+    public Builder setAcknowledgmentBytes(
         com.google.protobuf.ByteString value) {
       if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
       
-      roomName_ = value;
-      onChanged();
-      return this;
-    }
-
-    private float humidity_ ;
-    /**
-     * <code>float humidity = 3;</code>
-     */
-    public float getHumidity() {
-      return humidity_;
-    }
-    /**
-     * <code>float humidity = 3;</code>
-     */
-    public Builder setHumidity(float value) {
-      
-      humidity_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>float humidity = 3;</code>
-     */
-    public Builder clearHumidity() {
-      
-      humidity_ = 0F;
-      onChanged();
-      return this;
-    }
-
-    private float tempInCelcius_ ;
-    /**
-     * <code>float tempInCelcius = 4;</code>
-     */
-    public float getTempInCelcius() {
-      return tempInCelcius_;
-    }
-    /**
-     * <code>float tempInCelcius = 4;</code>
-     */
-    public Builder setTempInCelcius(float value) {
-      
-      tempInCelcius_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>float tempInCelcius = 4;</code>
-     */
-    public Builder clearTempInCelcius() {
-      
-      tempInCelcius_ = 0F;
+      acknowledgment_ = value;
       onChanged();
       return this;
     }
@@ -679,41 +499,41 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:service1.Room)
+    // @@protoc_insertion_point(builder_scope:service1.Acknowledged)
   }
 
-  // @@protoc_insertion_point(class_scope:service1.Room)
-  private static final ds.service1.Room DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:service1.Acknowledged)
+  private static final ds.service1.Acknowledged DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new ds.service1.Room();
+    DEFAULT_INSTANCE = new ds.service1.Acknowledged();
   }
 
-  public static ds.service1.Room getDefaultInstance() {
+  public static ds.service1.Acknowledged getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<Room>
-      PARSER = new com.google.protobuf.AbstractParser<Room>() {
+  private static final com.google.protobuf.Parser<Acknowledged>
+      PARSER = new com.google.protobuf.AbstractParser<Acknowledged>() {
     @java.lang.Override
-    public Room parsePartialFrom(
+    public Acknowledged parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new Room(input, extensionRegistry);
+      return new Acknowledged(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<Room> parser() {
+  public static com.google.protobuf.Parser<Acknowledged> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<Room> getParserForType() {
+  public com.google.protobuf.Parser<Acknowledged> getParserForType() {
     return PARSER;
   }
 
   @java.lang.Override
-  public ds.service1.Room getDefaultInstanceForType() {
+  public ds.service1.Acknowledged getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

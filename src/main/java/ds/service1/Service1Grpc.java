@@ -62,6 +62,38 @@ public final class Service1Grpc {
      return getDesiredSettingHVACMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<ds.service1.CurrentRoomConditions,
+      ds.service1.Acknowledged> getHVACstatusMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "HVACstatus",
+      requestType = ds.service1.CurrentRoomConditions.class,
+      responseType = ds.service1.Acknowledged.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
+  public static io.grpc.MethodDescriptor<ds.service1.CurrentRoomConditions,
+      ds.service1.Acknowledged> getHVACstatusMethod() {
+    io.grpc.MethodDescriptor<ds.service1.CurrentRoomConditions, ds.service1.Acknowledged> getHVACstatusMethod;
+    if ((getHVACstatusMethod = Service1Grpc.getHVACstatusMethod) == null) {
+      synchronized (Service1Grpc.class) {
+        if ((getHVACstatusMethod = Service1Grpc.getHVACstatusMethod) == null) {
+          Service1Grpc.getHVACstatusMethod = getHVACstatusMethod = 
+              io.grpc.MethodDescriptor.<ds.service1.CurrentRoomConditions, ds.service1.Acknowledged>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
+              .setFullMethodName(generateFullMethodName(
+                  "service1.Service1", "HVACstatus"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ds.service1.CurrentRoomConditions.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ds.service1.Acknowledged.getDefaultInstance()))
+                  .setSchemaDescriptor(new Service1MethodDescriptorSupplier("HVACstatus"))
+                  .build();
+          }
+        }
+     }
+     return getHVACstatusMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<ds.service1.Room,
       ds.service1.AdjustHVAC> getRoomStatusMethod;
 
@@ -125,6 +157,9 @@ public final class Service1Grpc {
   public static abstract class Service1ImplBase implements io.grpc.BindableService {
 
     /**
+     * <pre>
+     *unary
+     * </pre>
      */
     public void desiredSettingHVAC(ds.service1.DesiredRoomConditions request,
         io.grpc.stub.StreamObserver<ds.service1.Confirmation> responseObserver) {
@@ -133,7 +168,16 @@ public final class Service1Grpc {
 
     /**
      * <pre>
-     *rpc HVACstatus(stream CurrentRoomConditions) returns (Empty){}
+     *client streaming
+     * </pre>
+     */
+    public io.grpc.stub.StreamObserver<ds.service1.CurrentRoomConditions> hVACstatus(
+        io.grpc.stub.StreamObserver<ds.service1.Acknowledged> responseObserver) {
+      return asyncUnimplementedStreamingCall(getHVACstatusMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
      *Server stream:
      * </pre>
      */
@@ -151,6 +195,13 @@ public final class Service1Grpc {
                 ds.service1.DesiredRoomConditions,
                 ds.service1.Confirmation>(
                   this, METHODID_DESIRED_SETTING_HVAC)))
+          .addMethod(
+            getHVACstatusMethod(),
+            asyncClientStreamingCall(
+              new MethodHandlers<
+                ds.service1.CurrentRoomConditions,
+                ds.service1.Acknowledged>(
+                  this, METHODID_HVACSTATUS)))
           .addMethod(
             getRoomStatusMethod(),
             asyncServerStreamingCall(
@@ -184,6 +235,9 @@ public final class Service1Grpc {
     }
 
     /**
+     * <pre>
+     *unary
+     * </pre>
      */
     public void desiredSettingHVAC(ds.service1.DesiredRoomConditions request,
         io.grpc.stub.StreamObserver<ds.service1.Confirmation> responseObserver) {
@@ -193,7 +247,17 @@ public final class Service1Grpc {
 
     /**
      * <pre>
-     *rpc HVACstatus(stream CurrentRoomConditions) returns (Empty){}
+     *client streaming
+     * </pre>
+     */
+    public io.grpc.stub.StreamObserver<ds.service1.CurrentRoomConditions> hVACstatus(
+        io.grpc.stub.StreamObserver<ds.service1.Acknowledged> responseObserver) {
+      return asyncClientStreamingCall(
+          getChannel().newCall(getHVACstatusMethod(), getCallOptions()), responseObserver);
+    }
+
+    /**
+     * <pre>
      *Server stream:
      * </pre>
      */
@@ -226,6 +290,9 @@ public final class Service1Grpc {
     }
 
     /**
+     * <pre>
+     *unary
+     * </pre>
      */
     public ds.service1.Confirmation desiredSettingHVAC(ds.service1.DesiredRoomConditions request) {
       return blockingUnaryCall(
@@ -234,7 +301,6 @@ public final class Service1Grpc {
 
     /**
      * <pre>
-     *rpc HVACstatus(stream CurrentRoomConditions) returns (Empty){}
      *Server stream:
      * </pre>
      */
@@ -267,6 +333,9 @@ public final class Service1Grpc {
     }
 
     /**
+     * <pre>
+     *unary
+     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<ds.service1.Confirmation> desiredSettingHVAC(
         ds.service1.DesiredRoomConditions request) {
@@ -277,6 +346,7 @@ public final class Service1Grpc {
 
   private static final int METHODID_DESIRED_SETTING_HVAC = 0;
   private static final int METHODID_ROOM_STATUS = 1;
+  private static final int METHODID_HVACSTATUS = 2;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -313,6 +383,9 @@ public final class Service1Grpc {
     public io.grpc.stub.StreamObserver<Req> invoke(
         io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
+        case METHODID_HVACSTATUS:
+          return (io.grpc.stub.StreamObserver<Req>) serviceImpl.hVACstatus(
+              (io.grpc.stub.StreamObserver<ds.service1.Acknowledged>) responseObserver);
         default:
           throw new AssertionError();
       }
@@ -365,6 +438,7 @@ public final class Service1Grpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new Service1FileDescriptorSupplier())
               .addMethod(getDesiredSettingHVACMethod())
+              .addMethod(getHVACstatusMethod())
               .addMethod(getRoomStatusMethod())
               .build();
         }
