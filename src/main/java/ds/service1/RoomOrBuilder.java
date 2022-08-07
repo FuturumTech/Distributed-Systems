@@ -8,27 +8,12 @@ public interface RoomOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>int32 numberOfPeople = 1;</code>
-   */
-  int getNumberOfPeople();
-
-  /**
-   * <code>string roomName = 2;</code>
+   * <code>string roomName = 1;</code>
    */
   java.lang.String getRoomName();
   /**
-   * <code>string roomName = 2;</code>
+   * <code>string roomName = 1;</code>
    */
   com.google.protobuf.ByteString
       getRoomNameBytes();
-
-  /**
-   * <code>float humidity = 3;</code>
-   */
-  float getHumidity();
-
-  /**
-   * <code>float tempInCelcius = 4;</code>
-   */
-  float getTempInCelcius();
 }

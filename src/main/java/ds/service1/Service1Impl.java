@@ -60,18 +60,16 @@ public final class Service1Impl {
       "(\t\"R\n\025CurrentRoomConditions\022\020\n\010roomName\030" +
       "\001 \001(\t\022\020\n\010humidity\030\002 \001(\002\022\025\n\rtempInCelcius" +
       "\030\003 \001(\002\"&\n\014Acknowledged\022\026\n\016acknowledgment" +
-      "\030\001 \001(\t\"Y\n\004Room\022\026\n\016numberOfPeople\030\001 \001(\005\022\020" +
-      "\n\010roomName\030\002 \001(\t\022\020\n\010humidity\030\003 \001(\002\022\025\n\rte" +
-      "mpInCelcius\030\004 \001(\002\"l\n\nAdjustHVAC\022\026\n\016adjus" +
-      "tHumidity\030\001 \001(\010\022\022\n\nadjustTemp\030\002 \001(\010\022\032\n\022h" +
-      "umidityDifference\030\003 \001(\005\022\026\n\016tempDifferenc" +
-      "e\030\004 \001(\0052\336\001\n\010Service1\022O\n\022desiredSettingHV" +
-      "AC\022\037.service1.DesiredRoomConditions\032\026.se" +
-      "rvice1.Confirmation\"\000\022I\n\nHVACstatus\022\037.se" +
-      "rvice1.CurrentRoomConditions\032\026.service1." +
-      "Acknowledged\"\000(\001\0226\n\nRoomStatus\022\016.service" +
-      "1.Room\032\024.service1.AdjustHVAC\"\0000\001B\035\n\013ds.s" +
-      "ervice1B\014Service1ImplP\001b\006proto3"
+      "\030\001 \001(\t\"\030\n\004Room\022\020\n\010roomName\030\001 \001(\t\"@\n\nAdju" +
+      "stHVAC\022\032\n\022humidityDifference\030\001 \001(\005\022\026\n\016te" +
+      "mpDifference\030\002 \001(\0052\336\001\n\010Service1\022O\n\022desir" +
+      "edSettingHVAC\022\037.service1.DesiredRoomCond" +
+      "itions\032\026.service1.Confirmation\"\000\022I\n\nHVAC" +
+      "status\022\037.service1.CurrentRoomConditions\032" +
+      "\026.service1.Acknowledged\"\000(\001\0226\n\nRoomStatu" +
+      "s\022\016.service1.Room\032\024.service1.AdjustHVAC\"" +
+      "\0000\001B\035\n\013ds.service1B\014Service1ImplP\001b\006prot" +
+      "o3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -114,13 +112,13 @@ public final class Service1Impl {
     internal_static_service1_Room_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_service1_Room_descriptor,
-        new java.lang.String[] { "NumberOfPeople", "RoomName", "Humidity", "TempInCelcius", });
+        new java.lang.String[] { "RoomName", });
     internal_static_service1_AdjustHVAC_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_service1_AdjustHVAC_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_service1_AdjustHVAC_descriptor,
-        new java.lang.String[] { "AdjustHumidity", "AdjustTemp", "HumidityDifference", "TempDifference", });
+        new java.lang.String[] { "HumidityDifference", "TempDifference", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -38,15 +38,10 @@ message Acknowledged{
 }
 
 message Room{
-	int32 numberOfPeople= 1;
-	string roomName = 2;
-	float humidity = 3;
-	float tempInCelcius = 4;
+	string roomName = 1;
 }
 
 message AdjustHVAC{
-	bool adjustHumidity = 1;
-	bool adjustTemp = 2;
-	int32 humidityDifference = 3;
-	int32 tempDifference = 4;
+	int32 humidityDifference = 1;
+	int32 tempDifference = 2;
 }

@@ -8,22 +8,12 @@ public interface AdjustHVACOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>bool adjustHumidity = 1;</code>
-   */
-  boolean getAdjustHumidity();
-
-  /**
-   * <code>bool adjustTemp = 2;</code>
-   */
-  boolean getAdjustTemp();
-
-  /**
-   * <code>int32 humidityDifference = 3;</code>
+   * <code>int32 humidityDifference = 1;</code>
    */
   int getHumidityDifference();
 
   /**
-   * <code>int32 tempDifference = 4;</code>
+   * <code>int32 tempDifference = 2;</code>
    */
   int getTempDifference();
 }

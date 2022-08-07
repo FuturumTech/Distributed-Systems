@@ -172,18 +172,17 @@ public class Service1 extends Service1ImplBase {
 	public void roomStatus(Room request, StreamObserver<AdjustHVAC> responseObserver) {
 		// Find out what sent by the client
 
-		int numberOfPeople = request.getNumberOfPeople();
+	
 		String roomName = request.getRoomName();
-		float humidity = request.getHumidity();
-		float tempInCelcius = request.getTempInCelcius();
 
-		System.out.println("Request received from client is: " + numberOfPeople + " " + roomName + " " + humidity);
+
+		System.out.println("Request received from client is: " +  " " + roomName + " " );
 		boolean adjustHumidity = true;
 		// Our response:
 		// Firstly, we must create a builder
-		AdjustHVAC.Builder responseBuilder = AdjustHVAC.newBuilder().setAdjustHumidity(true) // PLACEHOLDER FOR VALUE
+		AdjustHVAC.Builder responseBuilder = AdjustHVAC.newBuilder(). // PLACEHOLDER FOR VALUE
 																								// RETURN
-				.setAdjustTemp(true).setHumidityDifference(4).setTempDifference(5);
+				setHumidityDifference(4).setTempDifference(5);
 
 		// Send it back:
 		responseObserver.onNext(responseBuilder.build());

@@ -16,10 +16,7 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private Room() {
-    numberOfPeople_ = 0;
     roomName_ = "";
-    humidity_ = 0F;
-    tempInCelcius_ = 0F;
   }
 
   @java.lang.Override
@@ -46,25 +43,10 @@ private static final long serialVersionUID = 0L;
           case 0:
             done = true;
             break;
-          case 8: {
-
-            numberOfPeople_ = input.readInt32();
-            break;
-          }
-          case 18: {
+          case 10: {
             java.lang.String s = input.readStringRequireUtf8();
 
             roomName_ = s;
-            break;
-          }
-          case 29: {
-
-            humidity_ = input.readFloat();
-            break;
-          }
-          case 37: {
-
-            tempInCelcius_ = input.readFloat();
             break;
           }
           default: {
@@ -99,19 +81,10 @@ private static final long serialVersionUID = 0L;
             ds.service1.Room.class, ds.service1.Room.Builder.class);
   }
 
-  public static final int NUMBEROFPEOPLE_FIELD_NUMBER = 1;
-  private int numberOfPeople_;
-  /**
-   * <code>int32 numberOfPeople = 1;</code>
-   */
-  public int getNumberOfPeople() {
-    return numberOfPeople_;
-  }
-
-  public static final int ROOMNAME_FIELD_NUMBER = 2;
+  public static final int ROOMNAME_FIELD_NUMBER = 1;
   private volatile java.lang.Object roomName_;
   /**
-   * <code>string roomName = 2;</code>
+   * <code>string roomName = 1;</code>
    */
   public java.lang.String getRoomName() {
     java.lang.Object ref = roomName_;
@@ -126,7 +99,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string roomName = 2;</code>
+   * <code>string roomName = 1;</code>
    */
   public com.google.protobuf.ByteString
       getRoomNameBytes() {
@@ -140,24 +113,6 @@ private static final long serialVersionUID = 0L;
     } else {
       return (com.google.protobuf.ByteString) ref;
     }
-  }
-
-  public static final int HUMIDITY_FIELD_NUMBER = 3;
-  private float humidity_;
-  /**
-   * <code>float humidity = 3;</code>
-   */
-  public float getHumidity() {
-    return humidity_;
-  }
-
-  public static final int TEMPINCELCIUS_FIELD_NUMBER = 4;
-  private float tempInCelcius_;
-  /**
-   * <code>float tempInCelcius = 4;</code>
-   */
-  public float getTempInCelcius() {
-    return tempInCelcius_;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -174,17 +129,8 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (numberOfPeople_ != 0) {
-      output.writeInt32(1, numberOfPeople_);
-    }
     if (!getRoomNameBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, roomName_);
-    }
-    if (humidity_ != 0F) {
-      output.writeFloat(3, humidity_);
-    }
-    if (tempInCelcius_ != 0F) {
-      output.writeFloat(4, tempInCelcius_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, roomName_);
     }
     unknownFields.writeTo(output);
   }
@@ -195,20 +141,8 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (numberOfPeople_ != 0) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(1, numberOfPeople_);
-    }
     if (!getRoomNameBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, roomName_);
-    }
-    if (humidity_ != 0F) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeFloatSize(3, humidity_);
-    }
-    if (tempInCelcius_ != 0F) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeFloatSize(4, tempInCelcius_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, roomName_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -226,18 +160,8 @@ private static final long serialVersionUID = 0L;
     ds.service1.Room other = (ds.service1.Room) obj;
 
     boolean result = true;
-    result = result && (getNumberOfPeople()
-        == other.getNumberOfPeople());
     result = result && getRoomName()
         .equals(other.getRoomName());
-    result = result && (
-        java.lang.Float.floatToIntBits(getHumidity())
-        == java.lang.Float.floatToIntBits(
-            other.getHumidity()));
-    result = result && (
-        java.lang.Float.floatToIntBits(getTempInCelcius())
-        == java.lang.Float.floatToIntBits(
-            other.getTempInCelcius()));
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -249,16 +173,8 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + NUMBEROFPEOPLE_FIELD_NUMBER;
-    hash = (53 * hash) + getNumberOfPeople();
     hash = (37 * hash) + ROOMNAME_FIELD_NUMBER;
     hash = (53 * hash) + getRoomName().hashCode();
-    hash = (37 * hash) + HUMIDITY_FIELD_NUMBER;
-    hash = (53 * hash) + java.lang.Float.floatToIntBits(
-        getHumidity());
-    hash = (37 * hash) + TEMPINCELCIUS_FIELD_NUMBER;
-    hash = (53 * hash) + java.lang.Float.floatToIntBits(
-        getTempInCelcius());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -392,13 +308,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      numberOfPeople_ = 0;
-
       roomName_ = "";
-
-      humidity_ = 0F;
-
-      tempInCelcius_ = 0F;
 
       return this;
     }
@@ -426,10 +336,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public ds.service1.Room buildPartial() {
       ds.service1.Room result = new ds.service1.Room(this);
-      result.numberOfPeople_ = numberOfPeople_;
       result.roomName_ = roomName_;
-      result.humidity_ = humidity_;
-      result.tempInCelcius_ = tempInCelcius_;
       onBuilt();
       return result;
     }
@@ -478,18 +385,9 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(ds.service1.Room other) {
       if (other == ds.service1.Room.getDefaultInstance()) return this;
-      if (other.getNumberOfPeople() != 0) {
-        setNumberOfPeople(other.getNumberOfPeople());
-      }
       if (!other.getRoomName().isEmpty()) {
         roomName_ = other.roomName_;
         onChanged();
-      }
-      if (other.getHumidity() != 0F) {
-        setHumidity(other.getHumidity());
-      }
-      if (other.getTempInCelcius() != 0F) {
-        setTempInCelcius(other.getTempInCelcius());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -520,35 +418,9 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int numberOfPeople_ ;
-    /**
-     * <code>int32 numberOfPeople = 1;</code>
-     */
-    public int getNumberOfPeople() {
-      return numberOfPeople_;
-    }
-    /**
-     * <code>int32 numberOfPeople = 1;</code>
-     */
-    public Builder setNumberOfPeople(int value) {
-      
-      numberOfPeople_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>int32 numberOfPeople = 1;</code>
-     */
-    public Builder clearNumberOfPeople() {
-      
-      numberOfPeople_ = 0;
-      onChanged();
-      return this;
-    }
-
     private java.lang.Object roomName_ = "";
     /**
-     * <code>string roomName = 2;</code>
+     * <code>string roomName = 1;</code>
      */
     public java.lang.String getRoomName() {
       java.lang.Object ref = roomName_;
@@ -563,7 +435,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string roomName = 2;</code>
+     * <code>string roomName = 1;</code>
      */
     public com.google.protobuf.ByteString
         getRoomNameBytes() {
@@ -579,7 +451,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string roomName = 2;</code>
+     * <code>string roomName = 1;</code>
      */
     public Builder setRoomName(
         java.lang.String value) {
@@ -592,7 +464,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string roomName = 2;</code>
+     * <code>string roomName = 1;</code>
      */
     public Builder clearRoomName() {
       
@@ -601,7 +473,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string roomName = 2;</code>
+     * <code>string roomName = 1;</code>
      */
     public Builder setRoomNameBytes(
         com.google.protobuf.ByteString value) {
@@ -611,58 +483,6 @@ private static final long serialVersionUID = 0L;
   checkByteStringIsUtf8(value);
       
       roomName_ = value;
-      onChanged();
-      return this;
-    }
-
-    private float humidity_ ;
-    /**
-     * <code>float humidity = 3;</code>
-     */
-    public float getHumidity() {
-      return humidity_;
-    }
-    /**
-     * <code>float humidity = 3;</code>
-     */
-    public Builder setHumidity(float value) {
-      
-      humidity_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>float humidity = 3;</code>
-     */
-    public Builder clearHumidity() {
-      
-      humidity_ = 0F;
-      onChanged();
-      return this;
-    }
-
-    private float tempInCelcius_ ;
-    /**
-     * <code>float tempInCelcius = 4;</code>
-     */
-    public float getTempInCelcius() {
-      return tempInCelcius_;
-    }
-    /**
-     * <code>float tempInCelcius = 4;</code>
-     */
-    public Builder setTempInCelcius(float value) {
-      
-      tempInCelcius_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>float tempInCelcius = 4;</code>
-     */
-    public Builder clearTempInCelcius() {
-      
-      tempInCelcius_ = 0F;
       onChanged();
       return this;
     }
