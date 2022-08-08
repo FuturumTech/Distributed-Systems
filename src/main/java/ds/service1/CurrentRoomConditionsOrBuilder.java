@@ -18,12 +18,12 @@ public interface CurrentRoomConditionsOrBuilder extends
       getRoomNameBytes();
 
   /**
-   * <code>float humidity = 2;</code>
+   * <code>double humidity = 2;</code>
    */
-  float getHumidity();
+  double getHumidity();
 
   /**
-   * <code>float tempInCelcius = 3;</code>
+   * <code>double tempInCelcius = 3;</code>
    */
-  float getTempInCelcius();
+  double getTempInCelcius();
 }

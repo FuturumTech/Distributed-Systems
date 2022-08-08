@@ -28,7 +28,7 @@ public class Service1 extends Service1ImplBase {
 
 				Service1DataBase.roomName temp1 = new Service1DataBase.roomName("consultation room", 73, 22.5);
 				Service1DataBase.roomName temp2 = new Service1DataBase.roomName("hallway", 65, 24.5);
-				Service1DataBase.roomName temp3 = new Service1DataBase.roomName("reception", 49, 18);
+				Service1DataBase.roomName temp3 = new Service1DataBase.roomName("reception", 49, 18.4);
 				Service1DataBase.roomName temp4 = new Service1DataBase.roomName("canteen", 89, 26.5);
 				myTempData.getMyRooms().add(temp1);
 				myTempData.getMyRooms().add(temp2);
@@ -128,16 +128,39 @@ public class Service1 extends Service1ImplBase {
 	public void desiredSettingHVAC(DesiredRoomConditions request, StreamObserver<Confirmation> responseObserver) {
 		// Find out what sent by the client
 		String roomName = request.getRoomName();
-		float desiredHumidity = request.getDesiredHumidity();
-		float desiredTempInCelcius = request.getDesiredTempInCelcius();
-		System.out.println(
-				"Request received from client is: " + roomName + " " + desiredHumidity + " " + desiredTempInCelcius);
+		String roomNameToReturn= request.getRoomName();
+		double desiredHumidity = request.getDesiredHumidity();
+		double desiredTempInCelcius = request.getDesiredTempInCelcius();
+		System.out.println("On Server side (desiredSettingHVAC) received: \n\t" + roomName + " (room name) \n\t" + desiredHumidity + "(desired humidity) \n\t" + desiredTempInCelcius + "(desired temperature)");
+		try{
+			Service1DataBase.roomName roomInput = findRoom(roomName);
+			//if the room name exist in the database:
+			if(roomInput != null) {
+				roomInput.setDesiredHumidity(desiredHumidity);
+				roomInput.setDesiredTempInCelcius(desiredTempInCelcius);
+				roomName = roomInput.getRoomName();
+			}else {
+				roomName = "not found";
+			}
+		}catch(NullPointerException e) {
+			e.getMessage();
+		}
+	
 
 		// Our response:
 		// Firstly, we must create a builder
-		Confirmation.Builder responseBuilder = Confirmation.newBuilder().setConfirmation(roomName); // PLACEHOLDER FOR
-																									// VALUE RETURN
 
+		//case if the room name does not exist (will be overwritten if the room exists
+		Confirmation.Builder responseBuilder= Confirmation.newBuilder()
+				.setConfirmation("Receiving stream of data to grp hVACstatus completed");
+		//Case if the room name exist
+		if(!roomName.equals("not found")) {
+			 responseBuilder = Confirmation.newBuilder()
+					.setConfirmation("Receiving stream of data to grp hVACstatus was completed for room: \"" +roomNameToReturn+ "\" was compelted"); 
+		}else {
+			responseBuilder= Confirmation.newBuilder()
+					.setConfirmation("No room was found for the name:" + roomNameToReturn);
+		}
 		// Send it back:
 		responseObserver.onNext(responseBuilder.build());
 
@@ -145,19 +168,34 @@ public class Service1 extends Service1ImplBase {
 
 	}
 
-	// Method for client streaming
+	// Method for client streaming - IoT device that sends stream of data
 	@Override
 	public StreamObserver<CurrentRoomConditions> hVACstatus(StreamObserver<Acknowledged> responseObserver) {
 		// Find out what sent by the client
 		return new StreamObserver<CurrentRoomConditions>() {
-
+			String roomName;
+			String roomNameToReturn;
 			@Override
 			public void onNext(CurrentRoomConditions value) {
 				// TODO Auto-generated method stub
-				String roomName = value.getRoomName();
-				float humidity = value.getHumidity();
-				float tempInCelcius = value.getTempInCelcius();
-				System.out.println("On Server side received: " + roomName + " " + humidity + " " + tempInCelcius);
+				roomName = value.getRoomName();
+				roomNameToReturn = value.getRoomName();
+				double humidity = value.getHumidity();
+				double tempInCelcius = value.getTempInCelcius();
+				System.out.println("On Server side (hVACstatus) received: \n\t" + roomName + " (room name) \n\t"+ humidity + "(humidity) \n\t" + tempInCelcius + "(temperature)");
+				try{
+					Service1DataBase.roomName roomInput = findRoom(roomName);
+					//if the room name exist in the database:
+					if(roomInput != null) {
+						roomInput.setCurrentHumidity(humidity);
+						roomInput.setCurrentTempInCelcius(tempInCelcius);
+						roomName = roomInput.getRoomName();
+					}else {
+						roomName = "not found";
+					}
+				}catch(NullPointerException e) {
+					e.getMessage();
+				}
 			}
 
 			@Override
@@ -171,9 +209,18 @@ public class Service1 extends Service1ImplBase {
 				// TODO Auto-generated method stub
 				// Our response:
 				// Firstly, we must create a builder
-				Acknowledged.Builder responseBuilder = Acknowledged.newBuilder().setAcknowledgment(" "); // PLACEHOLDER
-																											// FOR VALUE
-																											// RETURN
+				//case if the room name does not exist (will be overwritten if the room exists
+				Acknowledged.Builder responseBuilder= Acknowledged.newBuilder()
+						.setAcknowledgment("Receiving stream of data to grp hVACstatus completed");
+				//Case if the room name exist
+				if(!roomName.equals("not found")) {
+					 responseBuilder = Acknowledged.newBuilder()
+							.setAcknowledgment("Receiving stream of data to grp hVACstatus was completed for room: \"" +roomNameToReturn+ "\" was compelted"); 
+				}else {
+					responseBuilder= Acknowledged.newBuilder()
+							.setAcknowledgment("No room was found for the name:" + roomNameToReturn);
+				}
+				
 
 				// Send it back:
 				responseObserver.onNext(responseBuilder.build());
@@ -195,6 +242,7 @@ public class Service1 extends Service1ImplBase {
 		try{
 			Service1DataBase.roomName roomInput = findRoom(roomName);
 			
+			//if the room name exist in the database:
 			if(roomInput != null) {
 			//Alternative if statement:
 			//if(myTempData.getMyRooms().contains(roomName.trim().toLowerCase())) {
@@ -202,6 +250,8 @@ public class Service1 extends Service1ImplBase {
 				double roomTemperature = roomInput.getCurrentTempInCelcius();
 				
 				tempArray = calculateDifference(roomInput);
+				
+				
 				
 				// Our response:
 				// Firstly, we must create a builder
@@ -219,9 +269,14 @@ public class Service1 extends Service1ImplBase {
 			//Server streaming:
 			for(double d: tempArray) {
 				responseObserver.onNext(responseBuilder);
-				//-999 App will read it that the input was incorrect 
-				responseBuilder = AdjustHVAC.newBuilder().setHumidityDifference(-999)
-						.setTempDifference(-999).build();
+				
+				// Wait a bit
+				try {
+					Thread.sleep(5000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			
 		}catch(NullPointerException e){
@@ -235,7 +290,7 @@ public class Service1 extends Service1ImplBase {
 	}
 	//method to find room name in ArrayList for grpc roomStatus
 		 private static Service1DataBase.roomName findRoom(String room) {
-			 System.out.println("ArrayList size is in findRoom method is: " + Service1.myTempData.getMyRooms().size());
+			 //System.out.println("ArrayList size is in findRoom method is: " + Service1.myTempData.getMyRooms().size());
 			 for(int i=0; i<Service1.myTempData.getMyRooms().size(); i++) {
 		    //for(Service1DataBase.roomName roomName : myTempData.getMyRooms()) {
 		        if(Service1.myTempData.getMyRooms().get(i).getRoomName().equalsIgnoreCase(room)) {
@@ -248,8 +303,10 @@ public class Service1 extends Service1ImplBase {
 		 private static double[] calculateDifference(Service1DataBase.roomName room) {
 			 double[] tempArray = new double[2];
 			 tempArray[0] = room.getCurrentHumidity() - room.getDesiredHumidity();
-			 //tempArray[1] = Math.round((room.getCurrentTempInCelcius() - room.getDesiredTempInCelcius() * 100) / 100);
 			 tempArray[1] = room.getCurrentTempInCelcius() - room.getDesiredTempInCelcius();
+			//rounding to 1 decimal:
+			 tempArray[0] = (Math.round(tempArray[0]*10.0))/10.0;
+			 tempArray[1] = (Math.round(tempArray[1]*10.0))/10.0;
 			 return tempArray;
 		 }
 	

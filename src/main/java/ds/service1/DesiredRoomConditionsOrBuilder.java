@@ -18,12 +18,12 @@ public interface DesiredRoomConditionsOrBuilder extends
       getRoomNameBytes();
 
   /**
-   * <code>float desiredHumidity = 2;</code>
+   * <code>double desiredHumidity = 2;</code>
    */
-  float getDesiredHumidity();
+  double getDesiredHumidity();
 
   /**
-   * <code>float desiredTempInCelcius = 3;</code>
+   * <code>double desiredTempInCelcius = 3;</code>
    */
-  float getDesiredTempInCelcius();
+  double getDesiredTempInCelcius();
 }

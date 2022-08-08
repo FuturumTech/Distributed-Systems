@@ -55,11 +55,11 @@ public final class Service1Impl {
     java.lang.String[] descriptorData = {
       "\n\016service1.proto\022\010service1\"`\n\025DesiredRoo" +
       "mConditions\022\020\n\010roomName\030\001 \001(\t\022\027\n\017desired" +
-      "Humidity\030\002 \001(\002\022\034\n\024desiredTempInCelcius\030\003" +
-      " \001(\002\"$\n\014Confirmation\022\024\n\014confirmation\030\001 \001" +
+      "Humidity\030\002 \001(\001\022\034\n\024desiredTempInCelcius\030\003" +
+      " \001(\001\"$\n\014Confirmation\022\024\n\014confirmation\030\001 \001" +
       "(\t\"R\n\025CurrentRoomConditions\022\020\n\010roomName\030" +
-      "\001 \001(\t\022\020\n\010humidity\030\002 \001(\002\022\025\n\rtempInCelcius" +
-      "\030\003 \001(\002\"&\n\014Acknowledged\022\026\n\016acknowledgment" +
+      "\001 \001(\t\022\020\n\010humidity\030\002 \001(\001\022\025\n\rtempInCelcius" +
+      "\030\003 \001(\001\"&\n\014Acknowledged\022\026\n\016acknowledgment" +
       "\030\001 \001(\t\"\030\n\004Room\022\020\n\010roomName\030\001 \001(\t\"@\n\nAdju" +
       "stHVAC\022\032\n\022humidityDifference\030\001 \001(\001\022\026\n\016te" +
       "mpDifference\030\002 \001(\0012\336\001\n\010Service1\022O\n\022desir" +

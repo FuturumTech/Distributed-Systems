@@ -18,10 +18,11 @@ service Service1 {
 
 message DesiredRoomConditions{
 	string roomName = 1;
-	float desiredHumidity = 2;
-	float desiredTempInCelcius = 3;
+	double desiredHumidity = 2;
+	double desiredTempInCelcius = 3;
 
 }
+
 
 message Confirmation{
 	string confirmation = 1;
@@ -29,8 +30,8 @@ message Confirmation{
 
 message CurrentRoomConditions{
 	string roomName = 1;
-	float humidity = 2;
-	float tempInCelcius = 3;
+	double humidity = 2;
+	double tempInCelcius = 3;
 }
 
 message Acknowledged{

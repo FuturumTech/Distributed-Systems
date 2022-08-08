@@ -17,8 +17,8 @@ private static final long serialVersionUID = 0L;
   }
   private DesiredRoomConditions() {
     roomName_ = "";
-    desiredHumidity_ = 0F;
-    desiredTempInCelcius_ = 0F;
+    desiredHumidity_ = 0D;
+    desiredTempInCelcius_ = 0D;
   }
 
   @java.lang.Override
@@ -51,14 +51,14 @@ private static final long serialVersionUID = 0L;
             roomName_ = s;
             break;
           }
-          case 21: {
+          case 17: {
 
-            desiredHumidity_ = input.readFloat();
+            desiredHumidity_ = input.readDouble();
             break;
           }
-          case 29: {
+          case 25: {
 
-            desiredTempInCelcius_ = input.readFloat();
+            desiredTempInCelcius_ = input.readDouble();
             break;
           }
           default: {
@@ -128,20 +128,20 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int DESIREDHUMIDITY_FIELD_NUMBER = 2;
-  private float desiredHumidity_;
+  private double desiredHumidity_;
   /**
-   * <code>float desiredHumidity = 2;</code>
+   * <code>double desiredHumidity = 2;</code>
    */
-  public float getDesiredHumidity() {
+  public double getDesiredHumidity() {
     return desiredHumidity_;
   }
 
   public static final int DESIREDTEMPINCELCIUS_FIELD_NUMBER = 3;
-  private float desiredTempInCelcius_;
+  private double desiredTempInCelcius_;
   /**
-   * <code>float desiredTempInCelcius = 3;</code>
+   * <code>double desiredTempInCelcius = 3;</code>
    */
-  public float getDesiredTempInCelcius() {
+  public double getDesiredTempInCelcius() {
     return desiredTempInCelcius_;
   }
 
@@ -162,11 +162,11 @@ private static final long serialVersionUID = 0L;
     if (!getRoomNameBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 1, roomName_);
     }
-    if (desiredHumidity_ != 0F) {
-      output.writeFloat(2, desiredHumidity_);
+    if (desiredHumidity_ != 0D) {
+      output.writeDouble(2, desiredHumidity_);
     }
-    if (desiredTempInCelcius_ != 0F) {
-      output.writeFloat(3, desiredTempInCelcius_);
+    if (desiredTempInCelcius_ != 0D) {
+      output.writeDouble(3, desiredTempInCelcius_);
     }
     unknownFields.writeTo(output);
   }
@@ -180,13 +180,13 @@ private static final long serialVersionUID = 0L;
     if (!getRoomNameBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, roomName_);
     }
-    if (desiredHumidity_ != 0F) {
+    if (desiredHumidity_ != 0D) {
       size += com.google.protobuf.CodedOutputStream
-        .computeFloatSize(2, desiredHumidity_);
+        .computeDoubleSize(2, desiredHumidity_);
     }
-    if (desiredTempInCelcius_ != 0F) {
+    if (desiredTempInCelcius_ != 0D) {
       size += com.google.protobuf.CodedOutputStream
-        .computeFloatSize(3, desiredTempInCelcius_);
+        .computeDoubleSize(3, desiredTempInCelcius_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -207,12 +207,12 @@ private static final long serialVersionUID = 0L;
     result = result && getRoomName()
         .equals(other.getRoomName());
     result = result && (
-        java.lang.Float.floatToIntBits(getDesiredHumidity())
-        == java.lang.Float.floatToIntBits(
+        java.lang.Double.doubleToLongBits(getDesiredHumidity())
+        == java.lang.Double.doubleToLongBits(
             other.getDesiredHumidity()));
     result = result && (
-        java.lang.Float.floatToIntBits(getDesiredTempInCelcius())
-        == java.lang.Float.floatToIntBits(
+        java.lang.Double.doubleToLongBits(getDesiredTempInCelcius())
+        == java.lang.Double.doubleToLongBits(
             other.getDesiredTempInCelcius()));
     result = result && unknownFields.equals(other.unknownFields);
     return result;
@@ -228,11 +228,11 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + ROOMNAME_FIELD_NUMBER;
     hash = (53 * hash) + getRoomName().hashCode();
     hash = (37 * hash) + DESIREDHUMIDITY_FIELD_NUMBER;
-    hash = (53 * hash) + java.lang.Float.floatToIntBits(
-        getDesiredHumidity());
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        java.lang.Double.doubleToLongBits(getDesiredHumidity()));
     hash = (37 * hash) + DESIREDTEMPINCELCIUS_FIELD_NUMBER;
-    hash = (53 * hash) + java.lang.Float.floatToIntBits(
-        getDesiredTempInCelcius());
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        java.lang.Double.doubleToLongBits(getDesiredTempInCelcius()));
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -368,9 +368,9 @@ private static final long serialVersionUID = 0L;
       super.clear();
       roomName_ = "";
 
-      desiredHumidity_ = 0F;
+      desiredHumidity_ = 0D;
 
-      desiredTempInCelcius_ = 0F;
+      desiredTempInCelcius_ = 0D;
 
       return this;
     }
@@ -453,10 +453,10 @@ private static final long serialVersionUID = 0L;
         roomName_ = other.roomName_;
         onChanged();
       }
-      if (other.getDesiredHumidity() != 0F) {
+      if (other.getDesiredHumidity() != 0D) {
         setDesiredHumidity(other.getDesiredHumidity());
       }
-      if (other.getDesiredTempInCelcius() != 0F) {
+      if (other.getDesiredTempInCelcius() != 0D) {
         setDesiredTempInCelcius(other.getDesiredTempInCelcius());
       }
       this.mergeUnknownFields(other.unknownFields);
@@ -557,54 +557,54 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private float desiredHumidity_ ;
+    private double desiredHumidity_ ;
     /**
-     * <code>float desiredHumidity = 2;</code>
+     * <code>double desiredHumidity = 2;</code>
      */
-    public float getDesiredHumidity() {
+    public double getDesiredHumidity() {
       return desiredHumidity_;
     }
     /**
-     * <code>float desiredHumidity = 2;</code>
+     * <code>double desiredHumidity = 2;</code>
      */
-    public Builder setDesiredHumidity(float value) {
+    public Builder setDesiredHumidity(double value) {
       
       desiredHumidity_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>float desiredHumidity = 2;</code>
+     * <code>double desiredHumidity = 2;</code>
      */
     public Builder clearDesiredHumidity() {
       
-      desiredHumidity_ = 0F;
+      desiredHumidity_ = 0D;
       onChanged();
       return this;
     }
 
-    private float desiredTempInCelcius_ ;
+    private double desiredTempInCelcius_ ;
     /**
-     * <code>float desiredTempInCelcius = 3;</code>
+     * <code>double desiredTempInCelcius = 3;</code>
      */
-    public float getDesiredTempInCelcius() {
+    public double getDesiredTempInCelcius() {
       return desiredTempInCelcius_;
     }
     /**
-     * <code>float desiredTempInCelcius = 3;</code>
+     * <code>double desiredTempInCelcius = 3;</code>
      */
-    public Builder setDesiredTempInCelcius(float value) {
+    public Builder setDesiredTempInCelcius(double value) {
       
       desiredTempInCelcius_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>float desiredTempInCelcius = 3;</code>
+     * <code>double desiredTempInCelcius = 3;</code>
      */
     public Builder clearDesiredTempInCelcius() {
       
-      desiredTempInCelcius_ = 0F;
+      desiredTempInCelcius_ = 0D;
       onChanged();
       return this;
     }

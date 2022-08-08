@@ -17,8 +17,8 @@ private static final long serialVersionUID = 0L;
   }
   private CurrentRoomConditions() {
     roomName_ = "";
-    humidity_ = 0F;
-    tempInCelcius_ = 0F;
+    humidity_ = 0D;
+    tempInCelcius_ = 0D;
   }
 
   @java.lang.Override
@@ -51,14 +51,14 @@ private static final long serialVersionUID = 0L;
             roomName_ = s;
             break;
           }
-          case 21: {
+          case 17: {
 
-            humidity_ = input.readFloat();
+            humidity_ = input.readDouble();
             break;
           }
-          case 29: {
+          case 25: {
 
-            tempInCelcius_ = input.readFloat();
+            tempInCelcius_ = input.readDouble();
             break;
           }
           default: {
@@ -128,20 +128,20 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int HUMIDITY_FIELD_NUMBER = 2;
-  private float humidity_;
+  private double humidity_;
   /**
-   * <code>float humidity = 2;</code>
+   * <code>double humidity = 2;</code>
    */
-  public float getHumidity() {
+  public double getHumidity() {
     return humidity_;
   }
 
   public static final int TEMPINCELCIUS_FIELD_NUMBER = 3;
-  private float tempInCelcius_;
+  private double tempInCelcius_;
   /**
-   * <code>float tempInCelcius = 3;</code>
+   * <code>double tempInCelcius = 3;</code>
    */
-  public float getTempInCelcius() {
+  public double getTempInCelcius() {
     return tempInCelcius_;
   }
 
@@ -162,11 +162,11 @@ private static final long serialVersionUID = 0L;
     if (!getRoomNameBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 1, roomName_);
     }
-    if (humidity_ != 0F) {
-      output.writeFloat(2, humidity_);
+    if (humidity_ != 0D) {
+      output.writeDouble(2, humidity_);
     }
-    if (tempInCelcius_ != 0F) {
-      output.writeFloat(3, tempInCelcius_);
+    if (tempInCelcius_ != 0D) {
+      output.writeDouble(3, tempInCelcius_);
     }
     unknownFields.writeTo(output);
   }
@@ -180,13 +180,13 @@ private static final long serialVersionUID = 0L;
     if (!getRoomNameBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, roomName_);
     }
-    if (humidity_ != 0F) {
+    if (humidity_ != 0D) {
       size += com.google.protobuf.CodedOutputStream
-        .computeFloatSize(2, humidity_);
+        .computeDoubleSize(2, humidity_);
     }
-    if (tempInCelcius_ != 0F) {
+    if (tempInCelcius_ != 0D) {
       size += com.google.protobuf.CodedOutputStream
-        .computeFloatSize(3, tempInCelcius_);
+        .computeDoubleSize(3, tempInCelcius_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -207,12 +207,12 @@ private static final long serialVersionUID = 0L;
     result = result && getRoomName()
         .equals(other.getRoomName());
     result = result && (
-        java.lang.Float.floatToIntBits(getHumidity())
-        == java.lang.Float.floatToIntBits(
+        java.lang.Double.doubleToLongBits(getHumidity())
+        == java.lang.Double.doubleToLongBits(
             other.getHumidity()));
     result = result && (
-        java.lang.Float.floatToIntBits(getTempInCelcius())
-        == java.lang.Float.floatToIntBits(
+        java.lang.Double.doubleToLongBits(getTempInCelcius())
+        == java.lang.Double.doubleToLongBits(
             other.getTempInCelcius()));
     result = result && unknownFields.equals(other.unknownFields);
     return result;
@@ -228,11 +228,11 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + ROOMNAME_FIELD_NUMBER;
     hash = (53 * hash) + getRoomName().hashCode();
     hash = (37 * hash) + HUMIDITY_FIELD_NUMBER;
-    hash = (53 * hash) + java.lang.Float.floatToIntBits(
-        getHumidity());
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        java.lang.Double.doubleToLongBits(getHumidity()));
     hash = (37 * hash) + TEMPINCELCIUS_FIELD_NUMBER;
-    hash = (53 * hash) + java.lang.Float.floatToIntBits(
-        getTempInCelcius());
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        java.lang.Double.doubleToLongBits(getTempInCelcius()));
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -368,9 +368,9 @@ private static final long serialVersionUID = 0L;
       super.clear();
       roomName_ = "";
 
-      humidity_ = 0F;
+      humidity_ = 0D;
 
-      tempInCelcius_ = 0F;
+      tempInCelcius_ = 0D;
 
       return this;
     }
@@ -453,10 +453,10 @@ private static final long serialVersionUID = 0L;
         roomName_ = other.roomName_;
         onChanged();
       }
-      if (other.getHumidity() != 0F) {
+      if (other.getHumidity() != 0D) {
         setHumidity(other.getHumidity());
       }
-      if (other.getTempInCelcius() != 0F) {
+      if (other.getTempInCelcius() != 0D) {
         setTempInCelcius(other.getTempInCelcius());
       }
       this.mergeUnknownFields(other.unknownFields);
@@ -557,54 +557,54 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private float humidity_ ;
+    private double humidity_ ;
     /**
-     * <code>float humidity = 2;</code>
+     * <code>double humidity = 2;</code>
      */
-    public float getHumidity() {
+    public double getHumidity() {
       return humidity_;
     }
     /**
-     * <code>float humidity = 2;</code>
+     * <code>double humidity = 2;</code>
      */
-    public Builder setHumidity(float value) {
+    public Builder setHumidity(double value) {
       
       humidity_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>float humidity = 2;</code>
+     * <code>double humidity = 2;</code>
      */
     public Builder clearHumidity() {
       
-      humidity_ = 0F;
+      humidity_ = 0D;
       onChanged();
       return this;
     }
 
-    private float tempInCelcius_ ;
+    private double tempInCelcius_ ;
     /**
-     * <code>float tempInCelcius = 3;</code>
+     * <code>double tempInCelcius = 3;</code>
      */
-    public float getTempInCelcius() {
+    public double getTempInCelcius() {
       return tempInCelcius_;
     }
     /**
-     * <code>float tempInCelcius = 3;</code>
+     * <code>double tempInCelcius = 3;</code>
      */
-    public Builder setTempInCelcius(float value) {
+    public Builder setTempInCelcius(double value) {
       
       tempInCelcius_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>float tempInCelcius = 3;</code>
+     * <code>double tempInCelcius = 3;</code>
      */
     public Builder clearTempInCelcius() {
       
-      tempInCelcius_ = 0F;
+      tempInCelcius_ = 0D;
       onChanged();
       return this;
     }

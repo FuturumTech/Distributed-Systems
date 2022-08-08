@@ -36,6 +36,13 @@ public class Service1DataBase {
         public double getCurrentTempInCelcius() {
             return currentTempInCelcius;
         }
+        public void setCurrentHumidity(double currentHumidity) {
+            this.currentHumidity = currentHumidity;
+        }
+
+        public void setCurrentTempInCelcius(double currentTempInCelcius) {
+            this.currentTempInCelcius = currentHumidity;
+        }
         public double getDesiredHumidity() {
             return desiredHumidity;
         }
