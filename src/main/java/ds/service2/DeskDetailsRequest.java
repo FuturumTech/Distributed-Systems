@@ -18,7 +18,7 @@ private static final long serialVersionUID = 0L;
   private DeskDetailsRequest() {
     deskNumber_ = 0;
     roomName_ = "";
-    deskHeight_ = 0;
+    desiredDeskHeight_ = 0;
     operation_ = 0;
   }
 
@@ -59,7 +59,7 @@ private static final long serialVersionUID = 0L;
           }
           case 24: {
 
-            deskHeight_ = input.readInt32();
+            desiredDeskHeight_ = input.readInt32();
             break;
           }
           case 32: {
@@ -241,13 +241,13 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int DESKHEIGHT_FIELD_NUMBER = 3;
-  private int deskHeight_;
+  public static final int DESIREDDESKHEIGHT_FIELD_NUMBER = 3;
+  private int desiredDeskHeight_;
   /**
-   * <code>int32 deskHeight = 3;</code>
+   * <code>int32 desiredDeskHeight = 3;</code>
    */
-  public int getDeskHeight() {
-    return deskHeight_;
+  public int getDesiredDeskHeight() {
+    return desiredDeskHeight_;
   }
 
   public static final int OPERATION_FIELD_NUMBER = 4;
@@ -287,8 +287,8 @@ private static final long serialVersionUID = 0L;
     if (!getRoomNameBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 2, roomName_);
     }
-    if (deskHeight_ != 0) {
-      output.writeInt32(3, deskHeight_);
+    if (desiredDeskHeight_ != 0) {
+      output.writeInt32(3, desiredDeskHeight_);
     }
     if (operation_ != ds.service2.DeskDetailsRequest.Operation.DESKUP.getNumber()) {
       output.writeEnum(4, operation_);
@@ -309,9 +309,9 @@ private static final long serialVersionUID = 0L;
     if (!getRoomNameBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, roomName_);
     }
-    if (deskHeight_ != 0) {
+    if (desiredDeskHeight_ != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(3, deskHeight_);
+        .computeInt32Size(3, desiredDeskHeight_);
     }
     if (operation_ != ds.service2.DeskDetailsRequest.Operation.DESKUP.getNumber()) {
       size += com.google.protobuf.CodedOutputStream
@@ -337,8 +337,8 @@ private static final long serialVersionUID = 0L;
         == other.getDeskNumber());
     result = result && getRoomName()
         .equals(other.getRoomName());
-    result = result && (getDeskHeight()
-        == other.getDeskHeight());
+    result = result && (getDesiredDeskHeight()
+        == other.getDesiredDeskHeight());
     result = result && operation_ == other.operation_;
     result = result && unknownFields.equals(other.unknownFields);
     return result;
@@ -355,8 +355,8 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + getDeskNumber();
     hash = (37 * hash) + ROOMNAME_FIELD_NUMBER;
     hash = (53 * hash) + getRoomName().hashCode();
-    hash = (37 * hash) + DESKHEIGHT_FIELD_NUMBER;
-    hash = (53 * hash) + getDeskHeight();
+    hash = (37 * hash) + DESIREDDESKHEIGHT_FIELD_NUMBER;
+    hash = (53 * hash) + getDesiredDeskHeight();
     hash = (37 * hash) + OPERATION_FIELD_NUMBER;
     hash = (53 * hash) + operation_;
     hash = (29 * hash) + unknownFields.hashCode();
@@ -496,7 +496,7 @@ private static final long serialVersionUID = 0L;
 
       roomName_ = "";
 
-      deskHeight_ = 0;
+      desiredDeskHeight_ = 0;
 
       operation_ = 0;
 
@@ -528,7 +528,7 @@ private static final long serialVersionUID = 0L;
       ds.service2.DeskDetailsRequest result = new ds.service2.DeskDetailsRequest(this);
       result.deskNumber_ = deskNumber_;
       result.roomName_ = roomName_;
-      result.deskHeight_ = deskHeight_;
+      result.desiredDeskHeight_ = desiredDeskHeight_;
       result.operation_ = operation_;
       onBuilt();
       return result;
@@ -585,8 +585,8 @@ private static final long serialVersionUID = 0L;
         roomName_ = other.roomName_;
         onChanged();
       }
-      if (other.getDeskHeight() != 0) {
-        setDeskHeight(other.getDeskHeight());
+      if (other.getDesiredDeskHeight() != 0) {
+        setDesiredDeskHeight(other.getDesiredDeskHeight());
       }
       if (other.operation_ != 0) {
         setOperationValue(other.getOperationValue());
@@ -715,28 +715,28 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int deskHeight_ ;
+    private int desiredDeskHeight_ ;
     /**
-     * <code>int32 deskHeight = 3;</code>
+     * <code>int32 desiredDeskHeight = 3;</code>
      */
-    public int getDeskHeight() {
-      return deskHeight_;
+    public int getDesiredDeskHeight() {
+      return desiredDeskHeight_;
     }
     /**
-     * <code>int32 deskHeight = 3;</code>
+     * <code>int32 desiredDeskHeight = 3;</code>
      */
-    public Builder setDeskHeight(int value) {
+    public Builder setDesiredDeskHeight(int value) {
       
-      deskHeight_ = value;
+      desiredDeskHeight_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>int32 deskHeight = 3;</code>
+     * <code>int32 desiredDeskHeight = 3;</code>
      */
-    public Builder clearDeskHeight() {
+    public Builder clearDesiredDeskHeight() {
       
-      deskHeight_ = 0;
+      desiredDeskHeight_ = 0;
       onChanged();
       return this;
     }

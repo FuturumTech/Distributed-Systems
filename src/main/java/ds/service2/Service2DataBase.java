@@ -1,15 +1,25 @@
 package ds.service2;
 
-import java.util.HashMap;
-
-import ds.service1.IllegalDeskHeightException;
+import java.util.ArrayList;
 
 public class Service2DataBase {
-
+	public static ArrayList<Desk> myDesks = new ArrayList<>();
+	
+	public ArrayList<Desk> getMyDesks() {
+        return myDesks;
+    }
 	public static class Desk {
 		int deskNumber, deskHeight;
 		String roomName;
 		int minDeskHeight = 50, maxDeskHeight = 145;
+
+		// Constructor with parameters and using setter method that includes validation
+		// for height:
+		public Desk(String roomName, int deskNumber, int deskHeight) throws IllegalDeskHeightException {
+			this.setRoomName(roomName);
+			this.setDeskNumber(deskNumber);
+			this.setDeskHeight(deskHeight);
+		}
 
 		public int getDeskNumber() {
 			return deskNumber;
@@ -28,7 +38,7 @@ public class Service2DataBase {
 			if (deskHeight >= minDeskHeight && deskHeight <= maxDeskHeight) {
 				this.deskHeight = deskHeight;
 			} else {
-				//throw custom exception
+				// throw custom exception
 				throw new IllegalDeskHeightException(this.minDeskHeight, this.maxDeskHeight);
 			}
 

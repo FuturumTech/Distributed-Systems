@@ -33,17 +33,17 @@ public final class Service2Impl {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\016service2.proto\022\010service2\"\260\001\n\022DeskDetai" +
+      "\n\016service2.proto\022\010service2\"\267\001\n\022DeskDetai" +
       "lsRequest\022\022\n\ndeskNumber\030\001 \001(\005\022\020\n\010roomNam" +
-      "e\030\002 \001(\t\022\022\n\ndeskHeight\030\003 \001(\005\0229\n\toperation" +
-      "\030\004 \001(\0162&.service2.DeskDetailsRequest.Ope" +
-      "ration\"%\n\tOperation\022\n\n\006DESKUP\020\000\022\014\n\010DESKD" +
-      "OWN\020\001\"D\n\024DeskAdjustedResponse\022\022\n\ndeskHei" +
-      "ght\030\001 \001(\005\022\030\n\020isHeightAdjusted\030\002 \001(\0102_\n\010S" +
-      "ervice2\022S\n\021DeskStatusInquiry\022\034.service2." +
-      "DeskDetailsRequest\032\036.service2.DeskAdjust" +
-      "edResponse\"\000B\035\n\013ds.service2B\014Service2Imp" +
-      "lP\001b\006proto3"
+      "e\030\002 \001(\t\022\031\n\021desiredDeskHeight\030\003 \001(\005\0229\n\top" +
+      "eration\030\004 \001(\0162&.service2.DeskDetailsRequ" +
+      "est.Operation\"%\n\tOperation\022\n\n\006DESKUP\020\000\022\014" +
+      "\n\010DESKDOWN\020\001\"D\n\024DeskAdjustedResponse\022\022\n\n" +
+      "deskHeight\030\001 \001(\005\022\030\n\020isHeightAdjusted\030\002 \001" +
+      "(\0102^\n\010Service2\022R\n\020DeskStatusHeight\022\034.ser" +
+      "vice2.DeskDetailsRequest\032\036.service2.Desk" +
+      "AdjustedResponse\"\000B\035\n\013ds.service2B\014Servi" +
+      "ce2ImplP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -62,7 +62,7 @@ public final class Service2Impl {
     internal_static_service2_DeskDetailsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_service2_DeskDetailsRequest_descriptor,
-        new java.lang.String[] { "DeskNumber", "RoomName", "DeskHeight", "Operation", });
+        new java.lang.String[] { "DeskNumber", "RoomName", "DesiredDeskHeight", "Operation", });
     internal_static_service2_DeskAdjustedResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_service2_DeskAdjustedResponse_fieldAccessorTable = new

@@ -21,7 +21,7 @@ public class Service1DataBase {
             this.roomName = roomName;
             this.currentHumidity = currentHumidity;
             this.currentTempInCelcius = currentTempInCelcius;
-            //default values of desired leves, user can also change it in grpc desiredSettingHVAC
+            //default values of desired levels, user can also change it in grpc desiredSettingHVAC
             this.desiredHumidity = 55;
             this.desiredTempInCelcius = 21;
         }
@@ -59,9 +59,5 @@ public class Service1DataBase {
             this.desiredTempInCelcius = desiredTempInCelcius;
         }
 	}
-	public void checkRoomName(String targetRoom) {
-		
-		
-	}
-	
+
 }

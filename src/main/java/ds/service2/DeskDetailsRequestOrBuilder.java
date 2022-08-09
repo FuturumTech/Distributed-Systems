@@ -23,9 +23,9 @@ public interface DeskDetailsRequestOrBuilder extends
       getRoomNameBytes();
 
   /**
-   * <code>int32 deskHeight = 3;</code>
+   * <code>int32 desiredDeskHeight = 3;</code>
    */
-  int getDeskHeight();
+  int getDesiredDeskHeight();
 
   /**
    * <code>.service2.DeskDetailsRequest.Operation operation = 4;</code>
