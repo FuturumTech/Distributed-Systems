@@ -29,15 +29,15 @@ public class Service2 extends Service2ImplBase{
 
 
 	@Override
-	public void service2Do(RequestMessage request, StreamObserver<ResponseMessage> responseObserver) {
+	public void deskStatusInquiry(DeskDetailsRequest request, StreamObserver<DeskAdjustedResponse> responseObserver) {
 
 		//prepare the value to be set back
-		int length = request.getText().length();
+		
 		
 		//preparing the response message
-		ResponseMessage reply = ResponseMessage.newBuilder().setLength(length).build();
+			//ResponseMessage reply = ResponseMessage.newBuilder().setLength(length).build();
 
-		responseObserver.onNext( reply ); 
+		//responseObserver.onNext( reply ); 
 
 		responseObserver.onCompleted();
 

@@ -8,15 +8,25 @@ package service2;
 
 // Interface exported by the server.
 service Service2 {
-  
-  rpc service2_do(RequestMessage) returns (ResponseMessage) {}
+  rpc DeskStatusInquiry(DeskDetailsRequest) returns (DeskAdjustedResponse){};
+  //rpc service2_do(RequestMessage) returns (ResponseMessage) {}
     
 }
 
-message RequestMessage {
-  string text = 1;  
+message DeskDetailsRequest{
+	int32 deskNumber = 1;
+	string roomName = 2;
+	int32 deskHeight = 3;
+
+	 enum Operation{
+  	DESKUP =0;
+  	DESKDOWN=1;
+   }
+  Operation operation = 4;
+
 }
 
-message ResponseMessage {
-  int32 length = 1;
+message DeskAdjustedResponse {
+  int32 deskHeight = 1;
+  bool isHeightAdjusted = 2;
 }

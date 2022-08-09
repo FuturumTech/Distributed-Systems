@@ -15,15 +15,15 @@ public final class Service2Impl {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_service2_RequestMessage_descriptor;
+    internal_static_service2_DeskDetailsRequest_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_service2_RequestMessage_fieldAccessorTable;
+      internal_static_service2_DeskDetailsRequest_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_service2_ResponseMessage_descriptor;
+    internal_static_service2_DeskAdjustedResponse_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_service2_ResponseMessage_fieldAccessorTable;
+      internal_static_service2_DeskAdjustedResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -33,12 +33,17 @@ public final class Service2Impl {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\016service2.proto\022\010service2\"\036\n\016RequestMes" +
-      "sage\022\014\n\004text\030\001 \001(\t\"!\n\017ResponseMessage\022\016\n" +
-      "\006length\030\001 \001(\0052P\n\010Service2\022D\n\013service2_do" +
-      "\022\030.service2.RequestMessage\032\031.service2.Re" +
-      "sponseMessage\"\000B\035\n\013ds.service2B\014Service2" +
-      "ImplP\001b\006proto3"
+      "\n\016service2.proto\022\010service2\"\260\001\n\022DeskDetai" +
+      "lsRequest\022\022\n\ndeskNumber\030\001 \001(\005\022\020\n\010roomNam" +
+      "e\030\002 \001(\t\022\022\n\ndeskHeight\030\003 \001(\005\0229\n\toperation" +
+      "\030\004 \001(\0162&.service2.DeskDetailsRequest.Ope" +
+      "ration\"%\n\tOperation\022\n\n\006DESKUP\020\000\022\014\n\010DESKD" +
+      "OWN\020\001\"D\n\024DeskAdjustedResponse\022\022\n\ndeskHei" +
+      "ght\030\001 \001(\005\022\030\n\020isHeightAdjusted\030\002 \001(\0102_\n\010S" +
+      "ervice2\022S\n\021DeskStatusInquiry\022\034.service2." +
+      "DeskDetailsRequest\032\036.service2.DeskAdjust" +
+      "edResponse\"\000B\035\n\013ds.service2B\014Service2Imp" +
+      "lP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -52,18 +57,18 @@ public final class Service2Impl {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
-    internal_static_service2_RequestMessage_descriptor =
+    internal_static_service2_DeskDetailsRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_service2_RequestMessage_fieldAccessorTable = new
+    internal_static_service2_DeskDetailsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_service2_RequestMessage_descriptor,
-        new java.lang.String[] { "Text", });
-    internal_static_service2_ResponseMessage_descriptor =
+        internal_static_service2_DeskDetailsRequest_descriptor,
+        new java.lang.String[] { "DeskNumber", "RoomName", "DeskHeight", "Operation", });
+    internal_static_service2_DeskAdjustedResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_service2_ResponseMessage_fieldAccessorTable = new
+    internal_static_service2_DeskAdjustedResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_service2_ResponseMessage_descriptor,
-        new java.lang.String[] { "Length", });
+        internal_static_service2_DeskAdjustedResponse_descriptor,
+        new java.lang.String[] { "DeskHeight", "IsHeightAdjusted", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

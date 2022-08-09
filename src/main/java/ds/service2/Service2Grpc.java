@@ -30,36 +30,36 @@ public final class Service2Grpc {
   public static final String SERVICE_NAME = "service2.Service2";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<ds.service2.RequestMessage,
-      ds.service2.ResponseMessage> getService2DoMethod;
+  private static volatile io.grpc.MethodDescriptor<ds.service2.DeskDetailsRequest,
+      ds.service2.DeskAdjustedResponse> getDeskStatusInquiryMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "service2_do",
-      requestType = ds.service2.RequestMessage.class,
-      responseType = ds.service2.ResponseMessage.class,
+      fullMethodName = SERVICE_NAME + '/' + "DeskStatusInquiry",
+      requestType = ds.service2.DeskDetailsRequest.class,
+      responseType = ds.service2.DeskAdjustedResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<ds.service2.RequestMessage,
-      ds.service2.ResponseMessage> getService2DoMethod() {
-    io.grpc.MethodDescriptor<ds.service2.RequestMessage, ds.service2.ResponseMessage> getService2DoMethod;
-    if ((getService2DoMethod = Service2Grpc.getService2DoMethod) == null) {
+  public static io.grpc.MethodDescriptor<ds.service2.DeskDetailsRequest,
+      ds.service2.DeskAdjustedResponse> getDeskStatusInquiryMethod() {
+    io.grpc.MethodDescriptor<ds.service2.DeskDetailsRequest, ds.service2.DeskAdjustedResponse> getDeskStatusInquiryMethod;
+    if ((getDeskStatusInquiryMethod = Service2Grpc.getDeskStatusInquiryMethod) == null) {
       synchronized (Service2Grpc.class) {
-        if ((getService2DoMethod = Service2Grpc.getService2DoMethod) == null) {
-          Service2Grpc.getService2DoMethod = getService2DoMethod = 
-              io.grpc.MethodDescriptor.<ds.service2.RequestMessage, ds.service2.ResponseMessage>newBuilder()
+        if ((getDeskStatusInquiryMethod = Service2Grpc.getDeskStatusInquiryMethod) == null) {
+          Service2Grpc.getDeskStatusInquiryMethod = getDeskStatusInquiryMethod = 
+              io.grpc.MethodDescriptor.<ds.service2.DeskDetailsRequest, ds.service2.DeskAdjustedResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
-                  "service2.Service2", "service2_do"))
+                  "service2.Service2", "DeskStatusInquiry"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  ds.service2.RequestMessage.getDefaultInstance()))
+                  ds.service2.DeskDetailsRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  ds.service2.ResponseMessage.getDefaultInstance()))
-                  .setSchemaDescriptor(new Service2MethodDescriptorSupplier("service2_do"))
+                  ds.service2.DeskAdjustedResponse.getDefaultInstance()))
+                  .setSchemaDescriptor(new Service2MethodDescriptorSupplier("DeskStatusInquiry"))
                   .build();
           }
         }
      }
-     return getService2DoMethod;
+     return getDeskStatusInquiryMethod;
   }
 
   /**
@@ -94,20 +94,20 @@ public final class Service2Grpc {
 
     /**
      */
-    public void service2Do(ds.service2.RequestMessage request,
-        io.grpc.stub.StreamObserver<ds.service2.ResponseMessage> responseObserver) {
-      asyncUnimplementedUnaryCall(getService2DoMethod(), responseObserver);
+    public void deskStatusInquiry(ds.service2.DeskDetailsRequest request,
+        io.grpc.stub.StreamObserver<ds.service2.DeskAdjustedResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getDeskStatusInquiryMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
-            getService2DoMethod(),
+            getDeskStatusInquiryMethod(),
             asyncUnaryCall(
               new MethodHandlers<
-                ds.service2.RequestMessage,
-                ds.service2.ResponseMessage>(
-                  this, METHODID_SERVICE2_DO)))
+                ds.service2.DeskDetailsRequest,
+                ds.service2.DeskAdjustedResponse>(
+                  this, METHODID_DESK_STATUS_INQUIRY)))
           .build();
     }
   }
@@ -135,10 +135,10 @@ public final class Service2Grpc {
 
     /**
      */
-    public void service2Do(ds.service2.RequestMessage request,
-        io.grpc.stub.StreamObserver<ds.service2.ResponseMessage> responseObserver) {
+    public void deskStatusInquiry(ds.service2.DeskDetailsRequest request,
+        io.grpc.stub.StreamObserver<ds.service2.DeskAdjustedResponse> responseObserver) {
       asyncUnaryCall(
-          getChannel().newCall(getService2DoMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getDeskStatusInquiryMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -165,9 +165,9 @@ public final class Service2Grpc {
 
     /**
      */
-    public ds.service2.ResponseMessage service2Do(ds.service2.RequestMessage request) {
+    public ds.service2.DeskAdjustedResponse deskStatusInquiry(ds.service2.DeskDetailsRequest request) {
       return blockingUnaryCall(
-          getChannel(), getService2DoMethod(), getCallOptions(), request);
+          getChannel(), getDeskStatusInquiryMethod(), getCallOptions(), request);
     }
   }
 
@@ -194,14 +194,14 @@ public final class Service2Grpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<ds.service2.ResponseMessage> service2Do(
-        ds.service2.RequestMessage request) {
+    public com.google.common.util.concurrent.ListenableFuture<ds.service2.DeskAdjustedResponse> deskStatusInquiry(
+        ds.service2.DeskDetailsRequest request) {
       return futureUnaryCall(
-          getChannel().newCall(getService2DoMethod(), getCallOptions()), request);
+          getChannel().newCall(getDeskStatusInquiryMethod(), getCallOptions()), request);
     }
   }
 
-  private static final int METHODID_SERVICE2_DO = 0;
+  private static final int METHODID_DESK_STATUS_INQUIRY = 0;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -220,9 +220,9 @@ public final class Service2Grpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
-        case METHODID_SERVICE2_DO:
-          serviceImpl.service2Do((ds.service2.RequestMessage) request,
-              (io.grpc.stub.StreamObserver<ds.service2.ResponseMessage>) responseObserver);
+        case METHODID_DESK_STATUS_INQUIRY:
+          serviceImpl.deskStatusInquiry((ds.service2.DeskDetailsRequest) request,
+              (io.grpc.stub.StreamObserver<ds.service2.DeskAdjustedResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -285,7 +285,7 @@ public final class Service2Grpc {
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new Service2FileDescriptorSupplier())
-              .addMethod(getService2DoMethod())
+              .addMethod(getDeskStatusInquiryMethod())
               .build();
         }
       }

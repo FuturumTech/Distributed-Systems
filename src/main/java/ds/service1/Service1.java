@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceInfo;
 
-import ds.service1.Service1DataBase.roomName;
+import ds.service1.Service1DataBase.RoomName;
 import ds.service1.Service1Grpc.Service1ImplBase;
 import ds.service2.Service2Grpc.Service2ImplBase;
 import io.grpc.Server;
@@ -26,10 +26,10 @@ public class Service1 extends Service1ImplBase {
 				//Adding mock Room details to database Service 1:
 				Service1DataBase myTempData = new Service1DataBase();
 
-				Service1DataBase.roomName temp1 = new Service1DataBase.roomName("consultation room", 73, 22.5);
-				Service1DataBase.roomName temp2 = new Service1DataBase.roomName("hallway", 65, 24.5);
-				Service1DataBase.roomName temp3 = new Service1DataBase.roomName("reception", 49, 18.4);
-				Service1DataBase.roomName temp4 = new Service1DataBase.roomName("canteen", 89, 26.5);
+				Service1DataBase.RoomName temp1 = new Service1DataBase.RoomName("consultation room", 73, 22.5);
+				Service1DataBase.RoomName temp2 = new Service1DataBase.RoomName("hallway", 65, 24.5);
+				Service1DataBase.RoomName temp3 = new Service1DataBase.RoomName("reception", 49, 18.4);
+				Service1DataBase.RoomName temp4 = new Service1DataBase.RoomName("canteen", 89, 26.5);
 				myTempData.getMyRooms().add(temp1);
 				myTempData.getMyRooms().add(temp2);
 				myTempData.getMyRooms().add(temp3);
@@ -133,7 +133,7 @@ public class Service1 extends Service1ImplBase {
 		double desiredTempInCelcius = request.getDesiredTempInCelcius();
 		System.out.println("On Server side (desiredSettingHVAC) received: \n\t" + roomName + " (room name) \n\t" + desiredHumidity + "(desired humidity) \n\t" + desiredTempInCelcius + "(desired temperature)");
 		try{
-			Service1DataBase.roomName roomInput = findRoom(roomName);
+			Service1DataBase.RoomName roomInput = findRoom(roomName);
 			//if the room name exist in the database:
 			if(roomInput != null) {
 				roomInput.setDesiredHumidity(desiredHumidity);
@@ -184,7 +184,7 @@ public class Service1 extends Service1ImplBase {
 				double tempInCelcius = value.getTempInCelcius();
 				System.out.println("On Server side (hVACstatus) received: \n\t" + roomName + " (room name) \n\t"+ humidity + "(humidity) \n\t" + tempInCelcius + "(temperature)");
 				try{
-					Service1DataBase.roomName roomInput = findRoom(roomName);
+					Service1DataBase.RoomName roomInput = findRoom(roomName);
 					//if the room name exist in the database:
 					if(roomInput != null) {
 						roomInput.setCurrentHumidity(humidity);
@@ -240,7 +240,7 @@ public class Service1 extends Service1ImplBase {
 		String roomName = request.getRoomName();
 		
 		try{
-			Service1DataBase.roomName roomInput = findRoom(roomName);
+			Service1DataBase.RoomName roomInput = findRoom(roomName);
 			
 			//if the room name exist in the database:
 			if(roomInput != null) {
@@ -289,7 +289,7 @@ public class Service1 extends Service1ImplBase {
 
 	}
 	//method to find room name in ArrayList for grpc roomStatus
-		 private static Service1DataBase.roomName findRoom(String room) {
+		 private static Service1DataBase.RoomName findRoom(String room) {
 			 //System.out.println("ArrayList size is in findRoom method is: " + Service1.myTempData.getMyRooms().size());
 			 for(int i=0; i<Service1.myTempData.getMyRooms().size(); i++) {
 		    //for(Service1DataBase.roomName roomName : myTempData.getMyRooms()) {
@@ -300,7 +300,7 @@ public class Service1 extends Service1ImplBase {
 		    return null;
 		}
 		//method to find room name in ArrayList for grpc roomStatus
-		 private static double[] calculateDifference(Service1DataBase.roomName room) {
+		 private static double[] calculateDifference(Service1DataBase.RoomName room) {
 			 double[] tempArray = new double[2];
 			 tempArray[0] = room.getCurrentHumidity() - room.getDesiredHumidity();
 			 tempArray[1] = room.getCurrentTempInCelcius() - room.getDesiredTempInCelcius();

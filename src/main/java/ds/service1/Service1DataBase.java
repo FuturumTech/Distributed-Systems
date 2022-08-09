@@ -3,21 +3,21 @@ package ds.service1;
 import java.util.ArrayList;
 
 public class Service1DataBase {
-	protected static ArrayList<roomName> myRooms = new ArrayList<>();
+	protected static ArrayList<RoomName> myRooms = new ArrayList<>();
 	
 	
 
-	public ArrayList<roomName> getMyRooms() {
+	public ArrayList<RoomName> getMyRooms() {
         return myRooms;
     }
 
-	public static class roomName {
+	public static class RoomName {
 		private String roomName;
 		private double currentHumidity, currentTempInCelcius;
 		private double desiredHumidity,desiredTempInCelcius;
 		
 		//Constructor
-		public roomName(String roomName, double currentHumidity, double currentTempInCelcius) {
+		public RoomName(String roomName, double currentHumidity, double currentTempInCelcius) {
             this.roomName = roomName;
             this.currentHumidity = currentHumidity;
             this.currentTempInCelcius = currentTempInCelcius;

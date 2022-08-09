@@ -236,8 +236,13 @@ public class ControllerGUI implements ActionListener {
 					.setRoomName(entry1.getText()).build();
 			
 			// retreving reply from service
-			//ds.service1.AdjustHVAC response = asyncStub.RoomStatus(request);
-			//ds.service1.ResponseMessage response = blockingStub.RoomStatus(request);
+						//ds.service1.AdjustHVAC response = blockingStub.RoomStatus(request);
+
+						// display the reply received
+						//reply3.setText(String.valueOf(response);
+
+						// shutdown the channel
+						channel.shutdown();
 
 			//reply1.setText(String.valueOf(response.getAdjustHVAC()));
 
@@ -304,13 +309,13 @@ public class ControllerGUI implements ActionListener {
 			Service2Grpc.Service2BlockingStub blockingStub = Service2Grpc.newBlockingStub(channel);
 
 			// preparing message to send
-			ds.service2.RequestMessage request = ds.service2.RequestMessage.newBuilder().setText(entry2.getText())
-					.build();
+				//ds.service2.RequestMessage request = ds.service2.RequestMessage.newBuilder().setText(entry2.getText())
+					//.build();
 
 			// retreving reply from service
-			ds.service2.ResponseMessage response = blockingStub.service2Do(request);
+					//ds.service2.ResponseMessage response = blockingStub.service2Do(request);
 
-			reply2.setText(String.valueOf(response.getLength()));
+					//reply2.setText(String.valueOf(response.getLength()));
 
 		} else if (label.equals("Invoke Service 3")) {
 			System.out.println("service 3 to be invoked ...");
