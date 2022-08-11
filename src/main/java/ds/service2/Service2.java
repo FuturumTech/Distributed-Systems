@@ -30,17 +30,20 @@ public class Service2 extends Service2ImplBase {
 
 		// try catch for custom exception that validates min and max height for desk
 		try {
-			Service2DataBase.Desk temp1 = new Service2DataBase.Desk("consultation room", 3, 56);
-			Service2DataBase.Desk temp2 = new Service2DataBase.Desk("open space", 1, 123);
-			Service2DataBase.Desk temp3 = new Service2DataBase.Desk("open space", 2, 68);
-			Service2DataBase.Desk temp4 = new Service2DataBase.Desk("reception", 4, 76);
+			Service2DataBase.Desk temp1 = new Service2DataBase.Desk("consultation room", 3, 56, 45);
+			Service2DataBase.Desk temp2 = new Service2DataBase.Desk("open space", 1, 123, 76);
+			Service2DataBase.Desk temp3 = new Service2DataBase.Desk("open space", 2, 68, 56);
+			Service2DataBase.Desk temp4 = new Service2DataBase.Desk("reception", 4, 76, 60);
 			myTempData.getMyDesks().add(temp1);
 			myTempData.getMyDesks().add(temp2);
 			myTempData.getMyDesks().add(temp3);
 			myTempData.getMyDesks().add(temp4);
-		} catch (IllegalDeskHeightException e) {
+		} catch (IllegalDeskHeightException | IllegalChairHeightException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e.printStackTrace();			
+			System.out.println("Encountered input mismatch for height");
+			//printing custom message:
+			e.getMessage();
 		}
 
 		// testing if added properly
@@ -81,11 +84,7 @@ public class Service2 extends Service2ImplBase {
 				"receiving deskStatusHeight method " + request.getDeskNumber() + " in room: " + request.getRoomName()
 						+ " to get " + request.getOperation() + " increase by: " + request.getDesiredDeskHeight());
 
-		float value = Float.NaN;
-		String msg = "ok " + request.getOperation().name() + " result ";
-		// CONTINUE HERE:
-		// in case the desk number in room database was not found and method returned
-		// null:
+		// methods variables:
 		int deskHeightChangeRequest = request.getDesiredDeskHeight();
 		boolean isHeightAdjusted = false;
 		DeskAdjustedResponse reply;
@@ -133,7 +132,76 @@ public class Service2 extends Service2ImplBase {
 		responseObserver.onCompleted();
 
 	}
+	@Override
+	public void chairStatusHeight(ChairHeightRequest request, StreamObserver<ChairHeightResponse> responseObserver) {
 
+		// prepare the value to be set back
+		System.out.println(
+				"receiving chairStatusHeight method " + request.getChair());
+		// declaring temp Chair object from request and storing values;
+		Chair chairRequest =  request.getChair();
+		int chairHeightRequest = chairRequest.getChairHeight();
+		int deskNumberRequest = chairRequest.getDeskNumber();
+		String roomNameRequest = chairRequest.getRoomName();
+
+		boolean isHeightAdjusted = false;
+		ChairHeightResponse reply;
+		try {
+			// result of the below method may be null if not found, therefore try catch
+			Service2DataBase.Desk myChair = findDesk(roomNameRequest, deskNumberRequest);
+			// if client request is for increment of desk height
+			if (myChair != null && request.getOperation() == ChairHeightRequest.Operation.CHAIRUP) {
+				// request is an increment of desiredDeskHeiht
+				int newHeightIncrement = myChair.getChairHeight() + chairHeightRequest;
+				// below method validate range of the height and throws custom exception:
+				myChair.setChairHeight(newHeightIncrement);
+				isHeightAdjusted = true;
+				System.out.println("chairStatusHeight() method run correctly, new chair height is: "
+						+ myChair.getChairHeight() + " increased by: " + chairHeightRequest);
+			}
+			// else if client request is for decrement of desk height
+			else if (myChair != null && request.getOperation() == ChairHeightRequest.Operation.CHAIRDOWN) {
+				// request is an increment of desiredDeskHeiht
+				int newHeightDecrement = myChair.getChairHeight() - chairHeightRequest;
+				// below method validate range of the height and throws custom exception:
+				myChair.setDeskHeight(newHeightDecrement);
+				isHeightAdjusted = true;
+				System.out.println("chairStatusHeight() method run correctly, new desk height is: "
+						+ myChair.getChairHeight() + " decreased by: " + chairHeightRequest);
+			}
+			// preparing the response message, case if the desk is found and adjusted
+			// correctly
+			reply = ChairHeightResponse.newBuilder().setDeskHeight(myChair.getDeskHeight())
+					.setIsHeightAdjusted(isHeightAdjusted).build();
+		} catch (NullPointerException ex) {
+			System.out.println(ex.getMessage());
+			// preparing the response message, -999 means to the client that unusual path
+			// reached and boolean isHeightAdjusted will remain false
+			reply = ChairHeightResponse.newBuilder().setDeskHeight(-999).setIsHeightAdjusted(isHeightAdjusted).build();
+		} catch (IllegalDeskHeightException e) {
+			System.out.println(e.getMessage());
+			// preparing the response message, -999 means to the client that unusual path
+			// reached and boolean isHeightAdjusted will remain false
+			reply = ChairHeightResponse.newBuilder().setDeskHeight(-999).setIsHeightAdjusted(isHeightAdjusted).build();
+		}
+
+		responseObserver.onNext(reply);
+
+		responseObserver.onCompleted();
+
+	}
+	//method to substract or add using generics for Integers
+	static public <T> T substractOrAddNumbers(T numb1, T numb2, String Operation){
+		if (numb1.getClass() == Integer.class && numb1.getClass() == Number.class && Operation.equalsIgnoreCase("addition")) {
+	        // With auto-boxing / unboxing
+	        return (T) (Integer) ((Integer) numb1 + (Integer) numb2);
+	    }else if (numb1.getClass() == Integer.class && numb1.getClass() == Number.class && Operation.equalsIgnoreCase("substraction")) {
+	    	return (T) (Integer) ((Integer) numb1 - (Integer) numb2);
+	    	//else we will return a string 
+		} else return (T) ((String) Operation);
+		
+	}
+	
 	// method to find desk in ArrayList for grpc deskStatusHeight
 	// below option does not work:
 	// private static boolean findDesk(ArrayList<Service2DataBase> deskArray, String

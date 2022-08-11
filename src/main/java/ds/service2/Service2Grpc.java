@@ -62,6 +62,38 @@ public final class Service2Grpc {
      return getDeskStatusHeightMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<ds.service2.ChairHeightRequest,
+      ds.service2.ChairHeightResponse> getChairStatusHeightMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "ChairStatusHeight",
+      requestType = ds.service2.ChairHeightRequest.class,
+      responseType = ds.service2.ChairHeightResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<ds.service2.ChairHeightRequest,
+      ds.service2.ChairHeightResponse> getChairStatusHeightMethod() {
+    io.grpc.MethodDescriptor<ds.service2.ChairHeightRequest, ds.service2.ChairHeightResponse> getChairStatusHeightMethod;
+    if ((getChairStatusHeightMethod = Service2Grpc.getChairStatusHeightMethod) == null) {
+      synchronized (Service2Grpc.class) {
+        if ((getChairStatusHeightMethod = Service2Grpc.getChairStatusHeightMethod) == null) {
+          Service2Grpc.getChairStatusHeightMethod = getChairStatusHeightMethod = 
+              io.grpc.MethodDescriptor.<ds.service2.ChairHeightRequest, ds.service2.ChairHeightResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(
+                  "service2.Service2", "ChairStatusHeight"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ds.service2.ChairHeightRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ds.service2.ChairHeightResponse.getDefaultInstance()))
+                  .setSchemaDescriptor(new Service2MethodDescriptorSupplier("ChairStatusHeight"))
+                  .build();
+          }
+        }
+     }
+     return getChairStatusHeightMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -99,6 +131,13 @@ public final class Service2Grpc {
       asyncUnimplementedUnaryCall(getDeskStatusHeightMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void chairStatusHeight(ds.service2.ChairHeightRequest request,
+        io.grpc.stub.StreamObserver<ds.service2.ChairHeightResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getChairStatusHeightMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -108,6 +147,13 @@ public final class Service2Grpc {
                 ds.service2.DeskDetailsRequest,
                 ds.service2.DeskAdjustedResponse>(
                   this, METHODID_DESK_STATUS_HEIGHT)))
+          .addMethod(
+            getChairStatusHeightMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                ds.service2.ChairHeightRequest,
+                ds.service2.ChairHeightResponse>(
+                  this, METHODID_CHAIR_STATUS_HEIGHT)))
           .build();
     }
   }
@@ -140,6 +186,14 @@ public final class Service2Grpc {
       asyncUnaryCall(
           getChannel().newCall(getDeskStatusHeightMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void chairStatusHeight(ds.service2.ChairHeightRequest request,
+        io.grpc.stub.StreamObserver<ds.service2.ChairHeightResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getChairStatusHeightMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -168,6 +222,13 @@ public final class Service2Grpc {
     public ds.service2.DeskAdjustedResponse deskStatusHeight(ds.service2.DeskDetailsRequest request) {
       return blockingUnaryCall(
           getChannel(), getDeskStatusHeightMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public ds.service2.ChairHeightResponse chairStatusHeight(ds.service2.ChairHeightRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getChairStatusHeightMethod(), getCallOptions(), request);
     }
   }
 
@@ -199,9 +260,18 @@ public final class Service2Grpc {
       return futureUnaryCall(
           getChannel().newCall(getDeskStatusHeightMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<ds.service2.ChairHeightResponse> chairStatusHeight(
+        ds.service2.ChairHeightRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getChairStatusHeightMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_DESK_STATUS_HEIGHT = 0;
+  private static final int METHODID_CHAIR_STATUS_HEIGHT = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -223,6 +293,10 @@ public final class Service2Grpc {
         case METHODID_DESK_STATUS_HEIGHT:
           serviceImpl.deskStatusHeight((ds.service2.DeskDetailsRequest) request,
               (io.grpc.stub.StreamObserver<ds.service2.DeskAdjustedResponse>) responseObserver);
+          break;
+        case METHODID_CHAIR_STATUS_HEIGHT:
+          serviceImpl.chairStatusHeight((ds.service2.ChairHeightRequest) request,
+              (io.grpc.stub.StreamObserver<ds.service2.ChairHeightResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -286,6 +360,7 @@ public final class Service2Grpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new Service2FileDescriptorSupplier())
               .addMethod(getDeskStatusHeightMethod())
+              .addMethod(getChairStatusHeightMethod())
               .build();
         }
       }

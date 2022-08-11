@@ -24,6 +24,21 @@ public final class Service2Impl {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_service2_DeskAdjustedResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_service2_Chair_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_service2_Chair_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_service2_ChairHeightRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_service2_ChairHeightRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_service2_ChairHeightResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_service2_ChairHeightResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -40,10 +55,20 @@ public final class Service2Impl {
       "est.Operation\"%\n\tOperation\022\n\n\006DESKUP\020\000\022\014" +
       "\n\010DESKDOWN\020\001\"D\n\024DeskAdjustedResponse\022\022\n\n" +
       "deskHeight\030\001 \001(\005\022\030\n\020isHeightAdjusted\030\002 \001" +
-      "(\0102^\n\010Service2\022R\n\020DeskStatusHeight\022\034.ser" +
-      "vice2.DeskDetailsRequest\032\036.service2.Desk" +
-      "AdjustedResponse\"\000B\035\n\013ds.service2B\014Servi" +
-      "ce2ImplP\001b\006proto3"
+      "(\010\"B\n\005Chair\022\023\n\013chairHeight\030\001 \001(\005\022\022\n\ndesk" +
+      "Number\030\002 \001(\005\022\020\n\010roomName\030\003 \001(\t\"\230\001\n\022Chair" +
+      "HeightRequest\022\036\n\005chair\030\001 \001(\0132\017.service2." +
+      "Chair\0229\n\toperation\030\002 \001(\0162&.service2.Chai" +
+      "rHeightRequest.Operation\"\'\n\tOperation\022\013\n" +
+      "\007CHAIRUP\020\000\022\r\n\tCHAIRDOWN\020\001\"O\n\023ChairHeight" +
+      "Response\022\036\n\005chair\030\001 \001(\0132\017.service2.Chair" +
+      "\022\030\n\020isHeightAdjusted\030\002 \001(\0102\262\001\n\010Service2\022" +
+      "R\n\020DeskStatusHeight\022\034.service2.DeskDetai" +
+      "lsRequest\032\036.service2.DeskAdjustedRespons" +
+      "e\"\000\022R\n\021ChairStatusHeight\022\034.service2.Chai" +
+      "rHeightRequest\032\035.service2.ChairHeightRes" +
+      "ponse\"\000B\035\n\013ds.service2B\014Service2ImplP\001b\006" +
+      "proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -69,6 +94,24 @@ public final class Service2Impl {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_service2_DeskAdjustedResponse_descriptor,
         new java.lang.String[] { "DeskHeight", "IsHeightAdjusted", });
+    internal_static_service2_Chair_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_service2_Chair_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_service2_Chair_descriptor,
+        new java.lang.String[] { "ChairHeight", "DeskNumber", "RoomName", });
+    internal_static_service2_ChairHeightRequest_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_service2_ChairHeightRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_service2_ChairHeightRequest_descriptor,
+        new java.lang.String[] { "Chair", "Operation", });
+    internal_static_service2_ChairHeightResponse_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_service2_ChairHeightResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_service2_ChairHeightResponse_descriptor,
+        new java.lang.String[] { "Chair", "IsHeightAdjusted", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

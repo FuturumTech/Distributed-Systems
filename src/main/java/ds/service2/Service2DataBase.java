@@ -4,21 +4,27 @@ import java.util.ArrayList;
 
 public class Service2DataBase {
 	public static ArrayList<Desk> myDesks = new ArrayList<>();
-	
+
 	public ArrayList<Desk> getMyDesks() {
-        return myDesks;
-    }
+		return myDesks;
+	}
+
 	public static class Desk {
+		// class variable:
 		int deskNumber, deskHeight;
 		String roomName;
 		int minDeskHeight = 50, maxDeskHeight = 145;
+		int chairHeight;
+		int minChairHeight = 40, maxChairHeight = 125;
 
 		// Constructor with parameters and using setter method that includes validation
 		// for height:
-		public Desk(String roomName, int deskNumber, int deskHeight) throws IllegalDeskHeightException {
+		public Desk(String roomName, int deskNumber, int deskHeight, int chairHeight)
+				throws IllegalDeskHeightException,IllegalChairHeightException {
 			this.setRoomName(roomName);
 			this.setDeskNumber(deskNumber);
 			this.setDeskHeight(deskHeight);
+			this.setChairHeight(deskHeight);
 		}
 
 		public int getDeskNumber() {
@@ -68,5 +74,18 @@ public class Service2DataBase {
 			this.maxDeskHeight = maxDeskHeight;
 		}
 
+		public int getChairHeight() {
+			return chairHeight;
+		}
+
+		public void setChairHeight(int chairHeight) throws IllegalChairHeightException {
+			// check for the min and max heigth
+			if (chairHeight >= minChairHeight && chairHeight <= maxChairHeight) {
+				this.chairHeight = chairHeight;
+			} else {
+				// throw custom exception
+				throw new IllegalChairHeightException(this.minChairHeight, this.maxChairHeight);
+			}
+		}
 	}
 }
