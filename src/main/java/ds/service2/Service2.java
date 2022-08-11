@@ -40,9 +40,9 @@ public class Service2 extends Service2ImplBase {
 			myTempData.getMyDesks().add(temp4);
 		} catch (IllegalDeskHeightException | IllegalChairHeightException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();			
+			e.printStackTrace();
 			System.out.println("Encountered input mismatch for height");
-			//printing custom message:
+			// printing custom message:
 			e.getMessage();
 		}
 
@@ -115,12 +115,7 @@ public class Service2 extends Service2ImplBase {
 			// correctly
 			reply = DeskAdjustedResponse.newBuilder().setDeskHeight(myDesk.getDeskHeight())
 					.setIsHeightAdjusted(isHeightAdjusted).build();
-		} catch (NullPointerException ex) {
-			System.out.println(ex.getMessage());
-			// preparing the response message, -999 means to the client that unusual path
-			// reached and boolean isHeightAdjusted will remain false
-			reply = DeskAdjustedResponse.newBuilder().setDeskHeight(-999).setIsHeightAdjusted(isHeightAdjusted).build();
-		} catch (IllegalDeskHeightException e) {
+		} catch (IllegalDeskHeightException | NullPointerException e) {
 			System.out.println(e.getMessage());
 			// preparing the response message, -999 means to the client that unusual path
 			// reached and boolean isHeightAdjusted will remain false
@@ -132,14 +127,14 @@ public class Service2 extends Service2ImplBase {
 		responseObserver.onCompleted();
 
 	}
+
 	@Override
 	public void chairStatusHeight(ChairHeightRequest request, StreamObserver<ChairHeightResponse> responseObserver) {
 
 		// prepare the value to be set back
-		System.out.println(
-				"receiving chairStatusHeight method " + request.getChair());
+		System.out.println("receiving chairStatusHeight method " + request.getChair());
 		// declaring temp Chair object from request and storing values;
-		Chair chairRequest =  request.getChair();
+		Chair chairRequest = request.getChair();
 		int chairHeightRequest = chairRequest.getChairHeight();
 		int deskNumberRequest = chairRequest.getDeskNumber();
 		String roomNameRequest = chairRequest.getRoomName();
@@ -156,7 +151,7 @@ public class Service2 extends Service2ImplBase {
 				// below method validate range of the height and throws custom exception:
 				myChair.setChairHeight(newHeightIncrement);
 				isHeightAdjusted = true;
-				System.out.println("chairStatusHeight() method run correctly, new chair height is: "
+				System.out.println("chairStatusHeight() changed values correctly, new chair height is: "
 						+ myChair.getChairHeight() + " increased by: " + chairHeightRequest);
 			}
 			// else if client request is for decrement of desk height
@@ -164,44 +159,64 @@ public class Service2 extends Service2ImplBase {
 				// request is an increment of desiredDeskHeiht
 				int newHeightDecrement = myChair.getChairHeight() - chairHeightRequest;
 				// below method validate range of the height and throws custom exception:
-				myChair.setDeskHeight(newHeightDecrement);
+				myChair.setChairHeight(newHeightDecrement);
 				isHeightAdjusted = true;
-				System.out.println("chairStatusHeight() method run correctly, new desk height is: "
+
+				System.out.println("chairStatusHeight() changed values correctly, new desk height is: "
 						+ myChair.getChairHeight() + " decreased by: " + chairHeightRequest);
 			}
 			// preparing the response message, case if the desk is found and adjusted
 			// correctly
-			reply = ChairHeightResponse.newBuilder().setDeskHeight(myChair.getDeskHeight())
-					.setIsHeightAdjusted(isHeightAdjusted).build();
-		} catch (NullPointerException ex) {
-			System.out.println(ex.getMessage());
-			// preparing the response message, -999 means to the client that unusual path
-			// reached and boolean isHeightAdjusted will remain false
-			reply = ChairHeightResponse.newBuilder().setDeskHeight(-999).setIsHeightAdjusted(isHeightAdjusted).build();
-		} catch (IllegalDeskHeightException e) {
+			// We need to use builder to create instance of chair that will be passedL
+			Chair.Builder chairReply = Chair.newBuilder()
+					.setChairHeight(myChair.getChairHeight())
+					.setDeskNumber(myChair.getDeskNumber())
+					.setRoomName(myChair.getRoomName());
+			System.out.println("Chair object is: ");
+			System.out.print(chairReply.toString());
+			//System.out.println("TEST builder finished");
+			// passing the object to the reply together with boolean value
+			reply = ChairHeightResponse.newBuilder().setChair(chairReply).setIsHeightAdjusted(isHeightAdjusted).build();
+			//System.out.println("TEST After reply build");
+			System.out.println("chairStatusHeight() SUCCESS");
+		} catch (NullPointerException | IllegalChairHeightException e) {
 			System.out.println(e.getMessage());
 			// preparing the response message, -999 means to the client that unusual path
 			// reached and boolean isHeightAdjusted will remain false
-			reply = ChairHeightResponse.newBuilder().setDeskHeight(-999).setIsHeightAdjusted(isHeightAdjusted).build();
+			// We need to use builder to create instance of chair that will be passedL
+			Chair.Builder chairReply = Chair.newBuilder()
+					.setChairHeight(-999)
+					.setDeskNumber(-999)
+					.setRoomName("Room not found");
+			//System.out.println("TEST Exception");
+		
+			reply = ChairHeightResponse.newBuilder().setChair(chairReply).setIsHeightAdjusted(isHeightAdjusted).build();
+			System.out.println("chairStatusHeight() FAILURE");
+		}
+			responseObserver.onNext(reply);
+			
+
+			responseObserver.onCompleted();
+
 		}
 
-		responseObserver.onNext(reply);
 
-		responseObserver.onCompleted();
+
+	// method to substract or add using generics for Integers
+	static public <T> T substractOrAddNumbers(T numb1, T numb2, String Operation) {
+		if (numb1.getClass() == Integer.class && numb1.getClass() == Number.class
+				&& Operation.equalsIgnoreCase("addition")) {
+			// With auto-boxing / unboxing
+			return (T) (Integer) ((Integer) numb1 + (Integer) numb2);
+		} else if (numb1.getClass() == Integer.class && numb1.getClass() == Number.class
+				&& Operation.equalsIgnoreCase("substraction")) {
+			return (T) (Integer) ((Integer) numb1 - (Integer) numb2);
+			// else we will return a string
+		} else
+			return (T) ((String) Operation);
 
 	}
-	//method to substract or add using generics for Integers
-	static public <T> T substractOrAddNumbers(T numb1, T numb2, String Operation){
-		if (numb1.getClass() == Integer.class && numb1.getClass() == Number.class && Operation.equalsIgnoreCase("addition")) {
-	        // With auto-boxing / unboxing
-	        return (T) (Integer) ((Integer) numb1 + (Integer) numb2);
-	    }else if (numb1.getClass() == Integer.class && numb1.getClass() == Number.class && Operation.equalsIgnoreCase("substraction")) {
-	    	return (T) (Integer) ((Integer) numb1 - (Integer) numb2);
-	    	//else we will return a string 
-		} else return (T) ((String) Operation);
-		
-	}
-	
+
 	// method to find desk in ArrayList for grpc deskStatusHeight
 	// below option does not work:
 	// private static boolean findDesk(ArrayList<Service2DataBase> deskArray, String

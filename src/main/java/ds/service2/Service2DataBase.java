@@ -24,7 +24,7 @@ public class Service2DataBase {
 			this.setRoomName(roomName);
 			this.setDeskNumber(deskNumber);
 			this.setDeskHeight(deskHeight);
-			this.setChairHeight(deskHeight);
+			this.setChairHeight(chairHeight);
 		}
 
 		public int getDeskNumber() {
