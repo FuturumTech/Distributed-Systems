@@ -73,8 +73,8 @@ public class Service1Client {
 		// building reply and received response:
 		DesiredRoomConditions req = DesiredRoomConditions.newBuilder().setRoomName(roomName)
 				.setDesiredHumidity(desiredHumidity).setDesiredTempInCelcius(desiredTempInCelcius).build();
-
-		Confirmation response = blockingStub.desiredSettingHVAC(req);
+		//implementing DEADLINE on the stub:
+		Confirmation response = blockingStub.withDeadlineAfter(5,TimeUnit.SECONDS).desiredSettingHVAC(req);
 		System.out.println("\t desiredSettingHVAC() run correctly");
 		System.out.println("\tresponse is: " + response.getConfirmation());
 		System.out.println("END: desiredSettingHVAC()");
@@ -143,7 +143,8 @@ public class Service1Client {
 					.build();
 			try {
 				//Iterator<AdjustHVAC> responses = blockingStub.roomStatus(req);
-				Iterator<AdjustHVAC> responses = blockingStub.roomStatus(req);
+				//Implemnting DEADLINE on the stub:
+				Iterator<AdjustHVAC> responses = blockingStub.withDeadlineAfter(25,TimeUnit.SECONDS).roomStatus(req);
 				System.out.println("\tdesiredSettingHVAC() run correctly");
 			
 			while(responses.hasNext()) {
