@@ -6,49 +6,43 @@ option java_outer_classname = "Service1Impl";
 
 package service1;
 
-
+// Interface exported by the server.
 service Service1 {
-  
-  rpc squared(NumberRequest) returns (NumberResponse) {}
+	//unary
+	rpc desiredSettingHVAC(DesiredRoomConditions) returns (Confirmation){}
+	//client streaming
+	rpc HVACstatus(stream CurrentRoomConditions) returns (Acknowledged){}
+	//Server stream:
+	rpc RoomStatus(Room) returns (stream AdjustHVAC){}
+};
 
-  rpc sum(stream NumberRequest) returns (SumResponse) {}
+message DesiredRoomConditions{
+	string roomName = 1;
+	double desiredHumidity = 2;
+	double desiredTempInCelcius = 3;
 
-  rpc fibonacci(NumberRequest) returns (stream NumberResponse) {}
-
-  rpc total(stream NumberRequest) returns (stream NumberResponse) {}
-    
 }
 
-message NumberRequest {
-  string text = 1;  
-  int32 number = 2;
+
+message Confirmation{
+	string confirmation = 1;
 }
 
-message NumberResponse {
-  string text = 1;
-  int32 number = 2;
+message CurrentRoomConditions{
+	string roomName = 1;
+	double humidity = 2;
+	double tempInCelcius = 3;
 }
 
-message SumResponse {
-  string text = 1;
-  int32 number = 2;
-  float fnum = 3;
+message Acknowledged{
+	string acknowledgment = 1;
 }
 
-//message Project {
-//  string name = 1;
-//  double budget = 2;
-//  Person person = 3;
-//}
-//
-//message Person {
-//  string name = 1;
-//  int32 id = 2;
-//  Availability availability = 3;
-//  map <int32, float> salary = 4;		// E.g. <PPSN, Salary>
-//}
-//
-//enum Availability {
-//  AVAILABLE = 0;
-//  UNAVAILABLE = 1;
-//}
+message Room{
+	string roomName = 1;
+}
+
+message AdjustHVAC{
+	double humidityDifference = 1;
+	double tempDifference = 2;
+}

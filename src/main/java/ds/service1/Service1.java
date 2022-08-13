@@ -10,12 +10,11 @@ import java.util.logging.Logger;
 import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceInfo;
 
-import ds.service1.Service1DataBase.RoomName;
 import ds.service1.Service1Grpc.Service1ImplBase;
-import ds.service2.Service2Grpc.Service2ImplBase;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
+
 
 public class Service1 extends Service1ImplBase {
 
@@ -62,69 +61,7 @@ public class Service1 extends Service1ImplBase {
 		}
 	}
 
-	// Service registration:
-	// 1st -Method to get properties of the service:
-	private Properties getProperties() {
-
-		Properties prop = null;
-
-		try (InputStream input = new FileInputStream("src/main/resources/service1.properties")) {
-
-			prop = new Properties();
-
-			// load a properties file
-			prop.load(input);
-
-			// get the property value and print it out
-			System.out.println("Service1 Climate Control properies ...");
-			System.out.println("\t service_type: " + prop.getProperty("service_type"));
-			System.out.println("\t service_name: " + prop.getProperty("service_name"));
-			System.out.println("\t service_description: " + prop.getProperty("service_description"));
-			System.out.println("\t service_port: " + prop.getProperty("service_port"));
-
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
-
-		return prop;
-	}
-
-	// 2nd is to register the service
-	private void registerService(Properties prop) {
-
-		try {
-			// Create a JmDNS instance
-			JmDNS jmdns = JmDNS.create(InetAddress.getLocalHost());
-
-			String service_type = prop.getProperty("service_type");// "service1._tcp.local.";
-			String service_name = prop.getProperty("service_name");// "climate_control";
-			// int service_port = 1234;
-			int service_port = Integer.valueOf(prop.getProperty("service_port"));// #.50051;
-
-			String service_description_properties = prop.getProperty("service_description");// "path=index.html";
-
-			// Register a service
-			ServiceInfo serviceInfo = ServiceInfo.create(service_type, service_name, service_port,
-					service_description_properties);
-			jmdns.registerService(serviceInfo);
-
-			System.out.printf("registrering service with type %s and name %s \n", service_type, service_name);
-
-			// Wait a bit
-			Thread.sleep(1000);
-
-			// Unregister all services
-			jmdns.unregisterAllServices();
-
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-
+	
 	@Override
 	public void desiredSettingHVAC(DesiredRoomConditions request, StreamObserver<Confirmation> responseObserver) {
 		// Find out what sent by the client
@@ -157,8 +94,8 @@ public class Service1 extends Service1ImplBase {
 		// Case if the room name exist
 		if (!roomName.equals("not found")) {
 			responseBuilder = Confirmation.newBuilder()
-					.setConfirmation("Receiving stream of data to grp hVACstatus was completed for room: \""
-							+ roomNameToReturn + "\" was compelted");
+					.setConfirmation("Received data to grp hVACstatus was completed for room: \""
+							+ roomNameToReturn);
 		} else {
 			responseBuilder = Confirmation.newBuilder()
 					.setConfirmation("No room was found for the name:" + roomNameToReturn);
@@ -268,12 +205,14 @@ public class Service1 extends Service1ImplBase {
 			// // RETURN
 			// Send it back:
 			// Server streaming:
-			for (double d : tempArray) {
+			int repeatReply = 5;
+			int timeBeetweenMessages = 1000;
+			for (int i = 0; i<repeatReply; i++) {
 				responseObserver.onNext(responseBuilder);
-
+				System.out.println("STREAM SENT: roomStatus() iteration:" + (i+1));
 				// Wait a bit
 				try {
-					Thread.sleep(5000);
+					Thread.sleep(timeBeetweenMessages);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -294,7 +233,7 @@ public class Service1 extends Service1ImplBase {
 		// Service1.myTempData.getMyRooms().size());
 		for (int i = 0; i < Service1.myTempData.getMyRooms().size(); i++) {
 			// for(Service1DataBase.roomName roomName : myTempData.getMyRooms()) {
-			if (Service1.myTempData.getMyRooms().get(i).getRoomName().equalsIgnoreCase(room)) {
+			if (Service1.myTempData.getMyRooms().get(i).getRoomName().equalsIgnoreCase(room.trim().toLowerCase())) {
 				return Service1.myTempData.getMyRooms().get(i);
 			}
 		}
@@ -311,6 +250,69 @@ public class Service1 extends Service1ImplBase {
 		tempArray[1] = (Math.round(tempArray[1] * 10.0)) / 10.0;
 		return tempArray;
 	}
+
+	// Service registration:
+		// 1st -Method to get properties of the service:
+		private Properties getProperties() {
+
+			Properties prop = null;
+
+			try (InputStream input = new FileInputStream("src/main/resources/service1.properties")) {
+
+				prop = new Properties();
+
+				// load a properties file
+				prop.load(input);
+
+				// get the property value and print it out
+				System.out.println("Service1 Climate Control properies ...");
+				System.out.println("\t service_type: " + prop.getProperty("service_type"));
+				System.out.println("\t service_name: " + prop.getProperty("service_name"));
+				System.out.println("\t service_description: " + prop.getProperty("service_description"));
+				System.out.println("\t service_port: " + prop.getProperty("service_port"));
+
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+
+			return prop;
+		}
+
+		// 2nd is to register the service
+		private void registerService(Properties prop) {
+
+			try {
+				// Create a JmDNS instance
+				JmDNS jmdns = JmDNS.create(InetAddress.getLocalHost());
+
+				String service_type = prop.getProperty("service_type");// "service1._tcp.local.";
+				String service_name = prop.getProperty("service_name");// "climate_control";
+				// int service_port = 1234;
+				int service_port = Integer.valueOf(prop.getProperty("service_port"));// #.50051;
+
+				String service_description_properties = prop.getProperty("service_description");// "path=index.html";
+
+				// Register a service
+				ServiceInfo serviceInfo = ServiceInfo.create(service_type, service_name, service_port,
+						service_description_properties);
+				jmdns.registerService(serviceInfo);
+
+				System.out.printf("registrering service with type %s and name %s \n", service_type, service_name);
+
+				// Wait a bit
+				Thread.sleep(1000);
+
+				// Unregister all services
+				jmdns.unregisterAllServices();
+
+			} catch (IOException e) {
+				System.out.println(e.getMessage());
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
 
 //	//Extend abstract base class for our implementation
 //	static class NewServerImpl extends Service1ImplBase{

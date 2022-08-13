@@ -16,6 +16,9 @@ import static io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall;
 import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
 
 /**
+ * <pre>
+ * Interface exported by the server.
+ * </pre>
  */
 @javax.annotation.Generated(
     value = "by gRPC proto compiler (version 1.15.0)",
@@ -27,132 +30,100 @@ public final class Service1Grpc {
   public static final String SERVICE_NAME = "service1.Service1";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<ds.service1.NumberRequest,
-      ds.service1.NumberResponse> getSquaredMethod;
+  private static volatile io.grpc.MethodDescriptor<ds.service1.DesiredRoomConditions,
+      ds.service1.Confirmation> getDesiredSettingHVACMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "squared",
-      requestType = ds.service1.NumberRequest.class,
-      responseType = ds.service1.NumberResponse.class,
+      fullMethodName = SERVICE_NAME + '/' + "desiredSettingHVAC",
+      requestType = ds.service1.DesiredRoomConditions.class,
+      responseType = ds.service1.Confirmation.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<ds.service1.NumberRequest,
-      ds.service1.NumberResponse> getSquaredMethod() {
-    io.grpc.MethodDescriptor<ds.service1.NumberRequest, ds.service1.NumberResponse> getSquaredMethod;
-    if ((getSquaredMethod = Service1Grpc.getSquaredMethod) == null) {
+  public static io.grpc.MethodDescriptor<ds.service1.DesiredRoomConditions,
+      ds.service1.Confirmation> getDesiredSettingHVACMethod() {
+    io.grpc.MethodDescriptor<ds.service1.DesiredRoomConditions, ds.service1.Confirmation> getDesiredSettingHVACMethod;
+    if ((getDesiredSettingHVACMethod = Service1Grpc.getDesiredSettingHVACMethod) == null) {
       synchronized (Service1Grpc.class) {
-        if ((getSquaredMethod = Service1Grpc.getSquaredMethod) == null) {
-          Service1Grpc.getSquaredMethod = getSquaredMethod = 
-              io.grpc.MethodDescriptor.<ds.service1.NumberRequest, ds.service1.NumberResponse>newBuilder()
+        if ((getDesiredSettingHVACMethod = Service1Grpc.getDesiredSettingHVACMethod) == null) {
+          Service1Grpc.getDesiredSettingHVACMethod = getDesiredSettingHVACMethod = 
+              io.grpc.MethodDescriptor.<ds.service1.DesiredRoomConditions, ds.service1.Confirmation>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
-                  "service1.Service1", "squared"))
+                  "service1.Service1", "desiredSettingHVAC"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  ds.service1.NumberRequest.getDefaultInstance()))
+                  ds.service1.DesiredRoomConditions.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  ds.service1.NumberResponse.getDefaultInstance()))
-                  .setSchemaDescriptor(new Service1MethodDescriptorSupplier("squared"))
+                  ds.service1.Confirmation.getDefaultInstance()))
+                  .setSchemaDescriptor(new Service1MethodDescriptorSupplier("desiredSettingHVAC"))
                   .build();
           }
         }
      }
-     return getSquaredMethod;
+     return getDesiredSettingHVACMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<ds.service1.NumberRequest,
-      ds.service1.SumResponse> getSumMethod;
+  private static volatile io.grpc.MethodDescriptor<ds.service1.CurrentRoomConditions,
+      ds.service1.Acknowledged> getHVACstatusMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "sum",
-      requestType = ds.service1.NumberRequest.class,
-      responseType = ds.service1.SumResponse.class,
+      fullMethodName = SERVICE_NAME + '/' + "HVACstatus",
+      requestType = ds.service1.CurrentRoomConditions.class,
+      responseType = ds.service1.Acknowledged.class,
       methodType = io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
-  public static io.grpc.MethodDescriptor<ds.service1.NumberRequest,
-      ds.service1.SumResponse> getSumMethod() {
-    io.grpc.MethodDescriptor<ds.service1.NumberRequest, ds.service1.SumResponse> getSumMethod;
-    if ((getSumMethod = Service1Grpc.getSumMethod) == null) {
+  public static io.grpc.MethodDescriptor<ds.service1.CurrentRoomConditions,
+      ds.service1.Acknowledged> getHVACstatusMethod() {
+    io.grpc.MethodDescriptor<ds.service1.CurrentRoomConditions, ds.service1.Acknowledged> getHVACstatusMethod;
+    if ((getHVACstatusMethod = Service1Grpc.getHVACstatusMethod) == null) {
       synchronized (Service1Grpc.class) {
-        if ((getSumMethod = Service1Grpc.getSumMethod) == null) {
-          Service1Grpc.getSumMethod = getSumMethod = 
-              io.grpc.MethodDescriptor.<ds.service1.NumberRequest, ds.service1.SumResponse>newBuilder()
+        if ((getHVACstatusMethod = Service1Grpc.getHVACstatusMethod) == null) {
+          Service1Grpc.getHVACstatusMethod = getHVACstatusMethod = 
+              io.grpc.MethodDescriptor.<ds.service1.CurrentRoomConditions, ds.service1.Acknowledged>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
               .setFullMethodName(generateFullMethodName(
-                  "service1.Service1", "sum"))
+                  "service1.Service1", "HVACstatus"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  ds.service1.NumberRequest.getDefaultInstance()))
+                  ds.service1.CurrentRoomConditions.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  ds.service1.SumResponse.getDefaultInstance()))
-                  .setSchemaDescriptor(new Service1MethodDescriptorSupplier("sum"))
+                  ds.service1.Acknowledged.getDefaultInstance()))
+                  .setSchemaDescriptor(new Service1MethodDescriptorSupplier("HVACstatus"))
                   .build();
           }
         }
      }
-     return getSumMethod;
+     return getHVACstatusMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<ds.service1.NumberRequest,
-      ds.service1.NumberResponse> getFibonacciMethod;
+  private static volatile io.grpc.MethodDescriptor<ds.service1.Room,
+      ds.service1.AdjustHVAC> getRoomStatusMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "fibonacci",
-      requestType = ds.service1.NumberRequest.class,
-      responseType = ds.service1.NumberResponse.class,
+      fullMethodName = SERVICE_NAME + '/' + "RoomStatus",
+      requestType = ds.service1.Room.class,
+      responseType = ds.service1.AdjustHVAC.class,
       methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
-  public static io.grpc.MethodDescriptor<ds.service1.NumberRequest,
-      ds.service1.NumberResponse> getFibonacciMethod() {
-    io.grpc.MethodDescriptor<ds.service1.NumberRequest, ds.service1.NumberResponse> getFibonacciMethod;
-    if ((getFibonacciMethod = Service1Grpc.getFibonacciMethod) == null) {
+  public static io.grpc.MethodDescriptor<ds.service1.Room,
+      ds.service1.AdjustHVAC> getRoomStatusMethod() {
+    io.grpc.MethodDescriptor<ds.service1.Room, ds.service1.AdjustHVAC> getRoomStatusMethod;
+    if ((getRoomStatusMethod = Service1Grpc.getRoomStatusMethod) == null) {
       synchronized (Service1Grpc.class) {
-        if ((getFibonacciMethod = Service1Grpc.getFibonacciMethod) == null) {
-          Service1Grpc.getFibonacciMethod = getFibonacciMethod = 
-              io.grpc.MethodDescriptor.<ds.service1.NumberRequest, ds.service1.NumberResponse>newBuilder()
+        if ((getRoomStatusMethod = Service1Grpc.getRoomStatusMethod) == null) {
+          Service1Grpc.getRoomStatusMethod = getRoomStatusMethod = 
+              io.grpc.MethodDescriptor.<ds.service1.Room, ds.service1.AdjustHVAC>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
               .setFullMethodName(generateFullMethodName(
-                  "service1.Service1", "fibonacci"))
+                  "service1.Service1", "RoomStatus"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  ds.service1.NumberRequest.getDefaultInstance()))
+                  ds.service1.Room.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  ds.service1.NumberResponse.getDefaultInstance()))
-                  .setSchemaDescriptor(new Service1MethodDescriptorSupplier("fibonacci"))
+                  ds.service1.AdjustHVAC.getDefaultInstance()))
+                  .setSchemaDescriptor(new Service1MethodDescriptorSupplier("RoomStatus"))
                   .build();
           }
         }
      }
-     return getFibonacciMethod;
-  }
-
-  private static volatile io.grpc.MethodDescriptor<ds.service1.NumberRequest,
-      ds.service1.NumberResponse> getTotalMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "total",
-      requestType = ds.service1.NumberRequest.class,
-      responseType = ds.service1.NumberResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
-  public static io.grpc.MethodDescriptor<ds.service1.NumberRequest,
-      ds.service1.NumberResponse> getTotalMethod() {
-    io.grpc.MethodDescriptor<ds.service1.NumberRequest, ds.service1.NumberResponse> getTotalMethod;
-    if ((getTotalMethod = Service1Grpc.getTotalMethod) == null) {
-      synchronized (Service1Grpc.class) {
-        if ((getTotalMethod = Service1Grpc.getTotalMethod) == null) {
-          Service1Grpc.getTotalMethod = getTotalMethod = 
-              io.grpc.MethodDescriptor.<ds.service1.NumberRequest, ds.service1.NumberResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
-              .setFullMethodName(generateFullMethodName(
-                  "service1.Service1", "total"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  ds.service1.NumberRequest.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  ds.service1.NumberResponse.getDefaultInstance()))
-                  .setSchemaDescriptor(new Service1MethodDescriptorSupplier("total"))
-                  .build();
-          }
-        }
-     }
-     return getTotalMethod;
+     return getRoomStatusMethod;
   }
 
   /**
@@ -179,72 +150,73 @@ public final class Service1Grpc {
   }
 
   /**
+   * <pre>
+   * Interface exported by the server.
+   * </pre>
    */
   public static abstract class Service1ImplBase implements io.grpc.BindableService {
 
     /**
+     * <pre>
+     *unary
+     * </pre>
      */
-    public void squared(ds.service1.NumberRequest request,
-        io.grpc.stub.StreamObserver<ds.service1.NumberResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getSquaredMethod(), responseObserver);
+    public void desiredSettingHVAC(ds.service1.DesiredRoomConditions request,
+        io.grpc.stub.StreamObserver<ds.service1.Confirmation> responseObserver) {
+      asyncUnimplementedUnaryCall(getDesiredSettingHVACMethod(), responseObserver);
     }
 
     /**
+     * <pre>
+     *client streaming
+     * </pre>
      */
-    public io.grpc.stub.StreamObserver<ds.service1.NumberRequest> sum(
-        io.grpc.stub.StreamObserver<ds.service1.SumResponse> responseObserver) {
-      return asyncUnimplementedStreamingCall(getSumMethod(), responseObserver);
+    public io.grpc.stub.StreamObserver<ds.service1.CurrentRoomConditions> hVACstatus(
+        io.grpc.stub.StreamObserver<ds.service1.Acknowledged> responseObserver) {
+      return asyncUnimplementedStreamingCall(getHVACstatusMethod(), responseObserver);
     }
 
     /**
+     * <pre>
+     *Server stream:
+     * </pre>
      */
-    public void fibonacci(ds.service1.NumberRequest request,
-        io.grpc.stub.StreamObserver<ds.service1.NumberResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getFibonacciMethod(), responseObserver);
-    }
-
-    /**
-     */
-    public io.grpc.stub.StreamObserver<ds.service1.NumberRequest> total(
-        io.grpc.stub.StreamObserver<ds.service1.NumberResponse> responseObserver) {
-      return asyncUnimplementedStreamingCall(getTotalMethod(), responseObserver);
+    public void roomStatus(ds.service1.Room request,
+        io.grpc.stub.StreamObserver<ds.service1.AdjustHVAC> responseObserver) {
+      asyncUnimplementedUnaryCall(getRoomStatusMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
-            getSquaredMethod(),
+            getDesiredSettingHVACMethod(),
             asyncUnaryCall(
               new MethodHandlers<
-                ds.service1.NumberRequest,
-                ds.service1.NumberResponse>(
-                  this, METHODID_SQUARED)))
+                ds.service1.DesiredRoomConditions,
+                ds.service1.Confirmation>(
+                  this, METHODID_DESIRED_SETTING_HVAC)))
           .addMethod(
-            getSumMethod(),
+            getHVACstatusMethod(),
             asyncClientStreamingCall(
               new MethodHandlers<
-                ds.service1.NumberRequest,
-                ds.service1.SumResponse>(
-                  this, METHODID_SUM)))
+                ds.service1.CurrentRoomConditions,
+                ds.service1.Acknowledged>(
+                  this, METHODID_HVACSTATUS)))
           .addMethod(
-            getFibonacciMethod(),
+            getRoomStatusMethod(),
             asyncServerStreamingCall(
               new MethodHandlers<
-                ds.service1.NumberRequest,
-                ds.service1.NumberResponse>(
-                  this, METHODID_FIBONACCI)))
-          .addMethod(
-            getTotalMethod(),
-            asyncBidiStreamingCall(
-              new MethodHandlers<
-                ds.service1.NumberRequest,
-                ds.service1.NumberResponse>(
-                  this, METHODID_TOTAL)))
+                ds.service1.Room,
+                ds.service1.AdjustHVAC>(
+                  this, METHODID_ROOM_STATUS)))
           .build();
     }
   }
 
   /**
+   * <pre>
+   * Interface exported by the server.
+   * </pre>
    */
   public static final class Service1Stub extends io.grpc.stub.AbstractStub<Service1Stub> {
     private Service1Stub(io.grpc.Channel channel) {
@@ -263,39 +235,43 @@ public final class Service1Grpc {
     }
 
     /**
+     * <pre>
+     *unary
+     * </pre>
      */
-    public void squared(ds.service1.NumberRequest request,
-        io.grpc.stub.StreamObserver<ds.service1.NumberResponse> responseObserver) {
+    public void desiredSettingHVAC(ds.service1.DesiredRoomConditions request,
+        io.grpc.stub.StreamObserver<ds.service1.Confirmation> responseObserver) {
       asyncUnaryCall(
-          getChannel().newCall(getSquaredMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getDesiredSettingHVACMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
+     * <pre>
+     *client streaming
+     * </pre>
      */
-    public io.grpc.stub.StreamObserver<ds.service1.NumberRequest> sum(
-        io.grpc.stub.StreamObserver<ds.service1.SumResponse> responseObserver) {
+    public io.grpc.stub.StreamObserver<ds.service1.CurrentRoomConditions> hVACstatus(
+        io.grpc.stub.StreamObserver<ds.service1.Acknowledged> responseObserver) {
       return asyncClientStreamingCall(
-          getChannel().newCall(getSumMethod(), getCallOptions()), responseObserver);
+          getChannel().newCall(getHVACstatusMethod(), getCallOptions()), responseObserver);
     }
 
     /**
+     * <pre>
+     *Server stream:
+     * </pre>
      */
-    public void fibonacci(ds.service1.NumberRequest request,
-        io.grpc.stub.StreamObserver<ds.service1.NumberResponse> responseObserver) {
+    public void roomStatus(ds.service1.Room request,
+        io.grpc.stub.StreamObserver<ds.service1.AdjustHVAC> responseObserver) {
       asyncServerStreamingCall(
-          getChannel().newCall(getFibonacciMethod(), getCallOptions()), request, responseObserver);
-    }
-
-    /**
-     */
-    public io.grpc.stub.StreamObserver<ds.service1.NumberRequest> total(
-        io.grpc.stub.StreamObserver<ds.service1.NumberResponse> responseObserver) {
-      return asyncBidiStreamingCall(
-          getChannel().newCall(getTotalMethod(), getCallOptions()), responseObserver);
+          getChannel().newCall(getRoomStatusMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
   /**
+   * <pre>
+   * Interface exported by the server.
+   * </pre>
    */
   public static final class Service1BlockingStub extends io.grpc.stub.AbstractStub<Service1BlockingStub> {
     private Service1BlockingStub(io.grpc.Channel channel) {
@@ -314,22 +290,31 @@ public final class Service1Grpc {
     }
 
     /**
+     * <pre>
+     *unary
+     * </pre>
      */
-    public ds.service1.NumberResponse squared(ds.service1.NumberRequest request) {
+    public ds.service1.Confirmation desiredSettingHVAC(ds.service1.DesiredRoomConditions request) {
       return blockingUnaryCall(
-          getChannel(), getSquaredMethod(), getCallOptions(), request);
+          getChannel(), getDesiredSettingHVACMethod(), getCallOptions(), request);
     }
 
     /**
+     * <pre>
+     *Server stream:
+     * </pre>
      */
-    public java.util.Iterator<ds.service1.NumberResponse> fibonacci(
-        ds.service1.NumberRequest request) {
+    public java.util.Iterator<ds.service1.AdjustHVAC> roomStatus(
+        ds.service1.Room request) {
       return blockingServerStreamingCall(
-          getChannel(), getFibonacciMethod(), getCallOptions(), request);
+          getChannel(), getRoomStatusMethod(), getCallOptions(), request);
     }
   }
 
   /**
+   * <pre>
+   * Interface exported by the server.
+   * </pre>
    */
   public static final class Service1FutureStub extends io.grpc.stub.AbstractStub<Service1FutureStub> {
     private Service1FutureStub(io.grpc.Channel channel) {
@@ -348,18 +333,20 @@ public final class Service1Grpc {
     }
 
     /**
+     * <pre>
+     *unary
+     * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<ds.service1.NumberResponse> squared(
-        ds.service1.NumberRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<ds.service1.Confirmation> desiredSettingHVAC(
+        ds.service1.DesiredRoomConditions request) {
       return futureUnaryCall(
-          getChannel().newCall(getSquaredMethod(), getCallOptions()), request);
+          getChannel().newCall(getDesiredSettingHVACMethod(), getCallOptions()), request);
     }
   }
 
-  private static final int METHODID_SQUARED = 0;
-  private static final int METHODID_FIBONACCI = 1;
-  private static final int METHODID_SUM = 2;
-  private static final int METHODID_TOTAL = 3;
+  private static final int METHODID_DESIRED_SETTING_HVAC = 0;
+  private static final int METHODID_ROOM_STATUS = 1;
+  private static final int METHODID_HVACSTATUS = 2;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -378,13 +365,13 @@ public final class Service1Grpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
-        case METHODID_SQUARED:
-          serviceImpl.squared((ds.service1.NumberRequest) request,
-              (io.grpc.stub.StreamObserver<ds.service1.NumberResponse>) responseObserver);
+        case METHODID_DESIRED_SETTING_HVAC:
+          serviceImpl.desiredSettingHVAC((ds.service1.DesiredRoomConditions) request,
+              (io.grpc.stub.StreamObserver<ds.service1.Confirmation>) responseObserver);
           break;
-        case METHODID_FIBONACCI:
-          serviceImpl.fibonacci((ds.service1.NumberRequest) request,
-              (io.grpc.stub.StreamObserver<ds.service1.NumberResponse>) responseObserver);
+        case METHODID_ROOM_STATUS:
+          serviceImpl.roomStatus((ds.service1.Room) request,
+              (io.grpc.stub.StreamObserver<ds.service1.AdjustHVAC>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -396,12 +383,9 @@ public final class Service1Grpc {
     public io.grpc.stub.StreamObserver<Req> invoke(
         io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
-        case METHODID_SUM:
-          return (io.grpc.stub.StreamObserver<Req>) serviceImpl.sum(
-              (io.grpc.stub.StreamObserver<ds.service1.SumResponse>) responseObserver);
-        case METHODID_TOTAL:
-          return (io.grpc.stub.StreamObserver<Req>) serviceImpl.total(
-              (io.grpc.stub.StreamObserver<ds.service1.NumberResponse>) responseObserver);
+        case METHODID_HVACSTATUS:
+          return (io.grpc.stub.StreamObserver<Req>) serviceImpl.hVACstatus(
+              (io.grpc.stub.StreamObserver<ds.service1.Acknowledged>) responseObserver);
         default:
           throw new AssertionError();
       }
@@ -453,10 +437,9 @@ public final class Service1Grpc {
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new Service1FileDescriptorSupplier())
-              .addMethod(getSquaredMethod())
-              .addMethod(getSumMethod())
-              .addMethod(getFibonacciMethod())
-              .addMethod(getTotalMethod())
+              .addMethod(getDesiredSettingHVACMethod())
+              .addMethod(getHVACstatusMethod())
+              .addMethod(getRoomStatusMethod())
               .build();
         }
       }
