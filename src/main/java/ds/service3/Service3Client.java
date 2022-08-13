@@ -3,6 +3,7 @@ package ds.service3;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
@@ -15,6 +16,7 @@ import ds.service3.Service3Grpc.Service3BlockingStub;
 import ds.service3.Service3Grpc.Service3Stub;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.stub.StreamObserver;
 
 public class Service3Client {
 	private static Logger logger = Logger.getLogger(Service3.class.getName());
@@ -50,7 +52,7 @@ public class Service3Client {
 		asyncStub = Service3Grpc.newStub(channel);
 		// Calling methods
 		entersToToilet();
-		
+		updateToiletStatus();
 		// Gracefully shutting down the channel:
 		channel.shutdown().awaitTermination(port, TimeUnit.MILLISECONDS);
 
@@ -78,7 +80,74 @@ public class Service3Client {
 			System.out.println("\tresponse is: toilet visit changed: " + response.getToilet());
 			System.out.println("END: entersToToilet()");
 		}
+		
+		public static void updateToiletStatus() {
 
+
+			StreamObserver<UpdateToiletStatusResponse> responseObserver = new StreamObserver<UpdateToiletStatusResponse>() {
+
+				@Override
+				public void onNext(UpdateToiletStatusResponse value) {
+					
+						System.out.println("STREAM Response is: ");
+						System.out.println("\tToilet for cleaning is: "+ value.getToilet());
+			
+					
+
+				}
+
+				@Override
+				public void onError(Throwable t) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void onCompleted() {
+					// TODO Auto-generated method stub
+					System.out.println("server completed");
+				}
+
+
+
+			};
+
+			//
+			StreamObserver<UpdateToiletStatusRequest> requestObserver = asyncStub.updateToiletStatus(responseObserver);
+
+			try {
+				Toilet.Builder Toilet1 = Toilet.newBuilder()
+						.setNumberOfVisits(0)
+						.setToiletName("first floor");
+				Toilet.Builder Toilet2 = Toilet.newBuilder()
+						.setNumberOfVisits(0)
+						.setToiletName("second floor");
+				Toilet.Builder Toilet3 = Toilet.newBuilder()
+						.setNumberOfVisits(0)
+						.setToiletName("fifth floor");
+				System.out.println("\nCALLING: entersToToilet(), \trequest 1 is:" + Toilet1 + "\trequest 2 is:"+Toilet2);
+				requestObserver.onNext(UpdateToiletStatusRequest.newBuilder().setToilet(Toilet1).build());
+				requestObserver.onNext(UpdateToiletStatusRequest.newBuilder().setToilet(Toilet2).build());
+
+				System.out.println("SENDING EMSSAGES");
+
+				// Mark the end of requests
+				requestObserver.onCompleted();
+
+
+				// Sleep for a bit before sending the next one.
+				Thread.sleep(new Random().nextInt(1000) + 500);
+
+
+			} catch (RuntimeException e) {
+				e.printStackTrace();
+			} catch (InterruptedException e) {			
+				e.printStackTrace();
+			}
+
+
+		}
+		
 	// DISCOVERY for all methods below:
 		// Service 1
 		private void discoverService3CleaningHeatmap(String service_type) {

@@ -53,6 +53,15 @@ public class Service3DataBase {
 			return toiletCleanedDateAndTime;
 		}
 
+		public void setNeedsCleaning(boolean needsCleaning) {
+			this.needsCleaning = needsCleaning;
+		}
+
+		public boolean getNeedsCleaning() {
+			return needsCleaning;
+		}
+		
+		
 		public void setToiletCleanedDateAndTime(String toiletCleanedDateAndTime) {
 			this.toiletCleanedDateAndTime = toiletCleanedDateAndTime;
 		}

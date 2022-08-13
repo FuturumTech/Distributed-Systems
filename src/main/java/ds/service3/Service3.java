@@ -28,12 +28,16 @@ public class Service3 extends Service3ImplBase {
 		Service3DataBase.Toilet temp2 = new Service3DataBase.Toilet("first floor", 5, "07/08/2022 19:36:16");
 		Service3DataBase.Toilet temp3 = new Service3DataBase.Toilet("second floor", 35, "12/08/2022 21:27:12");
 		Service3DataBase.Toilet temp4 = new Service3DataBase.Toilet("third floor", 27, "03/08/2022 20:12:27");
-		Service3DataBase.Toilet temp5 = new Service3DataBase.Toilet("fourth floor", 45, "06/07/2022 18:23:25");
+		//Service3DataBase.Toilet temp5 = new Service3DataBase.Toilet("fourth floor", 45, "06/07/2022 18:23:25");
+		//Service3DataBase.Toilet temp6 = new Service3DataBase.Toilet("fifth floor", 55, "07/08/2022 17:35:24");
+		//Service3DataBase.Toilet temp7 = new Service3DataBase.Toilet("sixth floor", 45, "03/08/2022 19:56:52");
 		myTempData.getMyToilets().add(temp1);
 		myTempData.getMyToilets().add(temp2);
 		myTempData.getMyToilets().add(temp3);
 		myTempData.getMyToilets().add(temp4);
-		myTempData.getMyToilets().add(temp5);
+		//myTempData.getMyToilets().add(temp5);
+		//myTempData.getMyToilets().add(temp6);
+		//myTempData.getMyToilets().add(temp7);
 
 		// gracefully shutting down
 		Thread printingHook = new Thread(() -> System.out.println("In the middle of a shutdown"));
@@ -81,12 +85,14 @@ public class Service3 extends Service3ImplBase {
 				// storing data from request into database:
 				toiletInDataBase.setNumberOfVisits(toiletInDataBase.getNumberOfVisits() + numberOfVisits);
 				toiletInDataBase.setToiletLastEnterDateAndTime(toiletLastEnterDateAndTime);
+				toiletInDataBase.setNeedsCleaning(false);
 				//case where number of visits does  exceeds maxium allowed number
 			} else if (toiletInDataBase.getNumberOfVisits() + numberOfVisits > toiletInDataBase
 					.getMaxNumberOfVisits()) {
 				// storing data from request into database anyway:
 				toiletInDataBase.setNumberOfVisits(toiletInDataBase.getNumberOfVisits() + numberOfVisits);
 				toiletInDataBase.setToiletLastEnterDateAndTime(toiletLastEnterDateAndTime);
+				toiletInDataBase.setNeedsCleaning(true);
 				throw new ExceededNumberOfToiletVisitsException(toiletInDataBase.getNumberOfVisits(),
 						toiletInDataBase.getMaxNumberOfVisits());
 			}
@@ -149,12 +155,8 @@ public class Service3 extends Service3ImplBase {
 					// the toilet was cleaned:
 					toiletInDataBase.setNumberOfVisits(0);
 					toiletInDataBase.setToiletCleanedDateAndTime(toiletCleanedDateAndTime);
-					
-					// additional check:
-					if (toiletInDataBase.getNumberOfVisits() == 0)
-						statusUpdated = true;
-					
-					
+					toiletInDataBase.setNeedsCleaning(false);
+										
 					//SERVER STREAMING:
 					//it will return all toilets that needs cleaning
 					for(int i =0; i<myTempData.getMyToilets().size(); i++) {
@@ -166,11 +168,14 @@ public class Service3 extends Service3ImplBase {
 									.setToiletName(myTempData.getMyToilets().get(i).getToiletName());
 							
 							//Build reply:
-							reply = UpdateToiletStatusResponse.newBuilder().setStatusUpdated(statusUpdated).setToilet(ToiletReply)
-									.setDate(toiletCleanedDateAndTime).build();
+							reply = UpdateToiletStatusResponse.newBuilder().setStatusUpdated(statusUpdated)
+									.setToilet(ToiletReply)
+									.setDate(myTempData.getMyToilets().get(i).getToiletCleanedDateAndTime())
+									.setNeedsCleaning(myTempData.getMyToilets().get(i).getNeedsCleaning())
+									.build();
 							responseObserver.onNext(reply);
 							System.out.println("reply is:" + reply);
-							System.out.println("updateToiletStatus() SUCCESS");
+							
 						}
 					}
 					
