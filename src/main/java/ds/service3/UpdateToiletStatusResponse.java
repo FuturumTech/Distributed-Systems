@@ -18,6 +18,7 @@ private static final long serialVersionUID = 0L;
   private UpdateToiletStatusResponse() {
     statusUpdated_ = false;
     date_ = "";
+    needsCleaning_ = false;
   }
 
   @java.lang.Override
@@ -66,6 +67,11 @@ private static final long serialVersionUID = 0L;
             java.lang.String s = input.readStringRequireUtf8();
 
             date_ = s;
+            break;
+          }
+          case 32: {
+
+            needsCleaning_ = input.readBool();
             break;
           }
           default: {
@@ -164,6 +170,15 @@ private static final long serialVersionUID = 0L;
     }
   }
 
+  public static final int NEEDSCLEANING_FIELD_NUMBER = 4;
+  private boolean needsCleaning_;
+  /**
+   * <code>bool needsCleaning = 4;</code>
+   */
+  public boolean getNeedsCleaning() {
+    return needsCleaning_;
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -187,6 +202,9 @@ private static final long serialVersionUID = 0L;
     if (!getDateBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 3, date_);
     }
+    if (needsCleaning_ != false) {
+      output.writeBool(4, needsCleaning_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -206,6 +224,10 @@ private static final long serialVersionUID = 0L;
     }
     if (!getDateBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, date_);
+    }
+    if (needsCleaning_ != false) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeBoolSize(4, needsCleaning_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -232,6 +254,8 @@ private static final long serialVersionUID = 0L;
     }
     result = result && getDate()
         .equals(other.getDate());
+    result = result && (getNeedsCleaning()
+        == other.getNeedsCleaning());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -252,6 +276,9 @@ private static final long serialVersionUID = 0L;
     }
     hash = (37 * hash) + DATE_FIELD_NUMBER;
     hash = (53 * hash) + getDate().hashCode();
+    hash = (37 * hash) + NEEDSCLEANING_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+        getNeedsCleaning());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -395,6 +422,8 @@ private static final long serialVersionUID = 0L;
       }
       date_ = "";
 
+      needsCleaning_ = false;
+
       return this;
     }
 
@@ -428,6 +457,7 @@ private static final long serialVersionUID = 0L;
         result.toilet_ = toiletBuilder_.build();
       }
       result.date_ = date_;
+      result.needsCleaning_ = needsCleaning_;
       onBuilt();
       return result;
     }
@@ -485,6 +515,9 @@ private static final long serialVersionUID = 0L;
       if (!other.getDate().isEmpty()) {
         date_ = other.date_;
         onChanged();
+      }
+      if (other.getNeedsCleaning() != false) {
+        setNeedsCleaning(other.getNeedsCleaning());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -723,6 +756,32 @@ private static final long serialVersionUID = 0L;
   checkByteStringIsUtf8(value);
       
       date_ = value;
+      onChanged();
+      return this;
+    }
+
+    private boolean needsCleaning_ ;
+    /**
+     * <code>bool needsCleaning = 4;</code>
+     */
+    public boolean getNeedsCleaning() {
+      return needsCleaning_;
+    }
+    /**
+     * <code>bool needsCleaning = 4;</code>
+     */
+    public Builder setNeedsCleaning(boolean value) {
+      
+      needsCleaning_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>bool needsCleaning = 4;</code>
+     */
+    public Builder clearNeedsCleaning() {
+      
+      needsCleaning_ = false;
       onChanged();
       return this;
     }

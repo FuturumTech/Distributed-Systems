@@ -34,4 +34,9 @@ public interface UpdateToiletStatusResponseOrBuilder extends
    */
   com.google.protobuf.ByteString
       getDateBytes();
+
+  /**
+   * <code>bool needsCleaning = 4;</code>
+   */
+  boolean getNeedsCleaning();
 }

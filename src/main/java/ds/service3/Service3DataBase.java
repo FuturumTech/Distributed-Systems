@@ -14,7 +14,9 @@ public class Service3DataBase {
 		int numberOfVisits;
 		String toiletName;
 		String toiletCleanedDateAndTime;
+		String toiletLastEnterDateAndTime;
 		 int maxNumberOfVisits, minNumberOfVisits;
+		 boolean needsCleaning;
 
 		// Constructor with parameters
 		public Toilet(String toiletName, int numberOfVisits, String toiletCleanedDateAndTime) {
@@ -24,6 +26,11 @@ public class Service3DataBase {
 			// assuming default parameters:
 			this.minNumberOfVisits = 0;
 			this.maxNumberOfVisits = 25;
+			this.toiletLastEnterDateAndTime = "Non used yet";
+			//in case the toiltet is created with a number of visits bigger than max
+			if(this.numberOfVisits < maxNumberOfVisits) {
+				this.needsCleaning = false;
+			}else this.needsCleaning = true;
 		}
 
 		public int getNumberOfVisits() {
@@ -56,6 +63,13 @@ public class Service3DataBase {
 
 		public void setMaxNumberOfVisits(int maxNumberOfVisits) {
 			this.maxNumberOfVisits = maxNumberOfVisits;
+		}
+		public String getToiletLastEnterDateAndTime() {
+			return toiletLastEnterDateAndTime;
+		}
+
+		public void setToiletLastEnterDateAndTime(String toiletLastEnterDateAndTime) {
+			this.toiletLastEnterDateAndTime = toiletLastEnterDateAndTime;
 		}
 
 		public int getMinNumberOfVisits() {

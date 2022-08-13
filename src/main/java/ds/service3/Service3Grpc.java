@@ -69,7 +69,7 @@ public final class Service3Grpc {
       fullMethodName = SERVICE_NAME + '/' + "UpdateToiletStatus",
       requestType = ds.service3.UpdateToiletStatusRequest.class,
       responseType = ds.service3.UpdateToiletStatusResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+      methodType = io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
   public static io.grpc.MethodDescriptor<ds.service3.UpdateToiletStatusRequest,
       ds.service3.UpdateToiletStatusResponse> getUpdateToiletStatusMethod() {
     io.grpc.MethodDescriptor<ds.service3.UpdateToiletStatusRequest, ds.service3.UpdateToiletStatusResponse> getUpdateToiletStatusMethod;
@@ -78,7 +78,7 @@ public final class Service3Grpc {
         if ((getUpdateToiletStatusMethod = Service3Grpc.getUpdateToiletStatusMethod) == null) {
           Service3Grpc.getUpdateToiletStatusMethod = getUpdateToiletStatusMethod = 
               io.grpc.MethodDescriptor.<ds.service3.UpdateToiletStatusRequest, ds.service3.UpdateToiletStatusResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setType(io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
               .setFullMethodName(generateFullMethodName(
                   "service3.Service3", "UpdateToiletStatus"))
               .setSampledToLocalTracing(true)
@@ -133,9 +133,9 @@ public final class Service3Grpc {
 
     /**
      */
-    public void updateToiletStatus(ds.service3.UpdateToiletStatusRequest request,
+    public io.grpc.stub.StreamObserver<ds.service3.UpdateToiletStatusRequest> updateToiletStatus(
         io.grpc.stub.StreamObserver<ds.service3.UpdateToiletStatusResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getUpdateToiletStatusMethod(), responseObserver);
+      return asyncUnimplementedStreamingCall(getUpdateToiletStatusMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
@@ -149,7 +149,7 @@ public final class Service3Grpc {
                   this, METHODID_ENTERS_TO_TOILET)))
           .addMethod(
             getUpdateToiletStatusMethod(),
-            asyncUnaryCall(
+            asyncBidiStreamingCall(
               new MethodHandlers<
                 ds.service3.UpdateToiletStatusRequest,
                 ds.service3.UpdateToiletStatusResponse>(
@@ -189,10 +189,10 @@ public final class Service3Grpc {
 
     /**
      */
-    public void updateToiletStatus(ds.service3.UpdateToiletStatusRequest request,
+    public io.grpc.stub.StreamObserver<ds.service3.UpdateToiletStatusRequest> updateToiletStatus(
         io.grpc.stub.StreamObserver<ds.service3.UpdateToiletStatusResponse> responseObserver) {
-      asyncUnaryCall(
-          getChannel().newCall(getUpdateToiletStatusMethod(), getCallOptions()), request, responseObserver);
+      return asyncBidiStreamingCall(
+          getChannel().newCall(getUpdateToiletStatusMethod(), getCallOptions()), responseObserver);
     }
   }
 
@@ -222,13 +222,6 @@ public final class Service3Grpc {
     public ds.service3.ToiletVisitsResponse entersToToilet(ds.service3.ToiletVisitsRequest request) {
       return blockingUnaryCall(
           getChannel(), getEntersToToiletMethod(), getCallOptions(), request);
-    }
-
-    /**
-     */
-    public ds.service3.UpdateToiletStatusResponse updateToiletStatus(ds.service3.UpdateToiletStatusRequest request) {
-      return blockingUnaryCall(
-          getChannel(), getUpdateToiletStatusMethod(), getCallOptions(), request);
     }
   }
 
@@ -260,14 +253,6 @@ public final class Service3Grpc {
       return futureUnaryCall(
           getChannel().newCall(getEntersToToiletMethod(), getCallOptions()), request);
     }
-
-    /**
-     */
-    public com.google.common.util.concurrent.ListenableFuture<ds.service3.UpdateToiletStatusResponse> updateToiletStatus(
-        ds.service3.UpdateToiletStatusRequest request) {
-      return futureUnaryCall(
-          getChannel().newCall(getUpdateToiletStatusMethod(), getCallOptions()), request);
-    }
   }
 
   private static final int METHODID_ENTERS_TO_TOILET = 0;
@@ -294,10 +279,6 @@ public final class Service3Grpc {
           serviceImpl.entersToToilet((ds.service3.ToiletVisitsRequest) request,
               (io.grpc.stub.StreamObserver<ds.service3.ToiletVisitsResponse>) responseObserver);
           break;
-        case METHODID_UPDATE_TOILET_STATUS:
-          serviceImpl.updateToiletStatus((ds.service3.UpdateToiletStatusRequest) request,
-              (io.grpc.stub.StreamObserver<ds.service3.UpdateToiletStatusResponse>) responseObserver);
-          break;
         default:
           throw new AssertionError();
       }
@@ -308,6 +289,9 @@ public final class Service3Grpc {
     public io.grpc.stub.StreamObserver<Req> invoke(
         io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
+        case METHODID_UPDATE_TOILET_STATUS:
+          return (io.grpc.stub.StreamObserver<Req>) serviceImpl.updateToiletStatus(
+              (io.grpc.stub.StreamObserver<ds.service3.UpdateToiletStatusResponse>) responseObserver);
         default:
           throw new AssertionError();
       }

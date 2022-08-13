@@ -53,25 +53,26 @@ public final class Service3Impl {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\016service3.proto\022\010service3\"Y\n\023ToiletVisi" +
-      "tsRequest\022 \n\030toiletCleanedDateAndTime\030\001 " +
-      "\001(\t\022 \n\006toilet\030\002 \001(\0132\020.service3.Toilet\"8\n" +
-      "\024ToiletVisitsResponse\022 \n\006toilet\030\001 \001(\0132\020." +
-      "service3.Toilet\"4\n\006Toilet\022\026\n\016numberOfVis" +
-      "its\030\001 \001(\005\022\022\n\ntoiletName\030\002 \001(\t\"K\n\031UpdateT" +
-      "oiletStatusRequest\022 \n\006toilet\030\001 \001(\0132\020.ser" +
-      "vice3.Toilet\022\014\n\004date\030\002 \001(\t\"c\n\032UpdateToil" +
-      "etStatusResponse\022\025\n\rstatusUpdated\030\001 \001(\010\022" +
-      " \n\006toilet\030\002 \001(\0132\020.service3.Toilet\022\014\n\004dat" +
-      "e\030\003 \001(\t\"G\n\rErrorResponse\022\r\n\005input\030\001 \001(\005\022" +
-      "\'\n\nerror_code\030\002 \001(\0162\023.service3.ErrorCode" +
-      "*&\n\tErrorCode\022\014\n\010ABOVE_20\020\000\022\013\n\007BELOW_2\020\001" +
-      "2\300\001\n\010Service3\022Q\n\016EntersToToilet\022\035.servic" +
-      "e3.ToiletVisitsRequest\032\036.service3.Toilet" +
-      "VisitsResponse\"\000\022a\n\022UpdateToiletStatus\022#" +
-      ".service3.UpdateToiletStatusRequest\032$.se" +
-      "rvice3.UpdateToiletStatusResponse\"\000B\035\n\013d" +
-      "s.service3B\014Service3ImplP\001b\006proto3"
+      "\n\016service3.proto\022\010service3\"[\n\023ToiletVisi" +
+      "tsRequest\022\"\n\032toiletLastEnterDateAndTime\030" +
+      "\001 \001(\t\022 \n\006toilet\030\002 \001(\0132\020.service3.Toilet\"" +
+      "8\n\024ToiletVisitsResponse\022 \n\006toilet\030\001 \001(\0132" +
+      "\020.service3.Toilet\"4\n\006Toilet\022\026\n\016numberOfV" +
+      "isits\030\001 \001(\005\022\022\n\ntoiletName\030\002 \001(\t\"K\n\031Updat" +
+      "eToiletStatusRequest\022 \n\006toilet\030\001 \001(\0132\020.s" +
+      "ervice3.Toilet\022\014\n\004date\030\002 \001(\t\"z\n\032UpdateTo" +
+      "iletStatusResponse\022\025\n\rstatusUpdated\030\001 \001(" +
+      "\010\022 \n\006toilet\030\002 \001(\0132\020.service3.Toilet\022\014\n\004d" +
+      "ate\030\003 \001(\t\022\025\n\rneedsCleaning\030\004 \001(\010\"G\n\rErro" +
+      "rResponse\022\r\n\005input\030\001 \001(\005\022\'\n\nerror_code\030\002" +
+      " \001(\0162\023.service3.ErrorCode*&\n\tErrorCode\022\014" +
+      "\n\010ABOVE_20\020\000\022\013\n\007BELOW_2\020\0012\304\001\n\010Service3\022Q" +
+      "\n\016EntersToToilet\022\035.service3.ToiletVisits" +
+      "Request\032\036.service3.ToiletVisitsResponse\"" +
+      "\000\022e\n\022UpdateToiletStatus\022#.service3.Updat" +
+      "eToiletStatusRequest\032$.service3.UpdateTo" +
+      "iletStatusResponse\"\000(\0010\001B\035\n\013ds.service3B" +
+      "\014Service3ImplP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -90,7 +91,7 @@ public final class Service3Impl {
     internal_static_service3_ToiletVisitsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_service3_ToiletVisitsRequest_descriptor,
-        new java.lang.String[] { "ToiletCleanedDateAndTime", "Toilet", });
+        new java.lang.String[] { "ToiletLastEnterDateAndTime", "Toilet", });
     internal_static_service3_ToiletVisitsResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_service3_ToiletVisitsResponse_fieldAccessorTable = new
@@ -114,7 +115,7 @@ public final class Service3Impl {
     internal_static_service3_UpdateToiletStatusResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_service3_UpdateToiletStatusResponse_descriptor,
-        new java.lang.String[] { "StatusUpdated", "Toilet", "Date", });
+        new java.lang.String[] { "StatusUpdated", "Toilet", "Date", "NeedsCleaning", });
     internal_static_service3_ErrorResponse_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_service3_ErrorResponse_fieldAccessorTable = new

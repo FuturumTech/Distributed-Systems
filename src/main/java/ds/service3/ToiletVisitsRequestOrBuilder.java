@@ -8,14 +8,14 @@ public interface ToiletVisitsRequestOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>string toiletCleanedDateAndTime = 1;</code>
+   * <code>string toiletLastEnterDateAndTime = 1;</code>
    */
-  java.lang.String getToiletCleanedDateAndTime();
+  java.lang.String getToiletLastEnterDateAndTime();
   /**
-   * <code>string toiletCleanedDateAndTime = 1;</code>
+   * <code>string toiletLastEnterDateAndTime = 1;</code>
    */
   com.google.protobuf.ByteString
-      getToiletCleanedDateAndTimeBytes();
+      getToiletLastEnterDateAndTimeBytes();
 
   /**
    * <code>.service3.Toilet toilet = 2;</code>

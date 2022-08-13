@@ -8,11 +8,11 @@ package service3;
 // Interface exported by the server.
 service Service3 {
 	rpc EntersToToilet(ToiletVisitsRequest) returns (ToiletVisitsResponse) {}
-	rpc UpdateToiletStatus(UpdateToiletStatusRequest) returns (UpdateToiletStatusResponse){};
+	rpc UpdateToiletStatus(stream UpdateToiletStatusRequest) returns (stream UpdateToiletStatusResponse){};
 }
 //rpc EntersToToilet:
 message ToiletVisitsRequest {
-	string toiletCleanedDateAndTime = 1;
+	string toiletLastEnterDateAndTime = 1;
 	Toilet toilet = 2;
 }
 
@@ -32,6 +32,7 @@ message UpdateToiletStatusResponse{
 	bool statusUpdated = 1;
 	Toilet toilet = 2;
 	string date = 3;
+	bool needsCleaning =4;
 }
 
 message ErrorResponse {

@@ -20,7 +20,7 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private ToiletVisitsRequest() {
-    toiletCleanedDateAndTime_ = "";
+    toiletLastEnterDateAndTime_ = "";
   }
 
   @java.lang.Override
@@ -50,7 +50,7 @@ private static final long serialVersionUID = 0L;
           case 10: {
             java.lang.String s = input.readStringRequireUtf8();
 
-            toiletCleanedDateAndTime_ = s;
+            toiletLastEnterDateAndTime_ = s;
             break;
           }
           case 18: {
@@ -98,34 +98,34 @@ private static final long serialVersionUID = 0L;
             ds.service3.ToiletVisitsRequest.class, ds.service3.ToiletVisitsRequest.Builder.class);
   }
 
-  public static final int TOILETCLEANEDDATEANDTIME_FIELD_NUMBER = 1;
-  private volatile java.lang.Object toiletCleanedDateAndTime_;
+  public static final int TOILETLASTENTERDATEANDTIME_FIELD_NUMBER = 1;
+  private volatile java.lang.Object toiletLastEnterDateAndTime_;
   /**
-   * <code>string toiletCleanedDateAndTime = 1;</code>
+   * <code>string toiletLastEnterDateAndTime = 1;</code>
    */
-  public java.lang.String getToiletCleanedDateAndTime() {
-    java.lang.Object ref = toiletCleanedDateAndTime_;
+  public java.lang.String getToiletLastEnterDateAndTime() {
+    java.lang.Object ref = toiletLastEnterDateAndTime_;
     if (ref instanceof java.lang.String) {
       return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
       java.lang.String s = bs.toStringUtf8();
-      toiletCleanedDateAndTime_ = s;
+      toiletLastEnterDateAndTime_ = s;
       return s;
     }
   }
   /**
-   * <code>string toiletCleanedDateAndTime = 1;</code>
+   * <code>string toiletLastEnterDateAndTime = 1;</code>
    */
   public com.google.protobuf.ByteString
-      getToiletCleanedDateAndTimeBytes() {
-    java.lang.Object ref = toiletCleanedDateAndTime_;
+      getToiletLastEnterDateAndTimeBytes() {
+    java.lang.Object ref = toiletLastEnterDateAndTime_;
     if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
-      toiletCleanedDateAndTime_ = b;
+      toiletLastEnterDateAndTime_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
@@ -167,8 +167,8 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (!getToiletCleanedDateAndTimeBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, toiletCleanedDateAndTime_);
+    if (!getToiletLastEnterDateAndTimeBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, toiletLastEnterDateAndTime_);
     }
     if (toilet_ != null) {
       output.writeMessage(2, getToilet());
@@ -182,8 +182,8 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (!getToiletCleanedDateAndTimeBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, toiletCleanedDateAndTime_);
+    if (!getToiletLastEnterDateAndTimeBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, toiletLastEnterDateAndTime_);
     }
     if (toilet_ != null) {
       size += com.google.protobuf.CodedOutputStream
@@ -205,8 +205,8 @@ private static final long serialVersionUID = 0L;
     ds.service3.ToiletVisitsRequest other = (ds.service3.ToiletVisitsRequest) obj;
 
     boolean result = true;
-    result = result && getToiletCleanedDateAndTime()
-        .equals(other.getToiletCleanedDateAndTime());
+    result = result && getToiletLastEnterDateAndTime()
+        .equals(other.getToiletLastEnterDateAndTime());
     result = result && (hasToilet() == other.hasToilet());
     if (hasToilet()) {
       result = result && getToilet()
@@ -223,8 +223,8 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + TOILETCLEANEDDATEANDTIME_FIELD_NUMBER;
-    hash = (53 * hash) + getToiletCleanedDateAndTime().hashCode();
+    hash = (37 * hash) + TOILETLASTENTERDATEANDTIME_FIELD_NUMBER;
+    hash = (53 * hash) + getToiletLastEnterDateAndTime().hashCode();
     if (hasToilet()) {
       hash = (37 * hash) + TOILET_FIELD_NUMBER;
       hash = (53 * hash) + getToilet().hashCode();
@@ -366,7 +366,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      toiletCleanedDateAndTime_ = "";
+      toiletLastEnterDateAndTime_ = "";
 
       if (toiletBuilder_ == null) {
         toilet_ = null;
@@ -400,7 +400,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public ds.service3.ToiletVisitsRequest buildPartial() {
       ds.service3.ToiletVisitsRequest result = new ds.service3.ToiletVisitsRequest(this);
-      result.toiletCleanedDateAndTime_ = toiletCleanedDateAndTime_;
+      result.toiletLastEnterDateAndTime_ = toiletLastEnterDateAndTime_;
       if (toiletBuilder_ == null) {
         result.toilet_ = toilet_;
       } else {
@@ -454,8 +454,8 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(ds.service3.ToiletVisitsRequest other) {
       if (other == ds.service3.ToiletVisitsRequest.getDefaultInstance()) return this;
-      if (!other.getToiletCleanedDateAndTime().isEmpty()) {
-        toiletCleanedDateAndTime_ = other.toiletCleanedDateAndTime_;
+      if (!other.getToiletLastEnterDateAndTime().isEmpty()) {
+        toiletLastEnterDateAndTime_ = other.toiletLastEnterDateAndTime_;
         onChanged();
       }
       if (other.hasToilet()) {
@@ -490,71 +490,71 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object toiletCleanedDateAndTime_ = "";
+    private java.lang.Object toiletLastEnterDateAndTime_ = "";
     /**
-     * <code>string toiletCleanedDateAndTime = 1;</code>
+     * <code>string toiletLastEnterDateAndTime = 1;</code>
      */
-    public java.lang.String getToiletCleanedDateAndTime() {
-      java.lang.Object ref = toiletCleanedDateAndTime_;
+    public java.lang.String getToiletLastEnterDateAndTime() {
+      java.lang.Object ref = toiletLastEnterDateAndTime_;
       if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        toiletCleanedDateAndTime_ = s;
+        toiletLastEnterDateAndTime_ = s;
         return s;
       } else {
         return (java.lang.String) ref;
       }
     }
     /**
-     * <code>string toiletCleanedDateAndTime = 1;</code>
+     * <code>string toiletLastEnterDateAndTime = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getToiletCleanedDateAndTimeBytes() {
-      java.lang.Object ref = toiletCleanedDateAndTime_;
+        getToiletLastEnterDateAndTimeBytes() {
+      java.lang.Object ref = toiletLastEnterDateAndTime_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        toiletCleanedDateAndTime_ = b;
+        toiletLastEnterDateAndTime_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
     /**
-     * <code>string toiletCleanedDateAndTime = 1;</code>
+     * <code>string toiletLastEnterDateAndTime = 1;</code>
      */
-    public Builder setToiletCleanedDateAndTime(
+    public Builder setToiletLastEnterDateAndTime(
         java.lang.String value) {
       if (value == null) {
     throw new NullPointerException();
   }
   
-      toiletCleanedDateAndTime_ = value;
+      toiletLastEnterDateAndTime_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>string toiletCleanedDateAndTime = 1;</code>
+     * <code>string toiletLastEnterDateAndTime = 1;</code>
      */
-    public Builder clearToiletCleanedDateAndTime() {
+    public Builder clearToiletLastEnterDateAndTime() {
       
-      toiletCleanedDateAndTime_ = getDefaultInstance().getToiletCleanedDateAndTime();
+      toiletLastEnterDateAndTime_ = getDefaultInstance().getToiletLastEnterDateAndTime();
       onChanged();
       return this;
     }
     /**
-     * <code>string toiletCleanedDateAndTime = 1;</code>
+     * <code>string toiletLastEnterDateAndTime = 1;</code>
      */
-    public Builder setToiletCleanedDateAndTimeBytes(
+    public Builder setToiletLastEnterDateAndTimeBytes(
         com.google.protobuf.ByteString value) {
       if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
       
-      toiletCleanedDateAndTime_ = value;
+      toiletLastEnterDateAndTime_ = value;
       onChanged();
       return this;
     }

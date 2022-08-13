@@ -32,14 +32,16 @@ public class Service3 extends Service3ImplBase {
 	public static void main(String[] args) throws InterruptedException, IOException {
 		// Adding mock Room details to database Service 1:s
 
-		Service3DataBase.Toilet temp1 = new Service3DataBase.Toilet("ground floor", 3, "11/08/2022 18:45:38");
+		Service3DataBase.Toilet temp1 = new Service3DataBase.Toilet("ground floor", 28, "11/08/2022 18:45:38");
 		Service3DataBase.Toilet temp2 = new Service3DataBase.Toilet("first floor", 1, "07/08/2022 19:36:16");
-		Service3DataBase.Toilet temp3 = new Service3DataBase.Toilet("second floor", 2, "12/08/2022 21:27:12");
-		Service3DataBase.Toilet temp4 = new Service3DataBase.Toilet("third floor", 4, "03/08/2022 20:12:27");
+		Service3DataBase.Toilet temp3 = new Service3DataBase.Toilet("second floor", 35, "12/08/2022 21:27:12");
+		Service3DataBase.Toilet temp4 = new Service3DataBase.Toilet("third floor", 27, "03/08/2022 20:12:27");
+		Service3DataBase.Toilet temp5 = new Service3DataBase.Toilet("fourth floor", 45, "06/07/2022 18:23:25");
 		myTempData.getMyToilets().add(temp1);
 		myTempData.getMyToilets().add(temp2);
 		myTempData.getMyToilets().add(temp3);
 		myTempData.getMyToilets().add(temp4);
+		myTempData.getMyToilets().add(temp5);
 
 		// gracefully shutting down
 		Thread printingHook = new Thread(() -> System.out.println("In the middle of a shutdown"));
@@ -77,7 +79,7 @@ public class Service3 extends Service3ImplBase {
 		Toilet toiletRequest = request.getToilet();
 		int numberOfVisits = toiletRequest.getNumberOfVisits();
 		String toiletName = toiletRequest.getToiletName();
-
+		String toiletLastEnterDateAndTime = request.getToiletLastEnterDateAndTime();
 		ToiletVisitsResponse reply;
 		try {
 			// result of the below method may be null if not found, therefore try catch
@@ -86,11 +88,13 @@ public class Service3 extends Service3ImplBase {
 			if (toiletInDataBase.getNumberOfVisits() + numberOfVisits <= toiletInDataBase.getMaxNumberOfVisits()) {
 				// storing data from request into database:
 				toiletInDataBase.setNumberOfVisits(toiletInDataBase.getNumberOfVisits() + numberOfVisits);
-
+				toiletInDataBase.setToiletLastEnterDateAndTime(toiletLastEnterDateAndTime);
+				//case where number of visits does  exceeds maxium allowed number
 			} else if (toiletInDataBase.getNumberOfVisits() + numberOfVisits > toiletInDataBase
 					.getMaxNumberOfVisits()) {
 				// storing data from request into database anyway:
 				toiletInDataBase.setNumberOfVisits(toiletInDataBase.getNumberOfVisits() + numberOfVisits);
+				toiletInDataBase.setToiletLastEnterDateAndTime(toiletLastEnterDateAndTime);
 				throw new ExceededNumberOfToiletVisitsException(toiletInDataBase.getNumberOfVisits(),
 						toiletInDataBase.getMaxNumberOfVisits());
 			}
@@ -132,56 +136,84 @@ public class Service3 extends Service3ImplBase {
 	}
 
 	@Override
-	public void updateToiletStatus(UpdateToiletStatusRequest request,
-			StreamObserver<UpdateToiletStatusResponse> responseObserver) {
+	public StreamObserver<UpdateToiletStatusRequest> updateToiletStatus(StreamObserver<UpdateToiletStatusResponse> responseObserver) {
+		return new StreamObserver<UpdateToiletStatusRequest>() {
 
-		// prepare the value to be set back
-		System.out.println("receiving updateToiletStatus method " + request.getToilet());
-		// declaring temp object from request and storing values;
-		Toilet toiletRequest = request.getToilet();
-		int numberOfVisits = toiletRequest.getNumberOfVisits();
-		String toiletName = toiletRequest.getToiletName();
-		String toiletCleanedDateAndTime = request.getDate();
-		UpdateToiletStatusResponse reply;
-		boolean statusUpdated = false;
-		try {
-			// result of the below method may be null if not found, therefore try catch
-			Service3DataBase.Toilet toiletInDataBase = findToilet(toiletName, myTempData.getMyToilets());
-			// storing data from request into database anyway, reseting value of visits as
-			// the toilet was cleaned:
-			toiletInDataBase.setNumberOfVisits(0);
-			toiletInDataBase.setToiletCleanedDateAndTime(toiletCleanedDateAndTime);
+			@Override
+			public void onNext(UpdateToiletStatusRequest request) {
+				// prepare the value to be set back
+				System.out.println("receiving updateToiletStatus method " + request.getToilet());
+				// declaring temp object from request and storing values;
+				Toilet toiletRequest = request.getToilet();
+				int numberOfVisits = toiletRequest.getNumberOfVisits();
+				String toiletName = toiletRequest.getToiletName();
+				String toiletCleanedDateAndTime = request.getDate();
+				UpdateToiletStatusResponse reply;
+				boolean statusUpdated = false;
+				try {
+					// result of the below method may be null if not found, therefore try catch
+					Service3DataBase.Toilet toiletInDataBase = findToilet(toiletName, myTempData.getMyToilets());
+					// storing data from request into database anyway, reseting value of visits as
+					// the toilet was cleaned:
+					toiletInDataBase.setNumberOfVisits(0);
+					toiletInDataBase.setToiletCleanedDateAndTime(toiletCleanedDateAndTime);
+					
+					// additional check:
+					if (toiletInDataBase.getNumberOfVisits() == 0)
+						statusUpdated = true;
+					
+					
+					//SERVER STREAMING:
+					//it will return all toilets that needs cleaning
+					for(int i =0; i<myTempData.getMyToilets().size(); i++) {
+						if(myTempData.getMyToilets().get(i).needsCleaning) {
+							
+							// We need to use builder to create instance of Toilet that will be passedL
+							Toilet.Builder ToiletReply = Toilet.newBuilder()
+									.setNumberOfVisits(myTempData.getMyToilets().get(i).getNumberOfVisits())
+									.setToiletName(myTempData.getMyToilets().get(i).getToiletName());
+							
+							//Build reply:
+							reply = UpdateToiletStatusResponse.newBuilder().setStatusUpdated(statusUpdated).setToilet(ToiletReply)
+									.setDate(toiletCleanedDateAndTime).build();
+							responseObserver.onNext(reply);
+							System.out.println("reply is:" + reply);
+							System.out.println("updateToiletStatus() SUCCESS");
+						}
+					}
+					
+				} catch (NullPointerException e) {
+					System.out.println(e.getMessage());
+					// preparing the response message, -999 means to the client that unusual path
+					// reached
+					// We need to use builder to create instance of Toilet that will be passedL
+					Toilet.Builder ToiletReply = Toilet.newBuilder().setNumberOfVisits(-999).setToiletName("Not found");
+					// System.out.println("TEST Exception");
 
-			// We need to use builder to create instance of Toilet that will be passedL
-			Toilet.Builder ToiletReply = Toilet.newBuilder().setNumberOfVisits(toiletInDataBase.getNumberOfVisits())
-					.setToiletName(toiletInDataBase.getToiletName());
+					reply = UpdateToiletStatusResponse.newBuilder().setStatusUpdated(statusUpdated).setToilet(ToiletReply)
+							.setDate("Toilet not found").build();
+					System.out.println("updateToiletStatus() FAILURE");
+					responseObserver.onNext(reply);
+				}
+				
+			}
 
-			// additional check:
-			if (toiletInDataBase.getNumberOfVisits() == 0)
-				statusUpdated = true;
+			@Override
+			public void onError(Throwable t) {
+				// TODO Auto-generated method stubal
+				
+			}
 
-			reply = UpdateToiletStatusResponse.newBuilder().setStatusUpdated(statusUpdated).setToilet(ToiletReply)
-					.setDate(toiletCleanedDateAndTime).build();
-			System.out.println("updateToiletStatus() SUCCESS");
-			responseObserver.onNext(reply);
-		} catch (NullPointerException e) {
-			System.out.println(e.getMessage());
-			// preparing the response message, -999 means to the client that unusual path
-			// reached
-			// We need to use builder to create instance of Toilet that will be passedL
-			Toilet.Builder ToiletReply = Toilet.newBuilder().setNumberOfVisits(-999).setToiletName("Not found");
-			// System.out.println("TEST Exception");
-
-			reply = UpdateToiletStatusResponse.newBuilder().setStatusUpdated(statusUpdated).setToilet(ToiletReply)
-					.setDate("Toilet not found").build();
-			System.out.println("updateToiletStatus() FAILURE");
-			responseObserver.onNext(reply);
-		}
-
-		responseObserver.onCompleted();
-
+			@Override
+			public void onCompleted() {
+				 responseObserver.onCompleted();
+				
+			}
+			
+		};
 	}
-
+	
+	
 //Method to find return toilet 
 	private static Service3DataBase.Toilet findToilet(String roomName, ArrayList<Service3DataBase.Toilet> myArray) {
 		for (int i = 0; i < myArray.size(); i++) {

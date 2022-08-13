@@ -1,24 +1,16 @@
 package ds.service2;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
-
 import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceEvent;
 import javax.jmdns.ServiceInfo;
 import javax.jmdns.ServiceListener;
-
-import ds.service1.Confirmation;
-import ds.service1.DesiredRoomConditions;
-import ds.service2.Service2;
 import ds.service2.Service2Client;
-import ds.service2.Service2Grpc;
 import ds.service2.Service2Grpc.Service2BlockingStub;
 import ds.service2.Service2Grpc.Service2Stub;
 import io.grpc.ManagedChannel;
@@ -77,12 +69,8 @@ public class Service2Client {
 				+ desiredDeskHeightChange);
 
 		// building reply and received response:
-		DeskDetailsRequest req = DeskDetailsRequest.newBuilder()
-				.setRoomName(roomName)
-				.setDeskNumber(deskNumber)
-				.setDesiredDeskHeight(desiredDeskHeightChange)
-				.setOperation(operation)
-				.build();
+		DeskDetailsRequest req = DeskDetailsRequest.newBuilder().setRoomName(roomName).setDeskNumber(deskNumber)
+				.setDesiredDeskHeight(desiredDeskHeightChange).setOperation(operation).build();
 		// System.out.println("\nREQUEST IS : "+ req);
 		DeskAdjustedResponse response = blockingStub.deskStatusHeight(req);
 		System.out.println("\t desiredSettingHVAC() run correctly");
@@ -91,14 +79,12 @@ public class Service2Client {
 		System.out.println("END: desiredSettingHVAC()");
 	}
 
-	// unary rpc
+	// unary rpc client
 	public static void chairStatusHeight() {
 		String roomName = "reception";
 		int deskNumber = 4;
 		int chairHeightChange = 5;
-		Chair.Builder chairRequest = Chair.newBuilder()
-				.setChairHeight(chairHeightChange)
-				.setDeskNumber(deskNumber)
+		Chair.Builder chairRequest = Chair.newBuilder().setChairHeight(chairHeightChange).setDeskNumber(deskNumber)
 				.setRoomName(roomName);
 		ChairHeightRequest.ChairOperation operation = ChairHeightRequest.ChairOperation.forNumber(1);
 
@@ -107,9 +93,7 @@ public class Service2Client {
 				+ chairHeightChange);
 
 		// building reply and received response:
-		ChairHeightRequest req = ChairHeightRequest.newBuilder()
-				.setChair(chairRequest)
-				.setChairOperation(operation)
+		ChairHeightRequest req = ChairHeightRequest.newBuilder().setChair(chairRequest).setChairOperation(operation)
 				.build();
 		// System.out.println("\nREQUEST IS : "+ req);
 		ChairHeightResponse response = blockingStub.chairStatusHeight(req);
@@ -149,13 +133,13 @@ public class Service2Client {
 
 				@Override
 				public void serviceRemoved(ServiceEvent event) {
-					System.out.println("Service1 removed: " + event.getInfo());
+					System.out.println("Service2 removed: " + event.getInfo());
 
 				}
 
 				@Override
 				public void serviceAdded(ServiceEvent event) {
-					System.out.println("Service1 added: " + event.getInfo());
+					System.out.println("Service2 added: " + event.getInfo());
 
 				}
 			});
