@@ -11,14 +11,6 @@ import java.util.logging.Logger;
 import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceInfo;
 
-import ds.service1.Service1;
-import ds.service2.Chair;
-import ds.service2.ChairHeightRequest;
-import ds.service2.ChairHeightResponse;
-import ds.service2.IllegalChairHeightException;
-import ds.service2.IllegalDeskHeightException;
-import ds.service2.Service2;
-import ds.service2.Service2DataBase;
 import ds.service3.Service3Grpc.Service3ImplBase;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
@@ -33,7 +25,7 @@ public class Service3 extends Service3ImplBase {
 		// Adding mock Room details to database Service 1:s
 
 		Service3DataBase.Toilet temp1 = new Service3DataBase.Toilet("ground floor", 28, "11/08/2022 18:45:38");
-		Service3DataBase.Toilet temp2 = new Service3DataBase.Toilet("first floor", 1, "07/08/2022 19:36:16");
+		Service3DataBase.Toilet temp2 = new Service3DataBase.Toilet("first floor", 5, "07/08/2022 19:36:16");
 		Service3DataBase.Toilet temp3 = new Service3DataBase.Toilet("second floor", 35, "12/08/2022 21:27:12");
 		Service3DataBase.Toilet temp4 = new Service3DataBase.Toilet("third floor", 27, "03/08/2022 20:12:27");
 		Service3DataBase.Toilet temp5 = new Service3DataBase.Toilet("fourth floor", 45, "06/07/2022 18:23:25");
@@ -84,8 +76,8 @@ public class Service3 extends Service3ImplBase {
 		try {
 			// result of the below method may be null if not found, therefore try catch
 			Service3DataBase.Toilet toiletInDataBase = findToilet(toiletName, myTempData.getMyToilets());
-			// case where number of visits does not exceeds maxium allowed number
-			if (toiletInDataBase.getNumberOfVisits() + numberOfVisits <= toiletInDataBase.getMaxNumberOfVisits()) {
+			// case where number of visits does not exceeds maxium allowed number 
+				if (toiletInDataBase.getNumberOfVisits() + numberOfVisits <= toiletInDataBase.getMaxNumberOfVisits()) {
 				// storing data from request into database:
 				toiletInDataBase.setNumberOfVisits(toiletInDataBase.getNumberOfVisits() + numberOfVisits);
 				toiletInDataBase.setToiletLastEnterDateAndTime(toiletLastEnterDateAndTime);

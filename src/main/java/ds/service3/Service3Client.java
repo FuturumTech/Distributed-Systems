@@ -11,9 +11,6 @@ import javax.jmdns.ServiceEvent;
 import javax.jmdns.ServiceInfo;
 import javax.jmdns.ServiceListener;
 
-import ds.service2.Chair;
-import ds.service2.ChairHeightRequest;
-import ds.service2.ChairHeightResponse;
 import ds.service3.Service3Grpc.Service3BlockingStub;
 import ds.service3.Service3Grpc.Service3Stub;
 import io.grpc.ManagedChannel;
@@ -38,8 +35,8 @@ public class Service3Client {
 
 		String host = service3Client.service3Info.getHostAddresses()[0]; // localhost
 		// String host = "localhost";
-		// int port = 50051;
-		int port = service3Client.service3Info.getPort(); // 50051
+		// int port = 50053;
+		int port = service3Client.service3Info.getPort(); // 50053
 
 		/*
 		 * Build a channel to connect to the server, using localhost as IP and
@@ -52,7 +49,7 @@ public class Service3Client {
 
 		asyncStub = Service3Grpc.newStub(channel);
 		// Calling methods
-
+		entersToToilet();
 		
 		// Gracefully shutting down the channel:
 		channel.shutdown().awaitTermination(port, TimeUnit.MILLISECONDS);
@@ -60,26 +57,26 @@ public class Service3Client {
 	}
 	// unary rpc client
 		public static void entersToToilet() {
-//			String toiletCleanedDateAndTime = "12/08/2022 18:45:38";
-//			int deskNumber = 4;
-//			int chairHeightChange = 5;
-//			Toilet.Builder chairRequest = Toilet.newBuilder().setChairHeight(chairHeightChange).setDeskNumber(deskNumber)
-//					.setRoomName(roomName);
-//			ChairHeightRequest.ChairOperation operation = ChairHeightRequest.ChairOperation.forNumber(1);
-//
-//			System.out.println("\nCALLING: chairStatusHeight(), request is:");
-//			System.out.println("\troomName is: " + roomName + " deskNumber: " + deskNumber + " desiredDeskHeight: "
-//					+ chairHeightChange);
-//
-//			// building reply and received response:
-//			ChairHeightRequest req = ChairHeightRequest.newBuilder().setChair(chairRequest).setChairOperation(operation)
-//					.build();
-//			// System.out.println("\nREQUEST IS : "+ req);
-//			ChairHeightResponse response = blockingStub.chairStatusHeight(req);
-//			System.out.println("\t chairStatusHeight() run correctly");
-//			System.out.println("\tresponse is: chair adjusted: " + response.getIsHeightAdjusted() + ", chair height is: "
-//					+ response.getChair().getChairHeight());
-//			System.out.println("END: chairStatusHeight()");
+			String toiletLastEnterDateAndTime = "15/08/2022 18:45:38";
+			String toiletName = "first floor"; //ground,second, third, fourth floor will throw exception 
+			int numberOfVisits = 3;
+			Toilet.Builder toiletRequest = Toilet.newBuilder()
+					.setToiletName(toiletName)
+					.setNumberOfVisits(0); //because it the toilet was just cleaned
+
+			System.out.println("\nCALLING: entersToToilet(), request is:");
+			System.out.println("\t Toilet last enter on: " + toiletLastEnterDateAndTime + " toilet is: " + toiletRequest);
+
+			// building reply and received response:
+			ToiletVisitsRequest req = ToiletVisitsRequest.newBuilder()
+					.setToiletLastEnterDateAndTime(toiletLastEnterDateAndTime)
+					.setToilet(toiletRequest)
+					.build();
+			// System.out.println("\nREQUEST IS : "+ req);
+			ToiletVisitsResponse response = blockingStub.entersToToilet(req);
+			System.out.println("\t entersToToilet() run correctly");
+			System.out.println("\tresponse is: toilet visit changed: " + response.getToilet());
+			System.out.println("END: entersToToilet()");
 		}
 
 	// DISCOVERY for all methods below:

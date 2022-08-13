@@ -35,8 +35,8 @@ public class Service2Client {
 
 		String host = service2Client.service2Info.getHostAddresses()[0]; // localhost
 		// String host = "localhost";
-		// int port = 50051;
-		int port = service2Client.service2Info.getPort(); // 50051
+		// int port = 50053;
+		int port = service2Client.service2Info.getPort(); // 50053
 
 		/*
 		 * Build a channel to connect to the server, using localhost as IP and

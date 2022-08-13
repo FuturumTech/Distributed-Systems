@@ -4,16 +4,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetAddress;
-import java.util.ArrayList;
 import java.util.Properties;
 import java.util.logging.Logger;
 
 import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceInfo;
 
-import ds.service1.Service1;
-import ds.service1.Service1DataBase;
-import ds.service2.Service2DataBase;
 import ds.service2.Service2Grpc.Service2ImplBase;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
