@@ -15,7 +15,6 @@ import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
 
-
 public class Service1 extends Service1ImplBase {
 
 	private static final Logger logger = Logger.getLogger(Service1.class.getName());
@@ -38,6 +37,11 @@ public class Service1 extends Service1ImplBase {
 		System.out.println("Room index 2 is: " + myTempData.getMyRooms().get(2).getRoomName());
 		System.out.println("ArrayList size is: " + myTempData.getMyRooms().size());
 
+		// gracefully shutting down
+		Thread printingHook = new Thread(() -> System.out.println("In the middle of a shutdown"));
+		Runtime.getRuntime().addShutdownHook(printingHook);
+		
+		
 		// Create and Instance of the Class to five access to the RPC methods/services
 		Service1 service1 = new Service1();
 		Properties prop = service1.getProperties();
@@ -50,6 +54,7 @@ public class Service1 extends Service1ImplBase {
 			Server server = ServerBuilder.forPort(port).addService(service1).build().start();
 
 			logger.info("Server started, listening on " + port);
+
 			// Server is waiting until explicitly terminated
 			server.awaitTermination();
 		} catch (IOException e) {
@@ -59,9 +64,9 @@ public class Service1 extends Service1ImplBase {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 	}
 
-	
 	@Override
 	public void desiredSettingHVAC(DesiredRoomConditions request, StreamObserver<Confirmation> responseObserver) {
 		// Find out what sent by the client
@@ -94,8 +99,7 @@ public class Service1 extends Service1ImplBase {
 		// Case if the room name exist
 		if (!roomName.equals("not found")) {
 			responseBuilder = Confirmation.newBuilder()
-					.setConfirmation("Received data to grp hVACstatus was completed for room: \""
-							+ roomNameToReturn);
+					.setConfirmation("Received data to grp hVACstatus was completed for room: \"" + roomNameToReturn);
 		} else {
 			responseBuilder = Confirmation.newBuilder()
 					.setConfirmation("No room was found for the name:" + roomNameToReturn);
@@ -207,9 +211,9 @@ public class Service1 extends Service1ImplBase {
 			// Server streaming:
 			int repeatReply = 5;
 			int timeBeetweenMessages = 1000;
-			for (int i = 0; i<repeatReply; i++) {
+			for (int i = 0; i < repeatReply; i++) {
 				responseObserver.onNext(responseBuilder);
-				System.out.println("STREAM SENT: roomStatus() iteration:" + (i+1));
+				System.out.println("STREAM SENT: roomStatus() iteration:" + (i + 1));
 				// Wait a bit
 				try {
 					Thread.sleep(timeBeetweenMessages);
@@ -252,86 +256,66 @@ public class Service1 extends Service1ImplBase {
 	}
 
 	// Service registration:
-		// 1st -Method to get properties of the service:
-		private Properties getProperties() {
+	// 1st -Method to get properties of the service:
+	private Properties getProperties() {
 
-			Properties prop = null;
+		Properties prop = null;
 
-			try (InputStream input = new FileInputStream("src/main/resources/service1.properties")) {
+		try (InputStream input = new FileInputStream("src/main/resources/service1.properties")) {
 
-				prop = new Properties();
+			prop = new Properties();
 
-				// load a properties file
-				prop.load(input);
+			// load a properties file
+			prop.load(input);
 
-				// get the property value and print it out
-				System.out.println("Service1 Climate Control properies ...");
-				System.out.println("\t service_type: " + prop.getProperty("service_type"));
-				System.out.println("\t service_name: " + prop.getProperty("service_name"));
-				System.out.println("\t service_description: " + prop.getProperty("service_description"));
-				System.out.println("\t service_port: " + prop.getProperty("service_port"));
+			// get the property value and print it out
+			System.out.println("Service1 Climate Control properies ...");
+			System.out.println("\t service_type: " + prop.getProperty("service_type"));
+			System.out.println("\t service_name: " + prop.getProperty("service_name"));
+			System.out.println("\t service_description: " + prop.getProperty("service_description"));
+			System.out.println("\t service_port: " + prop.getProperty("service_port"));
 
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-
-			return prop;
+		} catch (IOException ex) {
+			ex.printStackTrace();
 		}
 
-		// 2nd is to register the service
-		private void registerService(Properties prop) {
+		return prop;
+	}
 
-			try {
-				// Create a JmDNS instance
-				JmDNS jmdns = JmDNS.create(InetAddress.getLocalHost());
+	// 2nd is to register the service
+	private void registerService(Properties prop) {
 
-				String service_type = prop.getProperty("service_type");// "service1._tcp.local.";
-				String service_name = prop.getProperty("service_name");// "climate_control";
-				// int service_port = 1234;
-				int service_port = Integer.valueOf(prop.getProperty("service_port"));// #.50051;
+		try {
+			// Create a JmDNS instance
+			JmDNS jmdns = JmDNS.create(InetAddress.getLocalHost());
+			System.out.println("\tjmdns version is: " + jmdns.VERSION);
+			String service_type = prop.getProperty("service_type");// "service1._tcp.local.";
+			String service_name = prop.getProperty("service_name");// "climate_control";
+			// int service_port = 1234;
+			int service_port = Integer.valueOf(prop.getProperty("service_port"));// #.50051;
 
-				String service_description_properties = prop.getProperty("service_description");// "path=index.html";
+			String service_description_properties = prop.getProperty("service_description");// "path=index.html";
 
-				// Register a service
-				ServiceInfo serviceInfo = ServiceInfo.create(service_type, service_name, service_port,
-						service_description_properties);
-				jmdns.registerService(serviceInfo);
+			// Register a service
+			ServiceInfo serviceInfo = ServiceInfo.create(service_type, service_name, service_port,
+					service_description_properties);
+			jmdns.registerService(serviceInfo);
 
-				System.out.printf("registrering service with type %s and name %s \n", service_type, service_name);
+			System.out.printf("registrering service with type %s and name %s \n", service_type, service_name);
 
-				// Wait a bit
-				Thread.sleep(1000);
+			// Wait a bit
+			Thread.sleep(1000);
 
-				// Unregister all services
-				jmdns.unregisterAllServices();
+			// Unregister all services
+			// jmdns.unregisterAllServices();
 
-			} catch (IOException e) {
-				System.out.println(e.getMessage());
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
-//	//Extend abstract base class for our implementation
-//	static class NewServerImpl extends Service1ImplBase{
-//		@Override
-//		public void desiredSettingHVAC(DesiredRoomConditions request, StreamObserver<Confirmation> responseObserver) {
-//			//Find out what sent by the client
-//			String roomName = request.getRoomName();
-//			float desiredHumidity = request.getDesiredHumidity();
-//			float desiredTempInCelcius = request.getDesiredTempInCelcius();
-//			System.out.println("Request received from client is: " + roomName + " "+ desiredHumidity + " " + desiredTempInCelcius);
-//			
-//			//Our response:
-//			//Firstly, we must create a builder
-//			Confirmation.Builder responseBuilder = Confirmation.newBuilder().setConfirmation(roomName); //PLACEHOLDER FOR VALUE RETURN
-//			
-//			//Send it back:
-//			responseObserver.onNext(responseBuilder.build());
-//			
-//			//responseObserver.onCompleted();
-//		}
-//	}
+	}
+
 }

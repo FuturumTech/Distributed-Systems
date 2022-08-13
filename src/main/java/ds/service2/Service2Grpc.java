@@ -30,36 +30,68 @@ public final class Service2Grpc {
   public static final String SERVICE_NAME = "service2.Service2";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<ds.service2.RequestLengthMessage,
-      ds.service2.ResponseLengthMessage> getService2LengthMethod;
+  private static volatile io.grpc.MethodDescriptor<ds.service2.DeskDetailsRequest,
+      ds.service2.DeskAdjustedResponse> getDeskStatusHeightMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "Service2Length",
-      requestType = ds.service2.RequestLengthMessage.class,
-      responseType = ds.service2.ResponseLengthMessage.class,
+      fullMethodName = SERVICE_NAME + '/' + "DeskStatusHeight",
+      requestType = ds.service2.DeskDetailsRequest.class,
+      responseType = ds.service2.DeskAdjustedResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<ds.service2.RequestLengthMessage,
-      ds.service2.ResponseLengthMessage> getService2LengthMethod() {
-    io.grpc.MethodDescriptor<ds.service2.RequestLengthMessage, ds.service2.ResponseLengthMessage> getService2LengthMethod;
-    if ((getService2LengthMethod = Service2Grpc.getService2LengthMethod) == null) {
+  public static io.grpc.MethodDescriptor<ds.service2.DeskDetailsRequest,
+      ds.service2.DeskAdjustedResponse> getDeskStatusHeightMethod() {
+    io.grpc.MethodDescriptor<ds.service2.DeskDetailsRequest, ds.service2.DeskAdjustedResponse> getDeskStatusHeightMethod;
+    if ((getDeskStatusHeightMethod = Service2Grpc.getDeskStatusHeightMethod) == null) {
       synchronized (Service2Grpc.class) {
-        if ((getService2LengthMethod = Service2Grpc.getService2LengthMethod) == null) {
-          Service2Grpc.getService2LengthMethod = getService2LengthMethod = 
-              io.grpc.MethodDescriptor.<ds.service2.RequestLengthMessage, ds.service2.ResponseLengthMessage>newBuilder()
+        if ((getDeskStatusHeightMethod = Service2Grpc.getDeskStatusHeightMethod) == null) {
+          Service2Grpc.getDeskStatusHeightMethod = getDeskStatusHeightMethod = 
+              io.grpc.MethodDescriptor.<ds.service2.DeskDetailsRequest, ds.service2.DeskAdjustedResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
-                  "service2.Service2", "Service2Length"))
+                  "service2.Service2", "DeskStatusHeight"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  ds.service2.RequestLengthMessage.getDefaultInstance()))
+                  ds.service2.DeskDetailsRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  ds.service2.ResponseLengthMessage.getDefaultInstance()))
-                  .setSchemaDescriptor(new Service2MethodDescriptorSupplier("Service2Length"))
+                  ds.service2.DeskAdjustedResponse.getDefaultInstance()))
+                  .setSchemaDescriptor(new Service2MethodDescriptorSupplier("DeskStatusHeight"))
                   .build();
           }
         }
      }
-     return getService2LengthMethod;
+     return getDeskStatusHeightMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<ds.service2.ChairHeightRequest,
+      ds.service2.ChairHeightResponse> getChairStatusHeightMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "ChairStatusHeight",
+      requestType = ds.service2.ChairHeightRequest.class,
+      responseType = ds.service2.ChairHeightResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<ds.service2.ChairHeightRequest,
+      ds.service2.ChairHeightResponse> getChairStatusHeightMethod() {
+    io.grpc.MethodDescriptor<ds.service2.ChairHeightRequest, ds.service2.ChairHeightResponse> getChairStatusHeightMethod;
+    if ((getChairStatusHeightMethod = Service2Grpc.getChairStatusHeightMethod) == null) {
+      synchronized (Service2Grpc.class) {
+        if ((getChairStatusHeightMethod = Service2Grpc.getChairStatusHeightMethod) == null) {
+          Service2Grpc.getChairStatusHeightMethod = getChairStatusHeightMethod = 
+              io.grpc.MethodDescriptor.<ds.service2.ChairHeightRequest, ds.service2.ChairHeightResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(
+                  "service2.Service2", "ChairStatusHeight"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ds.service2.ChairHeightRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  ds.service2.ChairHeightResponse.getDefaultInstance()))
+                  .setSchemaDescriptor(new Service2MethodDescriptorSupplier("ChairStatusHeight"))
+                  .build();
+          }
+        }
+     }
+     return getChairStatusHeightMethod;
   }
 
   /**
@@ -94,20 +126,34 @@ public final class Service2Grpc {
 
     /**
      */
-    public void service2Length(ds.service2.RequestLengthMessage request,
-        io.grpc.stub.StreamObserver<ds.service2.ResponseLengthMessage> responseObserver) {
-      asyncUnimplementedUnaryCall(getService2LengthMethod(), responseObserver);
+    public void deskStatusHeight(ds.service2.DeskDetailsRequest request,
+        io.grpc.stub.StreamObserver<ds.service2.DeskAdjustedResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getDeskStatusHeightMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void chairStatusHeight(ds.service2.ChairHeightRequest request,
+        io.grpc.stub.StreamObserver<ds.service2.ChairHeightResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getChairStatusHeightMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
-            getService2LengthMethod(),
+            getDeskStatusHeightMethod(),
             asyncUnaryCall(
               new MethodHandlers<
-                ds.service2.RequestLengthMessage,
-                ds.service2.ResponseLengthMessage>(
-                  this, METHODID_SERVICE2LENGTH)))
+                ds.service2.DeskDetailsRequest,
+                ds.service2.DeskAdjustedResponse>(
+                  this, METHODID_DESK_STATUS_HEIGHT)))
+          .addMethod(
+            getChairStatusHeightMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                ds.service2.ChairHeightRequest,
+                ds.service2.ChairHeightResponse>(
+                  this, METHODID_CHAIR_STATUS_HEIGHT)))
           .build();
     }
   }
@@ -135,10 +181,18 @@ public final class Service2Grpc {
 
     /**
      */
-    public void service2Length(ds.service2.RequestLengthMessage request,
-        io.grpc.stub.StreamObserver<ds.service2.ResponseLengthMessage> responseObserver) {
+    public void deskStatusHeight(ds.service2.DeskDetailsRequest request,
+        io.grpc.stub.StreamObserver<ds.service2.DeskAdjustedResponse> responseObserver) {
       asyncUnaryCall(
-          getChannel().newCall(getService2LengthMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getDeskStatusHeightMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void chairStatusHeight(ds.service2.ChairHeightRequest request,
+        io.grpc.stub.StreamObserver<ds.service2.ChairHeightResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getChairStatusHeightMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -165,9 +219,16 @@ public final class Service2Grpc {
 
     /**
      */
-    public ds.service2.ResponseLengthMessage service2Length(ds.service2.RequestLengthMessage request) {
+    public ds.service2.DeskAdjustedResponse deskStatusHeight(ds.service2.DeskDetailsRequest request) {
       return blockingUnaryCall(
-          getChannel(), getService2LengthMethod(), getCallOptions(), request);
+          getChannel(), getDeskStatusHeightMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public ds.service2.ChairHeightResponse chairStatusHeight(ds.service2.ChairHeightRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getChairStatusHeightMethod(), getCallOptions(), request);
     }
   }
 
@@ -194,14 +255,23 @@ public final class Service2Grpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<ds.service2.ResponseLengthMessage> service2Length(
-        ds.service2.RequestLengthMessage request) {
+    public com.google.common.util.concurrent.ListenableFuture<ds.service2.DeskAdjustedResponse> deskStatusHeight(
+        ds.service2.DeskDetailsRequest request) {
       return futureUnaryCall(
-          getChannel().newCall(getService2LengthMethod(), getCallOptions()), request);
+          getChannel().newCall(getDeskStatusHeightMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<ds.service2.ChairHeightResponse> chairStatusHeight(
+        ds.service2.ChairHeightRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getChairStatusHeightMethod(), getCallOptions()), request);
     }
   }
 
-  private static final int METHODID_SERVICE2LENGTH = 0;
+  private static final int METHODID_DESK_STATUS_HEIGHT = 0;
+  private static final int METHODID_CHAIR_STATUS_HEIGHT = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -220,9 +290,13 @@ public final class Service2Grpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
-        case METHODID_SERVICE2LENGTH:
-          serviceImpl.service2Length((ds.service2.RequestLengthMessage) request,
-              (io.grpc.stub.StreamObserver<ds.service2.ResponseLengthMessage>) responseObserver);
+        case METHODID_DESK_STATUS_HEIGHT:
+          serviceImpl.deskStatusHeight((ds.service2.DeskDetailsRequest) request,
+              (io.grpc.stub.StreamObserver<ds.service2.DeskAdjustedResponse>) responseObserver);
+          break;
+        case METHODID_CHAIR_STATUS_HEIGHT:
+          serviceImpl.chairStatusHeight((ds.service2.ChairHeightRequest) request,
+              (io.grpc.stub.StreamObserver<ds.service2.ChairHeightResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -285,7 +359,8 @@ public final class Service2Grpc {
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new Service2FileDescriptorSupplier())
-              .addMethod(getService2LengthMethod())
+              .addMethod(getDeskStatusHeightMethod())
+              .addMethod(getChairStatusHeightMethod())
               .build();
         }
       }

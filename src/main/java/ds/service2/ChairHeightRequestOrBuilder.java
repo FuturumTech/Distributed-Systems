@@ -21,11 +21,11 @@ public interface ChairHeightRequestOrBuilder extends
   ds.service2.ChairOrBuilder getChairOrBuilder();
 
   /**
-   * <code>.service2.ChairHeightRequest.Operation operation = 2;</code>
+   * <code>.service2.ChairHeightRequest.ChairOperation chairOperation = 2;</code>
    */
-  int getOperationValue();
+  int getChairOperationValue();
   /**
-   * <code>.service2.ChairHeightRequest.Operation operation = 2;</code>
+   * <code>.service2.ChairHeightRequest.ChairOperation chairOperation = 2;</code>
    */
-  ds.service2.ChairHeightRequest.Operation getOperation();
+  ds.service2.ChairHeightRequest.ChairOperation getChairOperation();
 }

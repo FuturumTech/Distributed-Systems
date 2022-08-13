@@ -16,7 +16,7 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private ChairHeightRequest() {
-    operation_ = 0;
+    chairOperation_ = 0;
   }
 
   @java.lang.Override
@@ -59,7 +59,7 @@ private static final long serialVersionUID = 0L;
           case 16: {
             int rawValue = input.readEnum();
 
-            operation_ = rawValue;
+            chairOperation_ = rawValue;
             break;
           }
           default: {
@@ -95,9 +95,9 @@ private static final long serialVersionUID = 0L;
   }
 
   /**
-   * Protobuf enum {@code service2.ChairHeightRequest.Operation}
+   * Protobuf enum {@code service2.ChairHeightRequest.ChairOperation}
    */
-  public enum Operation
+  public enum ChairOperation
       implements com.google.protobuf.ProtocolMessageEnum {
     /**
      * <code>CHAIRUP = 0;</code>
@@ -132,11 +132,11 @@ private static final long serialVersionUID = 0L;
      * @deprecated Use {@link #forNumber(int)} instead.
      */
     @java.lang.Deprecated
-    public static Operation valueOf(int value) {
+    public static ChairOperation valueOf(int value) {
       return forNumber(value);
     }
 
-    public static Operation forNumber(int value) {
+    public static ChairOperation forNumber(int value) {
       switch (value) {
         case 0: return CHAIRUP;
         case 1: return CHAIRDOWN;
@@ -144,15 +144,15 @@ private static final long serialVersionUID = 0L;
       }
     }
 
-    public static com.google.protobuf.Internal.EnumLiteMap<Operation>
+    public static com.google.protobuf.Internal.EnumLiteMap<ChairOperation>
         internalGetValueMap() {
       return internalValueMap;
     }
     private static final com.google.protobuf.Internal.EnumLiteMap<
-        Operation> internalValueMap =
-          new com.google.protobuf.Internal.EnumLiteMap<Operation>() {
-            public Operation findValueByNumber(int number) {
-              return Operation.forNumber(number);
+        ChairOperation> internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<ChairOperation>() {
+            public ChairOperation findValueByNumber(int number) {
+              return ChairOperation.forNumber(number);
             }
           };
 
@@ -169,9 +169,9 @@ private static final long serialVersionUID = 0L;
       return ds.service2.ChairHeightRequest.getDescriptor().getEnumTypes().get(0);
     }
 
-    private static final Operation[] VALUES = values();
+    private static final ChairOperation[] VALUES = values();
 
-    public static Operation valueOf(
+    public static ChairOperation valueOf(
         com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
       if (desc.getType() != getDescriptor()) {
         throw new java.lang.IllegalArgumentException(
@@ -185,11 +185,11 @@ private static final long serialVersionUID = 0L;
 
     private final int value;
 
-    private Operation(int value) {
+    private ChairOperation(int value) {
       this.value = value;
     }
 
-    // @@protoc_insertion_point(enum_scope:service2.ChairHeightRequest.Operation)
+    // @@protoc_insertion_point(enum_scope:service2.ChairHeightRequest.ChairOperation)
   }
 
   public static final int CHAIR_FIELD_NUMBER = 1;
@@ -213,21 +213,21 @@ private static final long serialVersionUID = 0L;
     return getChair();
   }
 
-  public static final int OPERATION_FIELD_NUMBER = 2;
-  private int operation_;
+  public static final int CHAIROPERATION_FIELD_NUMBER = 2;
+  private int chairOperation_;
   /**
-   * <code>.service2.ChairHeightRequest.Operation operation = 2;</code>
+   * <code>.service2.ChairHeightRequest.ChairOperation chairOperation = 2;</code>
    */
-  public int getOperationValue() {
-    return operation_;
+  public int getChairOperationValue() {
+    return chairOperation_;
   }
   /**
-   * <code>.service2.ChairHeightRequest.Operation operation = 2;</code>
+   * <code>.service2.ChairHeightRequest.ChairOperation chairOperation = 2;</code>
    */
-  public ds.service2.ChairHeightRequest.Operation getOperation() {
+  public ds.service2.ChairHeightRequest.ChairOperation getChairOperation() {
     @SuppressWarnings("deprecation")
-    ds.service2.ChairHeightRequest.Operation result = ds.service2.ChairHeightRequest.Operation.valueOf(operation_);
-    return result == null ? ds.service2.ChairHeightRequest.Operation.UNRECOGNIZED : result;
+    ds.service2.ChairHeightRequest.ChairOperation result = ds.service2.ChairHeightRequest.ChairOperation.valueOf(chairOperation_);
+    return result == null ? ds.service2.ChairHeightRequest.ChairOperation.UNRECOGNIZED : result;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -247,8 +247,8 @@ private static final long serialVersionUID = 0L;
     if (chair_ != null) {
       output.writeMessage(1, getChair());
     }
-    if (operation_ != ds.service2.ChairHeightRequest.Operation.CHAIRUP.getNumber()) {
-      output.writeEnum(2, operation_);
+    if (chairOperation_ != ds.service2.ChairHeightRequest.ChairOperation.CHAIRUP.getNumber()) {
+      output.writeEnum(2, chairOperation_);
     }
     unknownFields.writeTo(output);
   }
@@ -263,9 +263,9 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(1, getChair());
     }
-    if (operation_ != ds.service2.ChairHeightRequest.Operation.CHAIRUP.getNumber()) {
+    if (chairOperation_ != ds.service2.ChairHeightRequest.ChairOperation.CHAIRUP.getNumber()) {
       size += com.google.protobuf.CodedOutputStream
-        .computeEnumSize(2, operation_);
+        .computeEnumSize(2, chairOperation_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -288,7 +288,7 @@ private static final long serialVersionUID = 0L;
       result = result && getChair()
           .equals(other.getChair());
     }
-    result = result && operation_ == other.operation_;
+    result = result && chairOperation_ == other.chairOperation_;
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -304,8 +304,8 @@ private static final long serialVersionUID = 0L;
       hash = (37 * hash) + CHAIR_FIELD_NUMBER;
       hash = (53 * hash) + getChair().hashCode();
     }
-    hash = (37 * hash) + OPERATION_FIELD_NUMBER;
-    hash = (53 * hash) + operation_;
+    hash = (37 * hash) + CHAIROPERATION_FIELD_NUMBER;
+    hash = (53 * hash) + chairOperation_;
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -445,7 +445,7 @@ private static final long serialVersionUID = 0L;
         chair_ = null;
         chairBuilder_ = null;
       }
-      operation_ = 0;
+      chairOperation_ = 0;
 
       return this;
     }
@@ -478,7 +478,7 @@ private static final long serialVersionUID = 0L;
       } else {
         result.chair_ = chairBuilder_.build();
       }
-      result.operation_ = operation_;
+      result.chairOperation_ = chairOperation_;
       onBuilt();
       return result;
     }
@@ -530,8 +530,8 @@ private static final long serialVersionUID = 0L;
       if (other.hasChair()) {
         mergeChair(other.getChair());
       }
-      if (other.operation_ != 0) {
-        setOperationValue(other.getOperationValue());
+      if (other.chairOperation_ != 0) {
+        setChairOperationValue(other.getChairOperationValue());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -679,47 +679,47 @@ private static final long serialVersionUID = 0L;
       return chairBuilder_;
     }
 
-    private int operation_ = 0;
+    private int chairOperation_ = 0;
     /**
-     * <code>.service2.ChairHeightRequest.Operation operation = 2;</code>
+     * <code>.service2.ChairHeightRequest.ChairOperation chairOperation = 2;</code>
      */
-    public int getOperationValue() {
-      return operation_;
+    public int getChairOperationValue() {
+      return chairOperation_;
     }
     /**
-     * <code>.service2.ChairHeightRequest.Operation operation = 2;</code>
+     * <code>.service2.ChairHeightRequest.ChairOperation chairOperation = 2;</code>
      */
-    public Builder setOperationValue(int value) {
-      operation_ = value;
+    public Builder setChairOperationValue(int value) {
+      chairOperation_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>.service2.ChairHeightRequest.Operation operation = 2;</code>
+     * <code>.service2.ChairHeightRequest.ChairOperation chairOperation = 2;</code>
      */
-    public ds.service2.ChairHeightRequest.Operation getOperation() {
+    public ds.service2.ChairHeightRequest.ChairOperation getChairOperation() {
       @SuppressWarnings("deprecation")
-      ds.service2.ChairHeightRequest.Operation result = ds.service2.ChairHeightRequest.Operation.valueOf(operation_);
-      return result == null ? ds.service2.ChairHeightRequest.Operation.UNRECOGNIZED : result;
+      ds.service2.ChairHeightRequest.ChairOperation result = ds.service2.ChairHeightRequest.ChairOperation.valueOf(chairOperation_);
+      return result == null ? ds.service2.ChairHeightRequest.ChairOperation.UNRECOGNIZED : result;
     }
     /**
-     * <code>.service2.ChairHeightRequest.Operation operation = 2;</code>
+     * <code>.service2.ChairHeightRequest.ChairOperation chairOperation = 2;</code>
      */
-    public Builder setOperation(ds.service2.ChairHeightRequest.Operation value) {
+    public Builder setChairOperation(ds.service2.ChairHeightRequest.ChairOperation value) {
       if (value == null) {
         throw new NullPointerException();
       }
       
-      operation_ = value.getNumber();
+      chairOperation_ = value.getNumber();
       onChanged();
       return this;
     }
     /**
-     * <code>.service2.ChairHeightRequest.Operation operation = 2;</code>
+     * <code>.service2.ChairHeightRequest.ChairOperation chairOperation = 2;</code>
      */
-    public Builder clearOperation() {
+    public Builder clearChairOperation() {
       
-      operation_ = 0;
+      chairOperation_ = 0;
       onChanged();
       return this;
     }

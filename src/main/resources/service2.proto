@@ -8,15 +8,44 @@ package service2;
 
 // Interface exported by the server.
 service Service2 {
-  
-  rpc Service2Length(RequestLengthMessage) returns (ResponseLengthMessage) {}
+  rpc DeskStatusHeight(DeskDetailsRequest) returns (DeskAdjustedResponse){};
+  rpc ChairStatusHeight(ChairHeightRequest) returns (ChairHeightResponse) {};
     
 }
 
-message RequestLengthMessage {
-  string text = 1;  
+message DeskDetailsRequest{
+	int32 deskNumber = 1;
+	string roomName = 2;
+	int32 desiredDeskHeight = 3;
+		 enum Operation{
+  	DESKUP =0;
+  	DESKDOWN=1;
+   }
+	Operation operation = 4;
+
 }
 
-message ResponseLengthMessage {
-  int32 length = 1;
+message DeskAdjustedResponse {
+  int32 deskHeight = 1;
+  bool isHeightAdjusted = 2;
+}
+//Custom message
+message Chair{
+	int32 chairHeight = 1;
+	int32 deskNumber = 2;
+	string roomName = 3;
+
+}
+message ChairHeightRequest{
+	Chair chair = 1;
+		 enum ChairOperation{
+  	CHAIRUP =0;
+  	CHAIRDOWN=1;
+   }
+	ChairOperation chairOperation = 2;
+}
+
+message ChairHeightResponse{
+	Chair chair = 1;
+	bool isHeightAdjusted =2;
 }
