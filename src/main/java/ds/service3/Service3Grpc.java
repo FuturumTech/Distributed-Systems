@@ -30,68 +30,36 @@ public final class Service3Grpc {
   public static final String SERVICE_NAME = "service3.Service3";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<ds.service3.ToiletVisitsRequest,
-      ds.service3.ToiletVisitsResponse> getEntersToToiletMethod;
+  private static volatile io.grpc.MethodDescriptor<ds.service3.RequestMessage,
+      ds.service3.ResponseMessage> getService3DoMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "EntersToToilet",
-      requestType = ds.service3.ToiletVisitsRequest.class,
-      responseType = ds.service3.ToiletVisitsResponse.class,
+      fullMethodName = SERVICE_NAME + '/' + "service3_do",
+      requestType = ds.service3.RequestMessage.class,
+      responseType = ds.service3.ResponseMessage.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<ds.service3.ToiletVisitsRequest,
-      ds.service3.ToiletVisitsResponse> getEntersToToiletMethod() {
-    io.grpc.MethodDescriptor<ds.service3.ToiletVisitsRequest, ds.service3.ToiletVisitsResponse> getEntersToToiletMethod;
-    if ((getEntersToToiletMethod = Service3Grpc.getEntersToToiletMethod) == null) {
+  public static io.grpc.MethodDescriptor<ds.service3.RequestMessage,
+      ds.service3.ResponseMessage> getService3DoMethod() {
+    io.grpc.MethodDescriptor<ds.service3.RequestMessage, ds.service3.ResponseMessage> getService3DoMethod;
+    if ((getService3DoMethod = Service3Grpc.getService3DoMethod) == null) {
       synchronized (Service3Grpc.class) {
-        if ((getEntersToToiletMethod = Service3Grpc.getEntersToToiletMethod) == null) {
-          Service3Grpc.getEntersToToiletMethod = getEntersToToiletMethod = 
-              io.grpc.MethodDescriptor.<ds.service3.ToiletVisitsRequest, ds.service3.ToiletVisitsResponse>newBuilder()
+        if ((getService3DoMethod = Service3Grpc.getService3DoMethod) == null) {
+          Service3Grpc.getService3DoMethod = getService3DoMethod = 
+              io.grpc.MethodDescriptor.<ds.service3.RequestMessage, ds.service3.ResponseMessage>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
-                  "service3.Service3", "EntersToToilet"))
+                  "service3.Service3", "service3_do"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  ds.service3.ToiletVisitsRequest.getDefaultInstance()))
+                  ds.service3.RequestMessage.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  ds.service3.ToiletVisitsResponse.getDefaultInstance()))
-                  .setSchemaDescriptor(new Service3MethodDescriptorSupplier("EntersToToilet"))
+                  ds.service3.ResponseMessage.getDefaultInstance()))
+                  .setSchemaDescriptor(new Service3MethodDescriptorSupplier("service3_do"))
                   .build();
           }
         }
      }
-     return getEntersToToiletMethod;
-  }
-
-  private static volatile io.grpc.MethodDescriptor<ds.service3.UpdateToiletStatusRequest,
-      ds.service3.UpdateToiletStatusResponse> getUpdateToiletStatusMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "UpdateToiletStatus",
-      requestType = ds.service3.UpdateToiletStatusRequest.class,
-      responseType = ds.service3.UpdateToiletStatusResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<ds.service3.UpdateToiletStatusRequest,
-      ds.service3.UpdateToiletStatusResponse> getUpdateToiletStatusMethod() {
-    io.grpc.MethodDescriptor<ds.service3.UpdateToiletStatusRequest, ds.service3.UpdateToiletStatusResponse> getUpdateToiletStatusMethod;
-    if ((getUpdateToiletStatusMethod = Service3Grpc.getUpdateToiletStatusMethod) == null) {
-      synchronized (Service3Grpc.class) {
-        if ((getUpdateToiletStatusMethod = Service3Grpc.getUpdateToiletStatusMethod) == null) {
-          Service3Grpc.getUpdateToiletStatusMethod = getUpdateToiletStatusMethod = 
-              io.grpc.MethodDescriptor.<ds.service3.UpdateToiletStatusRequest, ds.service3.UpdateToiletStatusResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(
-                  "service3.Service3", "UpdateToiletStatus"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  ds.service3.UpdateToiletStatusRequest.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  ds.service3.UpdateToiletStatusResponse.getDefaultInstance()))
-                  .setSchemaDescriptor(new Service3MethodDescriptorSupplier("UpdateToiletStatus"))
-                  .build();
-          }
-        }
-     }
-     return getUpdateToiletStatusMethod;
+     return getService3DoMethod;
   }
 
   /**
@@ -126,34 +94,20 @@ public final class Service3Grpc {
 
     /**
      */
-    public void entersToToilet(ds.service3.ToiletVisitsRequest request,
-        io.grpc.stub.StreamObserver<ds.service3.ToiletVisitsResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getEntersToToiletMethod(), responseObserver);
-    }
-
-    /**
-     */
-    public void updateToiletStatus(ds.service3.UpdateToiletStatusRequest request,
-        io.grpc.stub.StreamObserver<ds.service3.UpdateToiletStatusResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getUpdateToiletStatusMethod(), responseObserver);
+    public void service3Do(ds.service3.RequestMessage request,
+        io.grpc.stub.StreamObserver<ds.service3.ResponseMessage> responseObserver) {
+      asyncUnimplementedUnaryCall(getService3DoMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
-            getEntersToToiletMethod(),
+            getService3DoMethod(),
             asyncUnaryCall(
               new MethodHandlers<
-                ds.service3.ToiletVisitsRequest,
-                ds.service3.ToiletVisitsResponse>(
-                  this, METHODID_ENTERS_TO_TOILET)))
-          .addMethod(
-            getUpdateToiletStatusMethod(),
-            asyncUnaryCall(
-              new MethodHandlers<
-                ds.service3.UpdateToiletStatusRequest,
-                ds.service3.UpdateToiletStatusResponse>(
-                  this, METHODID_UPDATE_TOILET_STATUS)))
+                ds.service3.RequestMessage,
+                ds.service3.ResponseMessage>(
+                  this, METHODID_SERVICE3_DO)))
           .build();
     }
   }
@@ -181,18 +135,10 @@ public final class Service3Grpc {
 
     /**
      */
-    public void entersToToilet(ds.service3.ToiletVisitsRequest request,
-        io.grpc.stub.StreamObserver<ds.service3.ToiletVisitsResponse> responseObserver) {
+    public void service3Do(ds.service3.RequestMessage request,
+        io.grpc.stub.StreamObserver<ds.service3.ResponseMessage> responseObserver) {
       asyncUnaryCall(
-          getChannel().newCall(getEntersToToiletMethod(), getCallOptions()), request, responseObserver);
-    }
-
-    /**
-     */
-    public void updateToiletStatus(ds.service3.UpdateToiletStatusRequest request,
-        io.grpc.stub.StreamObserver<ds.service3.UpdateToiletStatusResponse> responseObserver) {
-      asyncUnaryCall(
-          getChannel().newCall(getUpdateToiletStatusMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getService3DoMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -219,16 +165,9 @@ public final class Service3Grpc {
 
     /**
      */
-    public ds.service3.ToiletVisitsResponse entersToToilet(ds.service3.ToiletVisitsRequest request) {
+    public ds.service3.ResponseMessage service3Do(ds.service3.RequestMessage request) {
       return blockingUnaryCall(
-          getChannel(), getEntersToToiletMethod(), getCallOptions(), request);
-    }
-
-    /**
-     */
-    public ds.service3.UpdateToiletStatusResponse updateToiletStatus(ds.service3.UpdateToiletStatusRequest request) {
-      return blockingUnaryCall(
-          getChannel(), getUpdateToiletStatusMethod(), getCallOptions(), request);
+          getChannel(), getService3DoMethod(), getCallOptions(), request);
     }
   }
 
@@ -255,23 +194,14 @@ public final class Service3Grpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<ds.service3.ToiletVisitsResponse> entersToToilet(
-        ds.service3.ToiletVisitsRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<ds.service3.ResponseMessage> service3Do(
+        ds.service3.RequestMessage request) {
       return futureUnaryCall(
-          getChannel().newCall(getEntersToToiletMethod(), getCallOptions()), request);
-    }
-
-    /**
-     */
-    public com.google.common.util.concurrent.ListenableFuture<ds.service3.UpdateToiletStatusResponse> updateToiletStatus(
-        ds.service3.UpdateToiletStatusRequest request) {
-      return futureUnaryCall(
-          getChannel().newCall(getUpdateToiletStatusMethod(), getCallOptions()), request);
+          getChannel().newCall(getService3DoMethod(), getCallOptions()), request);
     }
   }
 
-  private static final int METHODID_ENTERS_TO_TOILET = 0;
-  private static final int METHODID_UPDATE_TOILET_STATUS = 1;
+  private static final int METHODID_SERVICE3_DO = 0;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -290,13 +220,9 @@ public final class Service3Grpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
-        case METHODID_ENTERS_TO_TOILET:
-          serviceImpl.entersToToilet((ds.service3.ToiletVisitsRequest) request,
-              (io.grpc.stub.StreamObserver<ds.service3.ToiletVisitsResponse>) responseObserver);
-          break;
-        case METHODID_UPDATE_TOILET_STATUS:
-          serviceImpl.updateToiletStatus((ds.service3.UpdateToiletStatusRequest) request,
-              (io.grpc.stub.StreamObserver<ds.service3.UpdateToiletStatusResponse>) responseObserver);
+        case METHODID_SERVICE3_DO:
+          serviceImpl.service3Do((ds.service3.RequestMessage) request,
+              (io.grpc.stub.StreamObserver<ds.service3.ResponseMessage>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -359,8 +285,7 @@ public final class Service3Grpc {
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new Service3FileDescriptorSupplier())
-              .addMethod(getEntersToToiletMethod())
-              .addMethod(getUpdateToiletStatusMethod())
+              .addMethod(getService3DoMethod())
               .build();
         }
       }
