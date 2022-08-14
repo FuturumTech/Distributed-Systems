@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import javax.jmdns.JmDNS;
@@ -59,12 +60,20 @@ public class Service3 extends Service3ImplBase {
 			// Adding the service via the class instance and starting the server here.
 			Server server = ServerBuilder.forPort(port).addService(service3).build().start();
 			logger.info("Server started, listening on " + port);
-			// Server is waiting until explicitly terminated
-			server.awaitTermination();
+			// Server is waiting for 30 second
+			Runtime.getRuntime().addShutdownHook(new Thread() {
+				@Override
+				public void run() {
+					System.err.println("Shutting down gRPC server");
+					try {
+						server.shutdown().awaitTermination(30, TimeUnit.SECONDS);
+						logger.info("SERVER SHUTDOWN");
+					} catch (InterruptedException e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			});
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -113,17 +122,7 @@ public class Service3 extends Service3ImplBase {
 			System.out.println("entersToToilet() SUCCESS");
 		} catch (ExceededNumberOfToiletVisitsException e) {
 			System.out.println(e.getMessage());
-//			// preparing the response message, -999 means to the client that unusual path
-//			// reached
-//			// We need to use builder to create instance of Toilet that will be passedL
-//			Toilet.Builder ToiletReply = Toilet.newBuilder()
-//					.setNumberOfVisits(-999)
-//					.setToiletName("Not found");
-//			// System.out.println("TEST Exception");
-//
-//			reply = ToiletVisitsResponse.newBuilder().setToilet(ToiletReply).build();
-//			System.out.println("entersToToilet() FAILURE");
-			// TESTING
+			// ERROR HANDLING & METADATA
 			Metadata.Key<ErrorResponse> errorResponseKey = ProtoUtils.keyForProto(ErrorResponse.getDefaultInstance());
 			ErrorResponse errorResponse = ErrorResponse.newBuilder().setToiletName(toiletName)
 					.setExceededVisitsLimit("ERROR, number of visits exceeded, cleaning needed")
@@ -151,7 +150,6 @@ public class Service3 extends Service3ImplBase {
 		} catch (IllegalStateException e) {
 			System.out.println(e.getMessage());
 		}
-		
 
 	}
 
@@ -176,7 +174,7 @@ public class Service3 extends Service3ImplBase {
 					Service3DataBase.Toilet toiletInDataBase = findToilet(toiletName, myTempData.getMyToilets());
 					// storing data from request into database anyway, reseting value of visits as
 					// the toilet was cleaned:
-					toiletInDataBase.setNumberOfVisits(0);
+					toiletInDataBase.setNumberOfVisits(numberOfVisits); 
 					toiletInDataBase.setToiletCleanedDateAndTime(toiletCleanedDateAndTime);
 					toiletInDataBase.setNeedsCleaning(false);
 
@@ -220,11 +218,12 @@ public class Service3 extends Service3ImplBase {
 			@Override
 			public void onError(Throwable t) {
 				// TODO Auto-generated method stubal
-
+				System.out.println(t.getStackTrace());
 			}
 
 			@Override
 			public void onCompleted() {
+				System.out.println("updateToiletStatus() FINISHED");
 				responseObserver.onCompleted();
 
 			}

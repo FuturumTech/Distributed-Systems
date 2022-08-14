@@ -36,8 +36,8 @@ public class Service2Client {
 
 		String host = service2Client.service2Info.getHostAddresses()[0]; // localhost
 		// String host = "localhost";
-		// int port = 50053;
-		int port = service2Client.service2Info.getPort(); // 50053
+		// int port = 50052;
+		int port = service2Client.service2Info.getPort(); // 50052
 
 		/*
 		 * Build a channel to connect to the server, using localhost as IP and
@@ -109,7 +109,7 @@ public class Service2Client {
 	}
 
 	// DISCOVERY for all methods below:
-	// Service 1
+	// Service 2
 	private void discoverService2DeskUsage(String service_type) {
 
 		try {

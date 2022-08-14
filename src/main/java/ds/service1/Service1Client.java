@@ -14,16 +14,23 @@ import javax.jmdns.ServiceEvent;
 import javax.jmdns.ServiceInfo;
 import javax.jmdns.ServiceListener;
 
+import com.google.common.io.Resources;
+import com.google.protobuf.Any;
+import com.google.protobuf.ServiceException;
+import com.google.rpc.Code;
+import com.google.rpc.Status;
+import io.grpc.protobuf.StatusProto;
+
 import ds.service1.Service1Grpc.Service1BlockingStub;
 import ds.service1.Service1Grpc.Service1Stub;
-import ds.service3.Service3;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.StatusRuntimeException;
+import io.grpc.internal.LogId;
 import io.grpc.stub.StreamObserver;
 
 public class Service1Client {
-	private static Logger logger = Logger.getLogger(Service3.class.getName());
+	private static Logger logger = Logger.getLogger(Service1.class.getName());
 	// variables for service discovery:
 	private ServiceInfo service1Info;
 	// variables for stubs:
@@ -32,7 +39,6 @@ public class Service1Client {
 
 	public static void main(String[] args) throws Exception {
 		Service1Client service1Client = new Service1Client();
-
 		// discovery service:
 		System.out.println("service 1 to be invoked ...");
 
@@ -61,7 +67,7 @@ public class Service1Client {
 		hVACstatus();
 		roomStatus();
 		// Gracefully shutting down the channel:
-		// channel.shutdown().awaitTermination(port, TimeUnit.MILLISECONDS);
+		channel.shutdown().awaitTermination(port, TimeUnit.MILLISECONDS);
 
 	}
 
@@ -71,13 +77,14 @@ public class Service1Client {
 		double desiredHumidity = 67;
 		double desiredTempInCelcius = 24.4;
 		System.out.println("\nCALLING: desiredSettingHVAC(), request is:");
-		System.out.println("\troomName is: " + roomName + " desiredHumidity: " + desiredHumidity
-				+ "desiredTempInCelcius" + desiredTempInCelcius);
+		System.out.println("\troomName is: " + roomName + ", desiredHumidity: " + desiredHumidity
+				+ ", desiredTempInCelcius: " + desiredTempInCelcius);
 		// building reply and received response:
 		DesiredRoomConditions req = DesiredRoomConditions.newBuilder().setRoomName(roomName)
 				.setDesiredHumidity(desiredHumidity).setDesiredTempInCelcius(desiredTempInCelcius).build();
-		// implementing DEADLINE on the stub:
+
 		try {
+			// implementing DEADLINE on the stub:
 			Confirmation response = blockingStub.withDeadlineAfter(5, TimeUnit.SECONDS).desiredSettingHVAC(req);
 			System.out.println("\t desiredSettingHVAC() run correctly");
 			System.out.println("\tresponse is: " + response.getConfirmation());
@@ -90,7 +97,7 @@ public class Service1Client {
 	}
 
 	/**
-	 * Async client-streaming example.
+	 * Async client-streaming.
 	 */
 	// Method:
 	public static void hVACstatus() {
@@ -105,7 +112,7 @@ public class Service1Client {
 			@Override
 			public void onError(Throwable t) {
 				// TODO Auto-generated method stub
-
+				System.out.println("\t Error occured: " + t.getMessage());
 			}
 
 			@Override
@@ -122,8 +129,10 @@ public class Service1Client {
 
 		try {
 
-			requestObserver.onNext(CurrentRoomConditions.newBuilder().setRoomName("consultation room").setHumidity(89)
+			requestObserver.onNext(CurrentRoomConditions.newBuilder().setRoomName("hello").setHumidity(89)
 					.setTempInCelcius(25).build());
+			requestObserver.onNext(CurrentRoomConditions.newBuilder().setRoomName("reception").setHumidity(86)
+					.setTempInCelcius(22).build());
 			requestObserver.onNext(CurrentRoomConditions.newBuilder().setRoomName("hallway").setHumidity(40)
 					.setTempInCelcius(19).build());
 
@@ -145,26 +154,37 @@ public class Service1Client {
 
 	// unary rpc request
 	public static void roomStatus() {
-		String roomName = "reception";
-		System.out.println("\nCALLING: desiredSettingHVAC(), request is:");
+		String roomName = "reception"; //exists in database
+		System.out.println("\nCALLING: roomStatus(), request is:");
 		System.out.println("\troomName is: " + roomName);
 		Room req = Room.newBuilder().setRoomName(roomName).build();
 		try {
 			// Iterator<AdjustHVAC> responses = blockingStub.roomStatus(req);
 			// Implementing DEADLINE on the stub:
 			Iterator<AdjustHVAC> responses = blockingStub.withDeadlineAfter(15, TimeUnit.SECONDS).roomStatus(req);
-			System.out.println("\tdesiredSettingHVAC() run correctly");
+			System.out.println("\troomStatus() run correctly");
 
 			while (responses.hasNext()) {
 				AdjustHVAC temp = responses.next();
 				System.out.println("\tresponse is: " + "HumidityDifference: " + temp.getHumidityDifference()
 						+ ", TempDifference is:" + temp.getTempDifference());
 			}
-		} catch (StatusRuntimeException e) {
-			logger.log(Level.WARNING, "RPC failed: {0}", e.getStatus());
+		} catch (StatusRuntimeException error) {
+			logger.log(Level.WARNING, "RPC failed: {0}", error.getStatus());
 			return;
+			
+//			com.google.rpc.Status status = io.grpc.protobuf.StatusProto.fromThrowable(error);
+//			   Resources.ErrorDetail errorInfo = null;
+//			   for (Any any : status.getDetailsList()) {
+//			     if (!any.is(Resources.ErrorDetail.class)) {
+//			       continue;
+//			     }
+//			     errorInfo = any.unpack(Resources.ErrorDetail.class);
+//			   }
+//			   LogId.info(" Error while calling product service, reason {} ", errorInfo.getMessage());
+//			   throw new ServiceException(errorInfo.getMessage(), errorInfo.getMetadataMap());
 		}
-		System.out.println("END: desiredSettingHVAC()");
+		System.out.println("END: roomStatus()");
 	}
 
 	// DISCOVERY for all methods below:
@@ -197,13 +217,13 @@ public class Service1Client {
 
 				@Override
 				public void serviceRemoved(ServiceEvent event) {
-					System.out.println("Service1 removed: " + event.getInfo());
+					System.out.println("Service2 removed: " + event.getInfo());
 
 				}
 
 				@Override
 				public void serviceAdded(ServiceEvent event) {
-					System.out.println("Service1 added: " + event.getInfo());
+					System.out.println("Service2 added: " + event.getInfo());
 
 				}
 			});

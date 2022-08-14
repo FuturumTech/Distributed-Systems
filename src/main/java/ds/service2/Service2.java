@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetAddress;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import javax.jmdns.JmDNS;
@@ -21,10 +22,10 @@ public class Service2 extends Service2ImplBase {
 
 	public static void main(String[] args) throws InterruptedException, IOException {
 
-		// Adding mock Room details to database Service 1:
+		// Adding mock Room details to database Service 2:
 		Service2DataBase myTempData = new Service2DataBase();
 
-		// try catch for custom exception that validates min and max height for desk
+		// try catch for custom exception that validates min and max height for desk and chair
 		try {
 			Service2DataBase.Desk temp1 = new Service2DataBase.Desk("consultation room", 3, 56, 45);
 			Service2DataBase.Desk temp2 = new Service2DataBase.Desk("open space", 1, 123, 76);
@@ -34,6 +35,9 @@ public class Service2 extends Service2ImplBase {
 			myTempData.getMyDesks().add(temp2);
 			myTempData.getMyDesks().add(temp3);
 			myTempData.getMyDesks().add(temp4);
+			// testing if added properly
+			System.out.println("Test of mock database: ");
+			System.out.println("\tArrayList size is: " + myTempData.getMyDesks().size());
 		} catch (IllegalDeskHeightException | IllegalChairHeightException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -41,11 +45,11 @@ public class Service2 extends Service2ImplBase {
 			// printing custom message:
 			e.getMessage();
 		}
-		
+
 		// gracefully shutting down
 		Thread printingHook = new Thread(() -> System.out.println("In the middle of a shutdown"));
 		Runtime.getRuntime().addShutdownHook(printingHook);
-		
+
 		// Create and Instance of the Class to five access to the RPC methods/services
 		Service2 service2 = new Service2();
 		Properties prop = service2.getProperties();
@@ -60,15 +64,23 @@ public class Service2 extends Service2ImplBase {
 			Server server = ServerBuilder.forPort(port).addService(service2).build().start();
 
 			logger.info("Server started, listening on " + port);
-			// Server is waiting until explicitly terminated
-			server.awaitTermination();
+			// Server is waiting for 30 second
+			Runtime.getRuntime().addShutdownHook(new Thread() {
+				@Override
+				public void run() {
+					System.err.println("Shutting down gRPC server");
+					try {
+						server.shutdown().awaitTermination(30, TimeUnit.SECONDS);
+						logger.info("SERVER SHUTDOWN");
+					} catch (InterruptedException e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			});
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} 
 	}
 
 	@Override
@@ -84,7 +96,7 @@ public class Service2 extends Service2ImplBase {
 		boolean isHeightAdjusted = false;
 		DeskAdjustedResponse reply;
 		try {
-			// result of the below method may be null if not found, therefore try catch
+			// result of the below method may be null if not found and setter method can throw IllegalChairHeightException 
 			Service2DataBase.Desk myDesk = findDesk(request.getRoomName(), request.getDeskNumber());
 			// if client request is for increment of desk height
 			if (myDesk != null && request.getOperation() == DeskDetailsRequest.Operation.DESKUP) {
@@ -137,11 +149,11 @@ public class Service2 extends Service2ImplBase {
 		boolean isHeightAdjusted = false;
 		ChairHeightResponse reply;
 		try {
-			// result of the below method may be null if not found, therefore try catch
+			// result of the below method may be null if not found and setter method can throw IllegalChairHeightException 
 			Service2DataBase.Desk myChair = findDesk(roomNameRequest, deskNumberRequest);
-			// if client request is for increment of desk height
+			// if client request is for increment of chair height
 			if (myChair != null && request.getChairOperation() == ChairHeightRequest.ChairOperation.CHAIRUP) {
-				// request is an increment of desiredDeskHeiht
+				// request is an increment of desired chair height
 				int newHeightIncrement = myChair.getChairHeight() + chairHeightRequest;
 				// below method validate range of the height and throws custom exception:
 				myChair.setChairHeight(newHeightIncrement);
@@ -149,9 +161,9 @@ public class Service2 extends Service2ImplBase {
 				System.out.println("chairStatusHeight() changed values correctly, new chair height is: "
 						+ myChair.getChairHeight() + " increased by: " + chairHeightRequest);
 			}
-			// else if client request is for decrement of desk height
+			// else if client request is for decrement of chair height
 			else if (myChair != null && request.getChairOperation() == ChairHeightRequest.ChairOperation.CHAIRDOWN) {
-				// request is an increment of desiredDeskHeiht
+				// request is an increment of desired chair height
 				int newHeightDecrement = myChair.getChairHeight() - chairHeightRequest;
 				// below method validate range of the height and throws custom exception:
 				myChair.setChairHeight(newHeightDecrement);
@@ -160,9 +172,8 @@ public class Service2 extends Service2ImplBase {
 				System.out.println("chairStatusHeight() changed values correctly, new desk height is: "
 						+ myChair.getChairHeight() + " decreased by: " + chairHeightRequest);
 			}
-			// preparing the response message, case if the desk is found and adjusted
-			// correctly
-			// We need to use builder to create instance of chair that will be passedL
+			// preparing the response message, case if the desk is found and adjusted correctly
+			// We need to use builder to create instance of chair that will be passed
 			Chair.Builder chairReply = Chair.newBuilder().setChairHeight(myChair.getChairHeight())
 					.setDeskNumber(myChair.getDeskNumber()).setRoomName(myChair.getRoomName());
 			System.out.println("Chair object is: ");
@@ -235,7 +246,7 @@ public class Service2 extends Service2ImplBase {
 			prop.load(input);
 
 			// get the property value and print it out
-			System.out.println("Service1 Climate Control properies ...");
+			System.out.println("Service2 Desk & Chair Usage properies ...");
 			System.out.println("\t service_type: " + prop.getProperty("service_type"));
 			System.out.println("\t service_name: " + prop.getProperty("service_name"));
 			System.out.println("\t service_description: " + prop.getProperty("service_description"));
@@ -273,7 +284,7 @@ public class Service2 extends Service2ImplBase {
 			Thread.sleep(1000);
 
 			// Unregister all services
-			//jmdns.unregisterAllServices();
+			// jmdns.unregisterAllServices();
 
 		} catch (IOException e) {
 			System.out.println(e.getMessage());

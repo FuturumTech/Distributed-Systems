@@ -16,6 +16,7 @@ import ds.service3.Service3Grpc.Service3BlockingStub;
 import ds.service3.Service3Grpc.Service3Stub;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.StatusRuntimeException;
 import io.grpc.stub.StreamObserver;
 
 public class Service3Client {
@@ -68,7 +69,7 @@ public class Service3Client {
 					.setToiletName(toiletName)
 					.setNumberOfVisits(0); //because it the toilet was just cleaned
 
-			System.out.println("\nCALLING: entersToToilet(), request is:");
+			System.out.println("\nCALLING: entersToToilet(), request is: ");
 			System.out.println("\t Toilet last enter on: " + toiletLastEnterDateAndTime + " toilet is: " + toiletRequest);
 
 			// building reply and received response:
@@ -79,24 +80,22 @@ public class Service3Client {
 			// System.out.println("\nREQUEST IS : "+ req);
 			//Implementing DEADLINE on the stub:
 			ToiletVisitsResponse response = blockingStub.withDeadlineAfter(10,TimeUnit.SECONDS).entersToToilet(req);
-			System.out.println("\t entersToToilet() run correctly");
-			System.out.println("\tresponse is: toilet visit changed: " + response.getToilet());
-			System.out.println("END: entersToToilet()");
+			
 		}
 		
 		public static void updateToiletStatus() {
 
 
 			StreamObserver<UpdateToiletStatusResponse> responseObserver = new StreamObserver<UpdateToiletStatusResponse>() {
-
+				int responseCounter = 1;
+			
 				@Override
 				public void onNext(UpdateToiletStatusResponse value) {
 					
-						System.out.println("STREAM Response is: ");
-						System.out.println("\tToilet for cleaning is: "+ value.getToilet());
-			
-					
-
+						System.out.println("\nSTREAM Response " +responseCounter +" is: ");
+						System.out.println("Toilet for cleaning is: "+ value.getToilet());
+						System.out.println("STREAM Response "+responseCounter+" END");
+						responseCounter++;
 				}
 
 				@Override
@@ -108,7 +107,7 @@ public class Service3Client {
 				@Override
 				public void onCompleted() {
 					// TODO Auto-generated method stub
-					System.out.println("server completed");
+					logger.info("Server completed");
 				}
 
 
@@ -117,7 +116,7 @@ public class Service3Client {
 
 			//Implementing DEADLINE on the stub:
 			StreamObserver<UpdateToiletStatusRequest> requestObserver = asyncStub.withDeadlineAfter(15,TimeUnit.SECONDS).updateToiletStatus(responseObserver);
-
+			int requestCounter = 1;
 			try {
 				Toilet.Builder Toilet1 = Toilet.newBuilder()
 						.setNumberOfVisits(0)
@@ -128,16 +127,16 @@ public class Service3Client {
 				Toilet.Builder Toilet3 = Toilet.newBuilder()
 						.setNumberOfVisits(0)
 						.setToiletName("fifth floor");
-				System.out.println("\nCALLING: entersToToilet(), \trequest 1 is:" + Toilet1 + "\trequest 2 is:"+Toilet2);
+				//REQUEST 1
+				System.out.println("\nCALLING: entersToToilet() CLIENT STREM 1: \n\trequest 1 is:" + Toilet1);
 				requestObserver.onNext(UpdateToiletStatusRequest.newBuilder().setToilet(Toilet1).build());
+				
+				//REQUEST 2
+				System.out.println("\nCALLING: entersToToilet() CLIENT STREAM 2: \n\trequest 1 is:" + Toilet2);
 				requestObserver.onNext(UpdateToiletStatusRequest.newBuilder().setToilet(Toilet2).build());
-
-				System.out.println("SENDING EMSSAGES");
 
 				// Mark the end of requests
 				requestObserver.onCompleted();
-
-
 				// Sleep for a bit before sending the next one.
 				Thread.sleep(new Random().nextInt(1000) + 500);
 

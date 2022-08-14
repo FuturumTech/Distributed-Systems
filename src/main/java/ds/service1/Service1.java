@@ -11,9 +11,15 @@ import java.util.logging.Logger;
 import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceInfo;
 
+import com.google.rpc.Code;
+import com.google.rpc.Status;
+import io.grpc.protobuf.StatusProto;
+
 import ds.service1.Service1Grpc.Service1ImplBase;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
+import io.grpc.StatusRuntimeException;
+
 import io.grpc.stub.StreamObserver;
 
 public class Service1 extends Service1ImplBase {
@@ -35,8 +41,9 @@ public class Service1 extends Service1ImplBase {
 		myTempData.getMyRooms().add(temp3);
 		myTempData.getMyRooms().add(temp4);
 		// testing if added properly
-		System.out.println("Room index 2 is: " + myTempData.getMyRooms().get(2).getRoomName());
-		System.out.println("ArrayList size is: " + myTempData.getMyRooms().size());
+		System.out.println("Test of mock database: ");
+		System.out.println("\tRoom index 2 is: " + myTempData.getMyRooms().get(2).getRoomName());
+		System.out.println("\tArrayList size is: " + myTempData.getMyRooms().size());
 
 		// gracefully shutting down
 		Thread printingHook = new Thread(() -> System.out.println("In the middle of a shutdown"));
@@ -83,33 +90,29 @@ public class Service1 extends Service1ImplBase {
 		double desiredTempInCelcius = request.getDesiredTempInCelcius();
 		System.out.println("On Server side (desiredSettingHVAC) received: \n\t" + roomName + " (room name) \n\t"
 				+ desiredHumidity + "(desired humidity) \n\t" + desiredTempInCelcius + "(desired temperature)");
-		try {
-			Service1DataBase.RoomName roomInput = findRoom(roomName);
-			// if the room name exist in the database:
-			if (roomInput != null) {
-				roomInput.setDesiredHumidity(desiredHumidity);
-				roomInput.setDesiredTempInCelcius(desiredTempInCelcius);
-				roomName = roomInput.getRoomName();
-			} else {
-				roomName = "not found";
-			}
-		} catch (NullPointerException e) {
-			e.getMessage();
+		// method to check if the roomName exists in database and return room object or
+		// null if not found
+		Service1DataBase.RoomName roomInput = findRoom(roomName);
+		// if the room name exist in the database:
+		if (roomInput != null) {
+			roomInput.setDesiredHumidity(desiredHumidity);
+			roomInput.setDesiredTempInCelcius(desiredTempInCelcius);
+			roomName = roomInput.getRoomName();
+		} else {// if the room name does not exist in the database:
+			roomName = "not found";
 		}
 
 		// Our response:
 		// Firstly, we must create a builder
-
 		// case if the room name does not exist (will be overwritten if the room exists
-		Confirmation.Builder responseBuilder = Confirmation.newBuilder()
-				.setConfirmation("Receiving stream of data to grp hVACstatus completed");
-		// Case if the room name exist
+		Confirmation.Builder responseBuilder;
+		// Case if the room name exist in database
 		if (!roomName.equals("not found")) {
+			responseBuilder = Confirmation.newBuilder().setConfirmation(
+					"Received data to grp hVACstatus was completed for room: " + roomNameToReturn.toLowerCase().trim());
+		} else {// case if the room name does not exists in database
 			responseBuilder = Confirmation.newBuilder()
-					.setConfirmation("Received data to grp hVACstatus was completed for room: \"" + roomNameToReturn);
-		} else {
-			responseBuilder = Confirmation.newBuilder()
-					.setConfirmation("No room was found for the name:" + roomNameToReturn);
+					.setConfirmation("No room was found for the name: " + roomNameToReturn.toLowerCase().trim());
 		}
 		// Send it back:
 		responseObserver.onNext(responseBuilder.build());
@@ -135,24 +138,22 @@ public class Service1 extends Service1ImplBase {
 				double tempInCelcius = value.getTempInCelcius();
 				System.out.println("On Server side (hVACstatus) received: \n\t" + roomName + " (room name) \n\t"
 						+ humidity + "(humidity) \n\t" + tempInCelcius + "(temperature)");
-				try {
-					Service1DataBase.RoomName roomInput = findRoom(roomName);
-					// if the room name exist in the database:
-					if (roomInput != null) {
-						roomInput.setCurrentHumidity(humidity);
-						roomInput.setCurrentTempInCelcius(tempInCelcius);
-						roomName = roomInput.getRoomName();
-					} else {
-						roomName = "not found";
-					}
-				} catch (NullPointerException e) {
-					e.getMessage();
+
+				Service1DataBase.RoomName roomInput = findRoom(roomName);
+				// if the room name exist in the database:
+				if (roomInput != null) {
+					roomInput.setCurrentHumidity(humidity);
+					roomInput.setCurrentTempInCelcius(tempInCelcius);
+					roomName = roomInput.getRoomName();
+				} else {
+					roomName = "not found";
 				}
 			}
 
 			@Override
 			public void onError(Throwable t) {
 				// TODO Auto-generated method stub
+				System.out.println(t.getMessage());
 
 			}
 
@@ -198,43 +199,58 @@ public class Service1 extends Service1ImplBase {
 			if (roomInput != null) {
 				// Alternative if statement:
 				// if(myTempData.getMyRooms().contains(roomName.trim().toLowerCase())) {
-				double roomHumidity = roomInput.getCurrentHumidity();
-				double roomTemperature = roomInput.getCurrentTempInCelcius();
+				// entire object or doubles might be passed:
+//				double roomHumidity = roomInput.getCurrentHumidity();
+//				double roomTemperature = roomInput.getCurrentTempInCelcius();
 
+				// method will calculate the difference of Humidity and Temperature stored in
+				// object
 				tempArray = calculateDifference(roomInput);
 
 				// Our response:
 				// Firstly, we must create a builder
 				responseBuilder = AdjustHVAC.newBuilder().setHumidityDifference(tempArray[0])
-						.setTempDifference(tempArray[1]).build(); // PLACEHOLDER FOR VALUE
+						.setTempDifference(tempArray[1]).build(); 
+				// // RETURN
+				// Send it back:
+				// Server streaming:
+				int repeatReply = 5;
+				int timeBeetweenMessages = 1000;
+				for (int i = 0; i < repeatReply; i++) {
+					responseObserver.onNext(responseBuilder);
+					System.out.println("STREAM SENT: roomStatus() iteration:" + (i + 1));
+					// Wait a bit
+					try {
+						Thread.sleep(timeBeetweenMessages);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				responseObserver.onCompleted();
 
 			} else {
-				// -999 App will read it that the input was incorrect
-				responseBuilder = AdjustHVAC.newBuilder().setHumidityDifference(-999).setTempDifference(-999).build();
-			}
-
-			// // RETURN
-			// Send it back:
-			// Server streaming:
-			int repeatReply = 5;
-			int timeBeetweenMessages = 1000;
-			for (int i = 0; i < repeatReply; i++) {
+				//OPTION 2:
+				responseBuilder = AdjustHVAC.newBuilder().setHumidityDifference(-9999)
+						.setTempDifference(-999).build(); 
 				responseObserver.onNext(responseBuilder);
-				System.out.println("STREAM SENT: roomStatus() iteration:" + (i + 1));
-				// Wait a bit
-				try {
-					Thread.sleep(timeBeetweenMessages);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				responseObserver.onCompleted();
+				//OPTION 2:
+				// case if the room was not found in the database
+//				try {
+//					System.out.println("STREAM END in ERROR");
+//					Status status = Status.newBuilder().setCode(Code.INVALID_ARGUMENT_VALUE)
+//							.setMessage("Invalid limit value").build();
+//					responseObserver.onError(StatusProto.toStatusRuntimeException(status));
+//				} catch (StatusRuntimeException | IllegalStateException ex) {
+//					ex.printStackTrace();
+//				}
 			}
 
-		} catch (NullPointerException e) {
+		} catch (NullPointerException |IllegalStateException e) {
 			e.getMessage();
-		}
 
-		responseObserver.onCompleted();
+		}
 
 	}
 
@@ -295,11 +311,11 @@ public class Service1 extends Service1ImplBase {
 		try {
 			// Create a JmDNS instance
 			JmDNS jmdns = JmDNS.create(InetAddress.getLocalHost());
-			System.out.println("\tjmdns version is: " + jmdns.VERSION);
+
 			String service_type = prop.getProperty("service_type");// "service1._tcp.local.";
 			String service_name = prop.getProperty("service_name");// "climate_control";
 			// int service_port = 1234;
-			int service_port = Integer.valueOf(prop.getProperty("service_port"));// #.50051;
+			int service_port = Integer.valueOf(prop.getProperty("service_port"));// #.50054;
 
 			String service_description_properties = prop.getProperty("service_description");// "path=index.html";
 
