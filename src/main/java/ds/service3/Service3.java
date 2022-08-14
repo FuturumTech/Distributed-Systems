@@ -12,8 +12,10 @@ import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceInfo;
 
 import ds.service3.Service3Grpc.Service3ImplBase;
+import io.grpc.Metadata;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
+import io.grpc.protobuf.ProtoUtils;
 import io.grpc.stub.StreamObserver;
 
 public class Service3 extends Service3ImplBase {
@@ -28,16 +30,19 @@ public class Service3 extends Service3ImplBase {
 		Service3DataBase.Toilet temp2 = new Service3DataBase.Toilet("first floor", 5, "07/08/2022 19:36:16");
 		Service3DataBase.Toilet temp3 = new Service3DataBase.Toilet("second floor", 35, "12/08/2022 21:27:12");
 		Service3DataBase.Toilet temp4 = new Service3DataBase.Toilet("third floor", 27, "03/08/2022 20:12:27");
-		//Service3DataBase.Toilet temp5 = new Service3DataBase.Toilet("fourth floor", 45, "06/07/2022 18:23:25");
-		//Service3DataBase.Toilet temp6 = new Service3DataBase.Toilet("fifth floor", 55, "07/08/2022 17:35:24");
-		//Service3DataBase.Toilet temp7 = new Service3DataBase.Toilet("sixth floor", 45, "03/08/2022 19:56:52");
+		// Service3DataBase.Toilet temp5 = new Service3DataBase.Toilet("fourth floor",
+		// 45, "06/07/2022 18:23:25");
+		// Service3DataBase.Toilet temp6 = new Service3DataBase.Toilet("fifth floor",
+		// 55, "07/08/2022 17:35:24");
+		// Service3DataBase.Toilet temp7 = new Service3DataBase.Toilet("sixth floor",
+		// 45, "03/08/2022 19:56:52");
 		myTempData.getMyToilets().add(temp1);
 		myTempData.getMyToilets().add(temp2);
 		myTempData.getMyToilets().add(temp3);
 		myTempData.getMyToilets().add(temp4);
-		//myTempData.getMyToilets().add(temp5);
-		//myTempData.getMyToilets().add(temp6);
-		//myTempData.getMyToilets().add(temp7);
+		// myTempData.getMyToilets().add(temp5);
+		// myTempData.getMyToilets().add(temp6);
+		// myTempData.getMyToilets().add(temp7);
 
 		// gracefully shutting down
 		Thread printingHook = new Thread(() -> System.out.println("In the middle of a shutdown"));
@@ -76,21 +81,22 @@ public class Service3 extends Service3ImplBase {
 		int numberOfVisits = toiletRequest.getNumberOfVisits();
 		String toiletName = toiletRequest.getToiletName();
 		String toiletLastEnterDateAndTime = request.getToiletLastEnterDateAndTime();
+
 		ToiletVisitsResponse reply;
 		try {
 			// result of the below method may be null if not found, therefore try catch
 			Service3DataBase.Toilet toiletInDataBase = findToilet(toiletName, myTempData.getMyToilets());
-			// case where number of visits does not exceeds maxium allowed number 
-				if (toiletInDataBase.getNumberOfVisits() + numberOfVisits <= toiletInDataBase.getMaxNumberOfVisits()) {
+			int currentTotalNumberOfVisits = toiletInDataBase.getNumberOfVisits() + numberOfVisits;
+			// case where number of visits does not exceeds maxium allowed number
+			if (currentTotalNumberOfVisits <= toiletInDataBase.getMaxNumberOfVisits()) {
 				// storing data from request into database:
-				toiletInDataBase.setNumberOfVisits(toiletInDataBase.getNumberOfVisits() + numberOfVisits);
+				toiletInDataBase.setNumberOfVisits(currentTotalNumberOfVisits);
 				toiletInDataBase.setToiletLastEnterDateAndTime(toiletLastEnterDateAndTime);
 				toiletInDataBase.setNeedsCleaning(false);
-				//case where number of visits does  exceeds maxium allowed number
-			} else if (toiletInDataBase.getNumberOfVisits() + numberOfVisits > toiletInDataBase
-					.getMaxNumberOfVisits()) {
+				// case where number of visits does exceeds maxium allowed number
+			} else if (currentTotalNumberOfVisits > toiletInDataBase.getMaxNumberOfVisits()) {
 				// storing data from request into database anyway:
-				toiletInDataBase.setNumberOfVisits(toiletInDataBase.getNumberOfVisits() + numberOfVisits);
+				toiletInDataBase.setNumberOfVisits(currentTotalNumberOfVisits);
 				toiletInDataBase.setToiletLastEnterDateAndTime(toiletLastEnterDateAndTime);
 				toiletInDataBase.setNeedsCleaning(true);
 				throw new ExceededNumberOfToiletVisitsException(toiletInDataBase.getNumberOfVisits(),
@@ -107,15 +113,26 @@ public class Service3 extends Service3ImplBase {
 			System.out.println("entersToToilet() SUCCESS");
 		} catch (ExceededNumberOfToiletVisitsException e) {
 			System.out.println(e.getMessage());
-			// preparing the response message, -999 means to the client that unusual path
-			// reached
-			// We need to use builder to create instance of Toilet that will be passedL
-			Toilet.Builder ToiletReply = Toilet.newBuilder().setNumberOfVisits(-999).setToiletName("Not found");
-			// System.out.println("TEST Exception");
-
-			reply = ToiletVisitsResponse.newBuilder().setToilet(ToiletReply).build();
-			System.out.println("entersToToilet() FAILURE");
-
+//			// preparing the response message, -999 means to the client that unusual path
+//			// reached
+//			// We need to use builder to create instance of Toilet that will be passedL
+//			Toilet.Builder ToiletReply = Toilet.newBuilder()
+//					.setNumberOfVisits(-999)
+//					.setToiletName("Not found");
+//			// System.out.println("TEST Exception");
+//
+//			reply = ToiletVisitsResponse.newBuilder().setToilet(ToiletReply).build();
+//			System.out.println("entersToToilet() FAILURE");
+			// TESTING
+			Metadata.Key<ErrorResponse> errorResponseKey = ProtoUtils.keyForProto(ErrorResponse.getDefaultInstance());
+			ErrorResponse errorResponse = ErrorResponse.newBuilder().setToiletName(toiletName)
+					.setExceededVisitsLimit("ERROR, number of visits exceeded, cleaning needed")
+					.setNumberOfExceededVisits((e.getNumberOfVisits() - e.getMaxNumberOfVisits())).build();
+			Metadata metadata = new Metadata();
+			metadata.put(errorResponseKey, errorResponse);
+			responseObserver.onError(io.grpc.Status.RESOURCE_EXHAUSTED
+					.withDescription("ERROR, number of visits exceeded, cleaning needed").asRuntimeException(metadata));
+			reply = null;
 		} catch (NullPointerException e) {
 			System.out.println(e.getMessage());
 			// preparing the response message, -999 means to the client that unusual path
@@ -128,13 +145,19 @@ public class Service3 extends Service3ImplBase {
 			System.out.println("entersToToilet() FAILURE");
 
 		}
-		responseObserver.onNext(reply);
-		responseObserver.onCompleted();
+		try {
+			responseObserver.onNext(reply);
+			responseObserver.onCompleted();
+		} catch (IllegalStateException e) {
+			System.out.println(e.getMessage());
+		}
+		
 
 	}
 
 	@Override
-	public StreamObserver<UpdateToiletStatusRequest> updateToiletStatus(StreamObserver<UpdateToiletStatusResponse> responseObserver) {
+	public StreamObserver<UpdateToiletStatusRequest> updateToiletStatus(
+			StreamObserver<UpdateToiletStatusResponse> responseObserver) {
 		return new StreamObserver<UpdateToiletStatusRequest>() {
 
 			@Override
@@ -156,29 +179,28 @@ public class Service3 extends Service3ImplBase {
 					toiletInDataBase.setNumberOfVisits(0);
 					toiletInDataBase.setToiletCleanedDateAndTime(toiletCleanedDateAndTime);
 					toiletInDataBase.setNeedsCleaning(false);
-										
-					//SERVER STREAMING:
-					//it will return all toilets that needs cleaning
-					for(int i =0; i<myTempData.getMyToilets().size(); i++) {
-						if(myTempData.getMyToilets().get(i).needsCleaning) {
-							
+
+					// SERVER STREAMING:
+					// it will return all toilets that needs cleaning
+					for (int i = 0; i < myTempData.getMyToilets().size(); i++) {
+						if (myTempData.getMyToilets().get(i).needsCleaning) {
+
 							// We need to use builder to create instance of Toilet that will be passedL
 							Toilet.Builder ToiletReply = Toilet.newBuilder()
 									.setNumberOfVisits(myTempData.getMyToilets().get(i).getNumberOfVisits())
 									.setToiletName(myTempData.getMyToilets().get(i).getToiletName());
-							
-							//Build reply:
+
+							// Build reply:
 							reply = UpdateToiletStatusResponse.newBuilder().setStatusUpdated(statusUpdated)
 									.setToilet(ToiletReply)
 									.setDate(myTempData.getMyToilets().get(i).getToiletCleanedDateAndTime())
-									.setNeedsCleaning(myTempData.getMyToilets().get(i).getNeedsCleaning())
-									.build();
+									.setNeedsCleaning(myTempData.getMyToilets().get(i).getNeedsCleaning()).build();
 							responseObserver.onNext(reply);
 							System.out.println("reply is:" + reply);
-							
+
 						}
 					}
-					
+
 				} catch (NullPointerException e) {
 					System.out.println(e.getMessage());
 					// preparing the response message, -999 means to the client that unusual path
@@ -187,30 +209,29 @@ public class Service3 extends Service3ImplBase {
 					Toilet.Builder ToiletReply = Toilet.newBuilder().setNumberOfVisits(-999).setToiletName("Not found");
 					// System.out.println("TEST Exception");
 
-					reply = UpdateToiletStatusResponse.newBuilder().setStatusUpdated(statusUpdated).setToilet(ToiletReply)
-							.setDate("Toilet not found").build();
+					reply = UpdateToiletStatusResponse.newBuilder().setStatusUpdated(statusUpdated)
+							.setToilet(ToiletReply).setDate("Toilet not found").build();
 					System.out.println("updateToiletStatus() FAILURE");
 					responseObserver.onNext(reply);
 				}
-				
+
 			}
 
 			@Override
 			public void onError(Throwable t) {
 				// TODO Auto-generated method stubal
-				
+
 			}
 
 			@Override
 			public void onCompleted() {
-				 responseObserver.onCompleted();
-				
+				responseObserver.onCompleted();
+
 			}
-			
+
 		};
 	}
-	
-	
+
 //Method to find return toilet 
 	private static Service3DataBase.Toilet findToilet(String roomName, ArrayList<Service3DataBase.Toilet> myArray) {
 		for (int i = 0; i < myArray.size(); i++) {
@@ -273,7 +294,7 @@ public class Service3 extends Service3ImplBase {
 			Thread.sleep(1000);
 
 			// Unregister all services
-			//jmdns.unregisterAllServices();
+			// jmdns.unregisterAllServices();
 
 		} catch (IOException e) {
 			System.out.println(e.getMessage());

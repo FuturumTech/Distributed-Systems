@@ -8,16 +8,27 @@ public interface ErrorResponseOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>int32 input = 1;</code>
+   * <code>string toiletName = 1;</code>
    */
-  int getInput();
+  java.lang.String getToiletName();
+  /**
+   * <code>string toiletName = 1;</code>
+   */
+  com.google.protobuf.ByteString
+      getToiletNameBytes();
 
   /**
-   * <code>.service3.ErrorCode error_code = 2;</code>
+   * <code>string exceededVisitsLimit = 2;</code>
    */
-  int getErrorCodeValue();
+  java.lang.String getExceededVisitsLimit();
   /**
-   * <code>.service3.ErrorCode error_code = 2;</code>
+   * <code>string exceededVisitsLimit = 2;</code>
    */
-  ds.service3.ErrorCode getErrorCode();
+  com.google.protobuf.ByteString
+      getExceededVisitsLimitBytes();
+
+  /**
+   * <code>int32 numberOfExceededVisits = 3;</code>
+   */
+  int getNumberOfExceededVisits();
 }

@@ -20,9 +20,7 @@ message DesiredRoomConditions{
 	string roomName = 1;
 	double desiredHumidity = 2;
 	double desiredTempInCelcius = 3;
-
 }
-
 
 message Confirmation{
 	string confirmation = 1;

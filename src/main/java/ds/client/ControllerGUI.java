@@ -28,7 +28,6 @@ import ds.service1.CurrentRoomConditions;
 import ds.service1.Service1Grpc;
 import ds.service2.Service2Grpc;
 import ds.service3.Service3Grpc;
-import ds.service4.Service4Grpc;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.StatusRuntimeException;
@@ -42,7 +41,7 @@ public class ControllerGUI implements ActionListener {
 	private JTextField entry3, reply3;
 	private JTextField entry4, reply4;
 	// variable for service discovery:
-	private ServiceInfo service1Info, service2Info, service3Info, service4Info;
+	private ServiceInfo service1Info, service2Info, service3Info;
 
 	private JPanel getService1JPanel() {
 
@@ -339,28 +338,7 @@ public class ControllerGUI implements ActionListener {
 			// shutdown the channel
 			channel.shutdown();
 
-		} else if (label.equals("Invoke Service 4")) {
-			System.out.println("service 4 to be invoked ...");
-
-			/*
-			 * 
-			 */
-			ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50054).usePlaintext().build();
-			Service4Grpc.Service4BlockingStub blockingStub = Service4Grpc.newBlockingStub(channel);
-
-			// preparing message to send
-			ds.service4.RequestMessage request = ds.service4.RequestMessage.newBuilder().setText(entry4.getText())
-					.build();
-
-			// retreving reply from service
-			ds.service4.ResponseMessage response = blockingStub.service4Do(request);
-
-			reply4.setText(String.valueOf(response.getLength()));
-
-		} else {
-
-		}
-
+		} 
 	}
 
 	//DISCOVERY for all services below:

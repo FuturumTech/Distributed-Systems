@@ -36,12 +36,9 @@ message UpdateToiletStatusResponse{
 }
 
 message ErrorResponse {
-	int32 input = 1;
-	ErrorCode error_code = 2;
+	string toiletName = 1;
+	string exceededVisitsLimit = 2;
+	int32 numberOfExceededVisits = 3;
 }
 
-enum ErrorCode {
-	ABOVE_20 = 0;
-	BELOW_2 = 1;
-}
 

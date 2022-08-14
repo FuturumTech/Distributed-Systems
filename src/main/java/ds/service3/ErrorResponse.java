@@ -16,8 +16,9 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private ErrorResponse() {
-    input_ = 0;
-    errorCode_ = 0;
+    toiletName_ = "";
+    exceededVisitsLimit_ = "";
+    numberOfExceededVisits_ = 0;
   }
 
   @java.lang.Override
@@ -44,15 +45,21 @@ private static final long serialVersionUID = 0L;
           case 0:
             done = true;
             break;
-          case 8: {
+          case 10: {
+            java.lang.String s = input.readStringRequireUtf8();
 
-            input_ = input.readInt32();
+            toiletName_ = s;
             break;
           }
-          case 16: {
-            int rawValue = input.readEnum();
+          case 18: {
+            java.lang.String s = input.readStringRequireUtf8();
 
-            errorCode_ = rawValue;
+            exceededVisitsLimit_ = s;
+            break;
+          }
+          case 24: {
+
+            numberOfExceededVisits_ = input.readInt32();
             break;
           }
           default: {
@@ -87,30 +94,81 @@ private static final long serialVersionUID = 0L;
             ds.service3.ErrorResponse.class, ds.service3.ErrorResponse.Builder.class);
   }
 
-  public static final int INPUT_FIELD_NUMBER = 1;
-  private int input_;
+  public static final int TOILETNAME_FIELD_NUMBER = 1;
+  private volatile java.lang.Object toiletName_;
   /**
-   * <code>int32 input = 1;</code>
+   * <code>string toiletName = 1;</code>
    */
-  public int getInput() {
-    return input_;
+  public java.lang.String getToiletName() {
+    java.lang.Object ref = toiletName_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      toiletName_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string toiletName = 1;</code>
+   */
+  public com.google.protobuf.ByteString
+      getToiletNameBytes() {
+    java.lang.Object ref = toiletName_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      toiletName_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
   }
 
-  public static final int ERROR_CODE_FIELD_NUMBER = 2;
-  private int errorCode_;
+  public static final int EXCEEDEDVISITSLIMIT_FIELD_NUMBER = 2;
+  private volatile java.lang.Object exceededVisitsLimit_;
   /**
-   * <code>.service3.ErrorCode error_code = 2;</code>
+   * <code>string exceededVisitsLimit = 2;</code>
    */
-  public int getErrorCodeValue() {
-    return errorCode_;
+  public java.lang.String getExceededVisitsLimit() {
+    java.lang.Object ref = exceededVisitsLimit_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      exceededVisitsLimit_ = s;
+      return s;
+    }
   }
   /**
-   * <code>.service3.ErrorCode error_code = 2;</code>
+   * <code>string exceededVisitsLimit = 2;</code>
    */
-  public ds.service3.ErrorCode getErrorCode() {
-    @SuppressWarnings("deprecation")
-    ds.service3.ErrorCode result = ds.service3.ErrorCode.valueOf(errorCode_);
-    return result == null ? ds.service3.ErrorCode.UNRECOGNIZED : result;
+  public com.google.protobuf.ByteString
+      getExceededVisitsLimitBytes() {
+    java.lang.Object ref = exceededVisitsLimit_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      exceededVisitsLimit_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int NUMBEROFEXCEEDEDVISITS_FIELD_NUMBER = 3;
+  private int numberOfExceededVisits_;
+  /**
+   * <code>int32 numberOfExceededVisits = 3;</code>
+   */
+  public int getNumberOfExceededVisits() {
+    return numberOfExceededVisits_;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -127,11 +185,14 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (input_ != 0) {
-      output.writeInt32(1, input_);
+    if (!getToiletNameBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, toiletName_);
     }
-    if (errorCode_ != ds.service3.ErrorCode.ABOVE_20.getNumber()) {
-      output.writeEnum(2, errorCode_);
+    if (!getExceededVisitsLimitBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, exceededVisitsLimit_);
+    }
+    if (numberOfExceededVisits_ != 0) {
+      output.writeInt32(3, numberOfExceededVisits_);
     }
     unknownFields.writeTo(output);
   }
@@ -142,13 +203,15 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (input_ != 0) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(1, input_);
+    if (!getToiletNameBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, toiletName_);
     }
-    if (errorCode_ != ds.service3.ErrorCode.ABOVE_20.getNumber()) {
+    if (!getExceededVisitsLimitBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, exceededVisitsLimit_);
+    }
+    if (numberOfExceededVisits_ != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeEnumSize(2, errorCode_);
+        .computeInt32Size(3, numberOfExceededVisits_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -166,9 +229,12 @@ private static final long serialVersionUID = 0L;
     ds.service3.ErrorResponse other = (ds.service3.ErrorResponse) obj;
 
     boolean result = true;
-    result = result && (getInput()
-        == other.getInput());
-    result = result && errorCode_ == other.errorCode_;
+    result = result && getToiletName()
+        .equals(other.getToiletName());
+    result = result && getExceededVisitsLimit()
+        .equals(other.getExceededVisitsLimit());
+    result = result && (getNumberOfExceededVisits()
+        == other.getNumberOfExceededVisits());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -180,10 +246,12 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + INPUT_FIELD_NUMBER;
-    hash = (53 * hash) + getInput();
-    hash = (37 * hash) + ERROR_CODE_FIELD_NUMBER;
-    hash = (53 * hash) + errorCode_;
+    hash = (37 * hash) + TOILETNAME_FIELD_NUMBER;
+    hash = (53 * hash) + getToiletName().hashCode();
+    hash = (37 * hash) + EXCEEDEDVISITSLIMIT_FIELD_NUMBER;
+    hash = (53 * hash) + getExceededVisitsLimit().hashCode();
+    hash = (37 * hash) + NUMBEROFEXCEEDEDVISITS_FIELD_NUMBER;
+    hash = (53 * hash) + getNumberOfExceededVisits();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -317,9 +385,11 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      input_ = 0;
+      toiletName_ = "";
 
-      errorCode_ = 0;
+      exceededVisitsLimit_ = "";
+
+      numberOfExceededVisits_ = 0;
 
       return this;
     }
@@ -347,8 +417,9 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public ds.service3.ErrorResponse buildPartial() {
       ds.service3.ErrorResponse result = new ds.service3.ErrorResponse(this);
-      result.input_ = input_;
-      result.errorCode_ = errorCode_;
+      result.toiletName_ = toiletName_;
+      result.exceededVisitsLimit_ = exceededVisitsLimit_;
+      result.numberOfExceededVisits_ = numberOfExceededVisits_;
       onBuilt();
       return result;
     }
@@ -397,11 +468,16 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(ds.service3.ErrorResponse other) {
       if (other == ds.service3.ErrorResponse.getDefaultInstance()) return this;
-      if (other.getInput() != 0) {
-        setInput(other.getInput());
+      if (!other.getToiletName().isEmpty()) {
+        toiletName_ = other.toiletName_;
+        onChanged();
       }
-      if (other.errorCode_ != 0) {
-        setErrorCodeValue(other.getErrorCodeValue());
+      if (!other.getExceededVisitsLimit().isEmpty()) {
+        exceededVisitsLimit_ = other.exceededVisitsLimit_;
+        onChanged();
+      }
+      if (other.getNumberOfExceededVisits() != 0) {
+        setNumberOfExceededVisits(other.getNumberOfExceededVisits());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -432,73 +508,166 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int input_ ;
+    private java.lang.Object toiletName_ = "";
     /**
-     * <code>int32 input = 1;</code>
+     * <code>string toiletName = 1;</code>
      */
-    public int getInput() {
-      return input_;
+    public java.lang.String getToiletName() {
+      java.lang.Object ref = toiletName_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        toiletName_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
     }
     /**
-     * <code>int32 input = 1;</code>
+     * <code>string toiletName = 1;</code>
      */
-    public Builder setInput(int value) {
-      
-      input_ = value;
+    public com.google.protobuf.ByteString
+        getToiletNameBytes() {
+      java.lang.Object ref = toiletName_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        toiletName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string toiletName = 1;</code>
+     */
+    public Builder setToiletName(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      toiletName_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>int32 input = 1;</code>
+     * <code>string toiletName = 1;</code>
      */
-    public Builder clearInput() {
+    public Builder clearToiletName() {
       
-      input_ = 0;
+      toiletName_ = getDefaultInstance().getToiletName();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string toiletName = 1;</code>
+     */
+    public Builder setToiletNameBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      toiletName_ = value;
       onChanged();
       return this;
     }
 
-    private int errorCode_ = 0;
+    private java.lang.Object exceededVisitsLimit_ = "";
     /**
-     * <code>.service3.ErrorCode error_code = 2;</code>
+     * <code>string exceededVisitsLimit = 2;</code>
      */
-    public int getErrorCodeValue() {
-      return errorCode_;
-    }
-    /**
-     * <code>.service3.ErrorCode error_code = 2;</code>
-     */
-    public Builder setErrorCodeValue(int value) {
-      errorCode_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>.service3.ErrorCode error_code = 2;</code>
-     */
-    public ds.service3.ErrorCode getErrorCode() {
-      @SuppressWarnings("deprecation")
-      ds.service3.ErrorCode result = ds.service3.ErrorCode.valueOf(errorCode_);
-      return result == null ? ds.service3.ErrorCode.UNRECOGNIZED : result;
-    }
-    /**
-     * <code>.service3.ErrorCode error_code = 2;</code>
-     */
-    public Builder setErrorCode(ds.service3.ErrorCode value) {
-      if (value == null) {
-        throw new NullPointerException();
+    public java.lang.String getExceededVisitsLimit() {
+      java.lang.Object ref = exceededVisitsLimit_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        exceededVisitsLimit_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
       }
-      
-      errorCode_ = value.getNumber();
+    }
+    /**
+     * <code>string exceededVisitsLimit = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getExceededVisitsLimitBytes() {
+      java.lang.Object ref = exceededVisitsLimit_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        exceededVisitsLimit_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string exceededVisitsLimit = 2;</code>
+     */
+    public Builder setExceededVisitsLimit(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      exceededVisitsLimit_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>.service3.ErrorCode error_code = 2;</code>
+     * <code>string exceededVisitsLimit = 2;</code>
      */
-    public Builder clearErrorCode() {
+    public Builder clearExceededVisitsLimit() {
       
-      errorCode_ = 0;
+      exceededVisitsLimit_ = getDefaultInstance().getExceededVisitsLimit();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string exceededVisitsLimit = 2;</code>
+     */
+    public Builder setExceededVisitsLimitBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      exceededVisitsLimit_ = value;
+      onChanged();
+      return this;
+    }
+
+    private int numberOfExceededVisits_ ;
+    /**
+     * <code>int32 numberOfExceededVisits = 3;</code>
+     */
+    public int getNumberOfExceededVisits() {
+      return numberOfExceededVisits_;
+    }
+    /**
+     * <code>int32 numberOfExceededVisits = 3;</code>
+     */
+    public Builder setNumberOfExceededVisits(int value) {
+      
+      numberOfExceededVisits_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>int32 numberOfExceededVisits = 3;</code>
+     */
+    public Builder clearNumberOfExceededVisits() {
+      
+      numberOfExceededVisits_ = 0;
       onChanged();
       return this;
     }

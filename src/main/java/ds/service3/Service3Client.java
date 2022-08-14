@@ -46,10 +46,12 @@ public class Service3Client {
 		 */
 		ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port).usePlaintext().build();
 		System.out.println("service 2 was run, host is:" + host + " port is: " + port);
+		logger.info("Channel started on jmDNS, listening on " + port +" host name: "+host);
+		
 		// stubs -- generate from proto
 		blockingStub = Service3Grpc.newBlockingStub(channel);
-
 		asyncStub = Service3Grpc.newStub(channel);
+		
 		// Calling methods
 		entersToToilet();
 		updateToiletStatus();
@@ -75,7 +77,8 @@ public class Service3Client {
 					.setToilet(toiletRequest)
 					.build();
 			// System.out.println("\nREQUEST IS : "+ req);
-			ToiletVisitsResponse response = blockingStub.entersToToilet(req);
+			//Implementing DEADLINE on the stub:
+			ToiletVisitsResponse response = blockingStub.withDeadlineAfter(10,TimeUnit.SECONDS).entersToToilet(req);
 			System.out.println("\t entersToToilet() run correctly");
 			System.out.println("\tresponse is: toilet visit changed: " + response.getToilet());
 			System.out.println("END: entersToToilet()");
@@ -112,8 +115,8 @@ public class Service3Client {
 
 			};
 
-			//
-			StreamObserver<UpdateToiletStatusRequest> requestObserver = asyncStub.updateToiletStatus(responseObserver);
+			//Implementing DEADLINE on the stub:
+			StreamObserver<UpdateToiletStatusRequest> requestObserver = asyncStub.withDeadlineAfter(15,TimeUnit.SECONDS).updateToiletStatus(responseObserver);
 
 			try {
 				Toilet.Builder Toilet1 = Toilet.newBuilder()

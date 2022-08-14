@@ -13,11 +13,12 @@ import javax.jmdns.ServiceListener;
 import ds.service2.Service2Client;
 import ds.service2.Service2Grpc.Service2BlockingStub;
 import ds.service2.Service2Grpc.Service2Stub;
+import ds.service3.Service3;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 
 public class Service2Client {
-	private static Logger logger = Logger.getLogger(Service2.class.getName());
+	private static Logger logger = Logger.getLogger(Service3.class.getName());
 	// variables for service discovery:
 	private ServiceInfo service2Info;
 	// variables for stubs:
@@ -44,10 +45,12 @@ public class Service2Client {
 		 */
 		ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port).usePlaintext().build();
 		System.out.println("service 2 was run, host is:" + host + " port is: " + port);
+		logger.info("Channel started on jmDNS, listening on " + port +" host name: "+host);
+		
 		// stubs -- generate from proto
 		blockingStub = Service2Grpc.newBlockingStub(channel);
-
 		asyncStub = Service2Grpc.newStub(channel);
+		
 		// Calling methods
 
 		deskStatusHeight();
@@ -72,7 +75,8 @@ public class Service2Client {
 		DeskDetailsRequest req = DeskDetailsRequest.newBuilder().setRoomName(roomName).setDeskNumber(deskNumber)
 				.setDesiredDeskHeight(desiredDeskHeightChange).setOperation(operation).build();
 		// System.out.println("\nREQUEST IS : "+ req);
-		DeskAdjustedResponse response = blockingStub.deskStatusHeight(req);
+		//Implementing DEADLINE on the stub:
+		DeskAdjustedResponse response = blockingStub.withDeadlineAfter(10,TimeUnit.SECONDS).deskStatusHeight(req);
 		System.out.println("\t desiredSettingHVAC() run correctly");
 		System.out.println("\tresponse is: desk adjusted: " + response.getIsHeightAdjusted() + " deskHeight is: "
 				+ response.getDeskHeight());
@@ -96,7 +100,8 @@ public class Service2Client {
 		ChairHeightRequest req = ChairHeightRequest.newBuilder().setChair(chairRequest).setChairOperation(operation)
 				.build();
 		// System.out.println("\nREQUEST IS : "+ req);
-		ChairHeightResponse response = blockingStub.chairStatusHeight(req);
+		//Implementing DEADLINE on the stub:
+		ChairHeightResponse response = blockingStub.withDeadlineAfter(10,TimeUnit.SECONDS).chairStatusHeight(req);
 		System.out.println("\t chairStatusHeight() run correctly");
 		System.out.println("\tresponse is: chair adjusted: " + response.getIsHeightAdjusted() + ", chair height is: "
 				+ response.getChair().getChairHeight());

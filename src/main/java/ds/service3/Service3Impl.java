@@ -63,16 +63,16 @@ public final class Service3Impl {
       "ervice3.Toilet\022\014\n\004date\030\002 \001(\t\"z\n\032UpdateTo" +
       "iletStatusResponse\022\025\n\rstatusUpdated\030\001 \001(" +
       "\010\022 \n\006toilet\030\002 \001(\0132\020.service3.Toilet\022\014\n\004d" +
-      "ate\030\003 \001(\t\022\025\n\rneedsCleaning\030\004 \001(\010\"G\n\rErro" +
-      "rResponse\022\r\n\005input\030\001 \001(\005\022\'\n\nerror_code\030\002" +
-      " \001(\0162\023.service3.ErrorCode*&\n\tErrorCode\022\014" +
-      "\n\010ABOVE_20\020\000\022\013\n\007BELOW_2\020\0012\304\001\n\010Service3\022Q" +
-      "\n\016EntersToToilet\022\035.service3.ToiletVisits" +
-      "Request\032\036.service3.ToiletVisitsResponse\"" +
-      "\000\022e\n\022UpdateToiletStatus\022#.service3.Updat" +
-      "eToiletStatusRequest\032$.service3.UpdateTo" +
-      "iletStatusResponse\"\000(\0010\001B\035\n\013ds.service3B" +
-      "\014Service3ImplP\001b\006proto3"
+      "ate\030\003 \001(\t\022\025\n\rneedsCleaning\030\004 \001(\010\"`\n\rErro" +
+      "rResponse\022\022\n\ntoiletName\030\001 \001(\t\022\033\n\023exceede" +
+      "dVisitsLimit\030\002 \001(\t\022\036\n\026numberOfExceededVi" +
+      "sits\030\003 \001(\0052\304\001\n\010Service3\022Q\n\016EntersToToile" +
+      "t\022\035.service3.ToiletVisitsRequest\032\036.servi" +
+      "ce3.ToiletVisitsResponse\"\000\022e\n\022UpdateToil" +
+      "etStatus\022#.service3.UpdateToiletStatusRe" +
+      "quest\032$.service3.UpdateToiletStatusRespo" +
+      "nse\"\000(\0010\001B\035\n\013ds.service3B\014Service3ImplP\001" +
+      "b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -121,7 +121,7 @@ public final class Service3Impl {
     internal_static_service3_ErrorResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_service3_ErrorResponse_descriptor,
-        new java.lang.String[] { "Input", "ErrorCode", });
+        new java.lang.String[] { "ToiletName", "ExceededVisitsLimit", "NumberOfExceededVisits", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

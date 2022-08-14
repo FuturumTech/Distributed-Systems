@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
+import java.util.logging.Level;
 
 import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceEvent;
@@ -15,14 +16,14 @@ import javax.jmdns.ServiceListener;
 
 import ds.service1.Service1Grpc.Service1BlockingStub;
 import ds.service1.Service1Grpc.Service1Stub;
+import ds.service3.Service3;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.StatusRuntimeException;
 import io.grpc.stub.StreamObserver;
 
 public class Service1Client {
-
-	private static Logger logger = Logger.getLogger(Service1.class.getName());
+	private static Logger logger = Logger.getLogger(Service3.class.getName());
 	// variables for service discovery:
 	private ServiceInfo service1Info;
 	// variables for stubs:
@@ -39,8 +40,8 @@ public class Service1Client {
 		service1Client.discoverService1ClimateControl(service1_type);
 
 		String host = service1Client.service1Info.getHostAddresses()[0]; // localhost
-		//String host = "localhost";
-		//int port = 50051;
+		// String host = "localhost";
+		// int port = 50051;
 		int port = service1Client.service1Info.getPort(); // 50051
 
 		/*
@@ -49,16 +50,18 @@ public class Service1Client {
 		 */
 		ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port).usePlaintext().build();
 		System.out.println("service 1 was run, host is:" + host + " port is: " + port);
+		logger.info("Channel started on jmDNS, listening on " + port + " host name: " + host);
+
 		// stubs -- generate from proto
 		blockingStub = Service1Grpc.newBlockingStub(channel);
-
 		asyncStub = Service1Grpc.newStub(channel);
+
 		// Calling methods
 		desiredSettingHVAC();
 		hVACstatus();
 		roomStatus();
 		// Gracefully shutting down the channel:
-		channel.shutdown().awaitTermination(port, TimeUnit.MILLISECONDS);
+		// channel.shutdown().awaitTermination(port, TimeUnit.MILLISECONDS);
 
 	}
 
@@ -73,11 +76,17 @@ public class Service1Client {
 		// building reply and received response:
 		DesiredRoomConditions req = DesiredRoomConditions.newBuilder().setRoomName(roomName)
 				.setDesiredHumidity(desiredHumidity).setDesiredTempInCelcius(desiredTempInCelcius).build();
-		//implementing DEADLINE on the stub:
-		Confirmation response = blockingStub.withDeadlineAfter(5,TimeUnit.SECONDS).desiredSettingHVAC(req);
-		System.out.println("\t desiredSettingHVAC() run correctly");
-		System.out.println("\tresponse is: " + response.getConfirmation());
-		System.out.println("END: desiredSettingHVAC()");
+		// implementing DEADLINE on the stub:
+		try {
+			Confirmation response = blockingStub.withDeadlineAfter(5, TimeUnit.SECONDS).desiredSettingHVAC(req);
+			System.out.println("\t desiredSettingHVAC() run correctly");
+			System.out.println("\tresponse is: " + response.getConfirmation());
+			System.out.println("END: desiredSettingHVAC()");
+		} catch (StatusRuntimeException e) {
+			logger.log(Level.WARNING, "RPC failed: {0}", e.getStatus());
+			return;
+		}
+
 	}
 
 	/**
@@ -107,8 +116,9 @@ public class Service1Client {
 
 		};
 
-		//
-		StreamObserver<CurrentRoomConditions> requestObserver = asyncStub.hVACstatus(responseObserver);
+		// Implementing DEADLINE on the stub:
+		StreamObserver<CurrentRoomConditions> requestObserver = asyncStub.withDeadlineAfter(10, TimeUnit.SECONDS)
+				.hVACstatus(responseObserver);
 
 		try {
 
@@ -135,27 +145,27 @@ public class Service1Client {
 
 	// unary rpc request
 	public static void roomStatus() {
-			String roomName = "reception";
-			System.out.println("\nCALLING: desiredSettingHVAC(), request is:");
-			System.out.println("\troomName is: " + roomName);
-			Room req = Room.newBuilder()
-					.setRoomName(roomName)
-					.build();
-			try {
-				//Iterator<AdjustHVAC> responses = blockingStub.roomStatus(req);
-				//Implemnting DEADLINE on the stub:
-				Iterator<AdjustHVAC> responses = blockingStub.withDeadlineAfter(25,TimeUnit.SECONDS).roomStatus(req);
-				System.out.println("\tdesiredSettingHVAC() run correctly");
-			
-			while(responses.hasNext()) {
+		String roomName = "reception";
+		System.out.println("\nCALLING: desiredSettingHVAC(), request is:");
+		System.out.println("\troomName is: " + roomName);
+		Room req = Room.newBuilder().setRoomName(roomName).build();
+		try {
+			// Iterator<AdjustHVAC> responses = blockingStub.roomStatus(req);
+			// Implementing DEADLINE on the stub:
+			Iterator<AdjustHVAC> responses = blockingStub.withDeadlineAfter(15, TimeUnit.SECONDS).roomStatus(req);
+			System.out.println("\tdesiredSettingHVAC() run correctly");
+
+			while (responses.hasNext()) {
 				AdjustHVAC temp = responses.next();
-				System.out.println("\tresponse is: "+ "HumidityDifference: "+temp.getHumidityDifference() +", TempDifference is:"+ temp.getTempDifference());	
+				System.out.println("\tresponse is: " + "HumidityDifference: " + temp.getHumidityDifference()
+						+ ", TempDifference is:" + temp.getTempDifference());
 			}
 		} catch (StatusRuntimeException e) {
-			e.printStackTrace();
+			logger.log(Level.WARNING, "RPC failed: {0}", e.getStatus());
+			return;
 		}
-			System.out.println("END: desiredSettingHVAC()");
-		}
+		System.out.println("END: desiredSettingHVAC()");
+	}
 
 	// DISCOVERY for all methods below:
 	// Service 1
@@ -164,7 +174,8 @@ public class Service1Client {
 		try {
 			// Create a JmDNS instance
 			JmDNS jmdns = JmDNS.create(InetAddress.getLocalHost());
-			//System.out.println("TEST : before calling jmdns.addServiceListener()" + service1Info);
+			// System.out.println("TEST : before calling jmdns.addServiceListener()" +
+			// service1Info);
 			jmdns.addServiceListener(service_type, new ServiceListener() {
 
 				@Override

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetAddress;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import javax.jmdns.JmDNS;
@@ -40,8 +41,7 @@ public class Service1 extends Service1ImplBase {
 		// gracefully shutting down
 		Thread printingHook = new Thread(() -> System.out.println("In the middle of a shutdown"));
 		Runtime.getRuntime().addShutdownHook(printingHook);
-		
-		
+
 		// Create and Instance of the Class to five access to the RPC methods/services
 		Service1 service1 = new Service1();
 		Properties prop = service1.getProperties();
@@ -55,16 +55,23 @@ public class Service1 extends Service1ImplBase {
 
 			logger.info("Server started, listening on " + port);
 
-			// Server is waiting until explicitly terminated
-			server.awaitTermination();
+			// Server is waiting for 30 second
+			Runtime.getRuntime().addShutdownHook(new Thread() {
+				@Override
+				public void run() {
+					System.err.println("Shutting down gRPC server");
+					try {
+						server.shutdown().awaitTermination(30, TimeUnit.SECONDS);
+						logger.info("SERVER SHUTDOWN");
+					} catch (InterruptedException e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			});
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		
 	}
 
 	@Override
