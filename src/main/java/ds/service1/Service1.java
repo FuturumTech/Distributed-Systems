@@ -267,7 +267,7 @@ public class Service1 extends Service1ImplBase {
 		return null;
 	}
 
-	// method to calculate difference in ArrayList for grpc roomStatus
+	// method to calculate difference in object for grpc roomStatus
 	private static double[] calculateDifference(Service1DataBase.RoomName room) {
 		double[] tempArray = new double[2];
 		tempArray[0] = room.getCurrentHumidity() - room.getDesiredHumidity();
